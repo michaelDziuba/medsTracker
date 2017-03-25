@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    cardView:cardCornerRadius="5dp"
+    cardView:contentPadding="16dp"
+    cardView:cardElevation="2dp"
+    cardView:cardUseCompatPadding="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="horizontal"
+               android:padding="0dp">
+                   <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/name"
+                   android:padding="4dp"
+                   android:textSize="24sp"
+                   android:text="Drug Name Here"
+                   android:layout_weight="1"
+                   android:fontFamily="serif"/>
+
+                 <ImageView
+                   android:layout_width="160dp"
+                   android:layout_height="80dp"
+                   cardView:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                   android:id="@+id/intentIcon"
+                   android:layout_weight="1" />
+           </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/description"
+            android:textStyle="normal|italic"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imagesLayout" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+                <TextView
+                    android:text="Click to view more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/details"
+                    android:gravity="center_horizontal"
+                    android:textStyle="normal|italic"
+                    android:layout_gravity="right"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    cardView:srcCompat="@drawable/ic_expand_more_black_24dp"
+                    android:id="@+id/chevron"
+                    android:layout_gravity="bottom|right"/>
+            </LinearLayout>
+
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

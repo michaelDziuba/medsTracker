@@ -1,0 +1,61 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.install.medstracker.AddPhotoFragment"
+        android:orientation="vertical">
+
+        <!-- TODO: Update blank fragment layout -->
+
+        <TextView
+            android:text="Drug Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:textSize="22sp"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/list_view_gradient">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:id="@+id/bookSpinner" />
+        </FrameLayout>
+
+        <TextView
+            android:text="Click the icon to add a photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:textSize="22sp"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:layout_width="80dp"
+            app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+            android:id="@+id/cameraButton"
+            android:adjustViewBounds="false"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/galleryLayout" ></LinearLayout>
+    </LinearLayout>
+</ScrollView>
