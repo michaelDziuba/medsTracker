@@ -9,6 +9,7 @@ import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,6 +22,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -47,9 +49,10 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
     @Deprecated
     private Camera mCamera;
     private TextureView mTextureView;
-    private File pictureDirectory;
+    //private File pictureDirectory;
     private static File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "com.example.cdu.cameraapi");
-
+    private boolean previewShowing = true;
+    public static byte[] dataGlobal =  null;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -105,32 +108,66 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
         mTextureView = (TextureView)view.findViewById(R.id.textureView);
         mTextureView.setSurfaceTextureListener(this);
 
-        Button takePicture = (Button) view.findViewById(R.id.takePicture);
+
+        Button deleteButton = (Button) view.findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCamera!=null && !previewShowing) {
+                    dataGlobal = null;
+                    mCamera.startPreview();
+                    previewShowing = true;
+                    Toast.makeText(getActivity(), "Picture Deleted", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "There is no picture to delete", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        ImageButton takePicture = (ImageButton) view.findViewById(R.id.takePicture);
         takePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCamera!=null) {
+                if (mCamera!=null && previewShowing) {
                     mCamera.takePicture(null, null, pictureCallback);
+                    previewShowing = false;
                 }
             }
         });
 
-        Button anotherPicture = (Button) view.findViewById(R.id.anotherPicture);
-        anotherPicture.setOnClickListener(new View.OnClickListener() {
+
+        Button saveButton = (Button) view.findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCamera!=null) {
-                    mCamera.startPreview();
+                if(dataGlobal != null) {
+                    File pictureFile = getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
+
+                    if (pictureFile == null) {
+                        Log.d("*****", "Error creating media file, check storage permissions!!!");
+                        return;
+                    }
+
+                    try {
+                        FileOutputStream fos = new FileOutputStream(pictureFile);
+                        fos.write(dataGlobal);
+                        fos.close();
+                        Toast.makeText(getActivity(), "Picture Saved", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+//                    mCamera.startPreview();
+//                    previewShowing = true;
+                    ((MainActivity)getActivity()).returnToAddPhotos();
+                }else{
+                    Toast.makeText(getActivity(), "Please take a picture,\nthen press SAVE", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
 
 
-//        String[] pictureDirectoryFiles = pictureDirectory.list();
-//        for(int i = 0; i < pictureDirectoryFiles.length; i++) {
-//            Log.i("****", pictureDirectoryFiles[i]);
-//        }
 
         return view;
     }
@@ -151,6 +188,14 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        //Log.i("****","onPause() called");
+        dataGlobal = null;
+        previewShowing = true;
     }
 
     @Override
@@ -180,8 +225,9 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         mCamera = Camera.open();
 
-
-
+        if (Build.VERSION.SDK_INT >= 17) {
+            mCamera.enableShutterSound(true);
+        }
 
         if (mCamera!=null) {
             try {
@@ -204,31 +250,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
 
                 params.setPictureSize(params.getPreviewSize().width, params.getPreviewSize().height);
 
-//                List<Camera.Size> sizes =  params.getSupportedPictureSizes();
-//                Log.i("****", sizes.size() + "" );
-//
-//
-//                //params.setPictureSize(sizes.get(0).width, sizes.get(0).height);
-//                for(Camera.Size size : sizes){
-//                    Log.i("***","" + size.width + ", "+ size.height);
-////                    if(size.width < 2050){
-////                        params.setPictureSize (size.width,size.height);
-////                        break;
-////                    }
-//                }
-
-
-//                List<String> focusModes = params.getSupportedFocusModes();
-//                if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
-//                    // Autofocus mode is supported
-//                    params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-//                }
                 mCamera.setParameters(params);
-
-
-
-
-
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -260,66 +282,11 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
             Camera.PictureCallback() {
                 @Override
                 public void onPictureTaken(byte[] data, Camera camera) {
-
-                    File pictureFile = getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
-
-                    if (pictureFile == null){
-                        Log.d("*****", "Error creating media file, check storage permissions!!!");
-                        return;
-                    }
-
-                    try {
-//                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(System.currentTimeMillis());
-//                        String fileName = "PHOTO_" + timeStamp + ".jpg";
-//
-//                        File pictureFile = new File(pictureDirectory,fileName);
-
-
-//                        FileOutputStream fileOutputStream =new FileOutputStream(pictureFile.getPath());
-//                        fileOutputStream.write(data);
-//                        fileOutputStream.close();
-
-                        FileOutputStream fos = new FileOutputStream(pictureFile);
-                        fos.write(data);
-                        fos.close();
-                        Toast.makeText(getActivity(), "Picture Taken", Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    dataGlobal = data;
+                    Toast.makeText(getActivity(), "Picture Taken", Toast.LENGTH_SHORT).show();
                 }
-
             };
 
-//    public void takePicture(View view) {
-//        if (mCamera!=null) {
-//            mCamera.takePicture(null, null, pictureCallback);
-//        }
-//    }
-//
-//    public void takeAnotherPicture(View view) {
-//        if (mCamera!=null) {
-//            mCamera.startPreview();
-//        }
-//    }
-
-
-//    public void makePictureDirectory(){
-//        String appPath = getActivity().getApplicationInfo().dataDir;
-//        File appDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + appPath);
-//
-//        if(!appDir.exists() && !appDir.isDirectory()) {
-//            // create empty directory
-//            if (appDir.mkdirs()) {
-//                Log.i("CreateDir","App dir created");
-//                pictureDirectory = appDir;
-//            } else {
-//                Log.w("CreateDir","Unable to create app dir!");
-//            }
-//        }else {
-//            Log.i("CreateDir","App dir already exists");
-//            pictureDirectory = appDir;
-//        }
-//    }
 
 
     /** Create a File for saving an image or video */
@@ -357,38 +324,6 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
         return mediaFile;
     }
 
-
-
-
-
-//    public Bitmap rotateBitmapOrientation(String photoFilePath) {
-//
-//        // Create and configure BitmapFactory
-//        BitmapFactory.Options bounds = new BitmapFactory.Options();
-//        bounds.inJustDecodeBounds = true;
-//        BitmapFactory.decodeFile(photoFilePath, bounds);
-//        BitmapFactory.Options opts = new BitmapFactory.Options();
-//        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
-//        // Read EXIF Data
-//        ExifInterface exif =  null;
-//        try {
-//            exif = new ExifInterface(photoFilePath);
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
-//        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-//        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
-//        int rotationAngle = 0;
-//        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
-//        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
-//        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
-//        // Rotate Bitmap
-//        Matrix matrix = new Matrix();
-//        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
-//        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
-//        // Return result
-//        return rotatedBitmap;
-//    }
 
 
 }

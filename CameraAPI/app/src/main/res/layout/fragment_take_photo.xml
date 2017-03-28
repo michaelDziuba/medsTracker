@@ -3,10 +3,6 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.cdu.cameraapi.TakePhotoFragment">
 
     <TextureView
@@ -15,19 +11,34 @@
         android:id="@+id/textureView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take Picture"
-        android:id="@+id/takePicture"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Another Picture"
-        android:id="@+id/anotherPicture"
+        android:id="@+id/deleteButton"
+        android:text="DELETE"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_photo_camera_black_24dp"
+        android:id="@+id/takePicture"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveButton"
+        android:text="SAVE"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
+
 </RelativeLayout>
