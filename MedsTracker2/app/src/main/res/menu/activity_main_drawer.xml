@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_location_city_black_24dp"
+            android:title="@string/app_name"
+            app:itemTextAppearance="?android:attr/textAppearanceLarge"/>
+        <item
+            android:id="@+id/nav_your_drugs"
+            android:icon="@drawable/ic_local_library_black_24dp"
+            android:title="Your drugs" />
+
+        <item
+            android:id="@+id/nav_add_photo"
+            android:icon="@drawable/ic_add_a_photo_black_24dp"
+            android:title="Add Photo" />
+
+        <item
+            android:id="@+id/nav_drugs_guide"
+            android:icon="@drawable/ic_whatshot_black_24dp"
+            android:title="Drugs guide" />
+
+
+
+    </group>
+
+
+
+</menu>
