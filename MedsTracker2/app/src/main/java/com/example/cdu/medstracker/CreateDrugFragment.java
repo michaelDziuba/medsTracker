@@ -3,12 +3,15 @@ package com.example.cdu.medstracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,11 +87,17 @@ public class CreateDrugFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_drug, container, false);
 
+
+
         if(fab.isShown()){
             fab.setVisibility(View.INVISIBLE);
         }
 
         bookTitle = (EditText) view.findViewById(R.id.bookTitleEditText);
+
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+
 
 
         bookDescription = (EditText) view.findViewById(R.id.bookDescriptionEditText);
@@ -122,6 +131,7 @@ public class CreateDrugFragment extends Fragment {
                 fm.popBackStack();
             }
         });
+
 
 
         return view;
@@ -170,4 +180,6 @@ public class CreateDrugFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }
