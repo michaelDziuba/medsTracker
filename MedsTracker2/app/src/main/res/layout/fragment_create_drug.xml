@@ -32,7 +32,11 @@
             android:ems="10"
             android:textColor="#000000"
             android:id="@+id/bookTitleEditText"
-            android:layout_column="1" />
+            android:layout_column="1">
+
+            <requestFocus />
+
+        </EditText>
 
         <TextView
             android:text="Description"

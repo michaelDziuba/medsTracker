@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -156,10 +158,21 @@ public class ListViewFragment extends Fragment {
                 Drug book = booksArrayList.get(position);
                 int book_id = book.getId();
 
+                //Deletes stored image files for the CardView, when the CardView is deleted
+                CardView cardView = (CardView)bookList.getChildAt(position);
+                LinearLayout imagesLayout = (LinearLayout) cardView.findViewById(R.id.imagesLayout);
+                if(imagesLayout.getChildCount() > 0){
+                    ArrayList<Image> bookImages = db.getAllImages(book.getId());
+                    for(int i = 0; i < bookImages.size(); i++){
+                       Image image = bookImages.get(i);
+                        File file = new File(image.getResource());
+                        file.delete();
+                    }
+                }
+
                 db.deleteBook(book_id);
                 db.deleteImage(book_id);
                 db.closeDB();
-
 
                 booksArrayList.remove(position);
                 bookList.setAdapter(bookList.getAdapter());
