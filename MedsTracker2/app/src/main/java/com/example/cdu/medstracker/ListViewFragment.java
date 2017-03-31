@@ -10,8 +10,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -38,9 +41,13 @@ public class ListViewFragment extends Fragment {
 
     FragmentManager fm;
     FloatingActionButton fab = MainActivity.fab;
-    ListView bookList;
-    TextView bookDescriptionTextView;
-    LinearLayout imagesLayout;
+    ListView drugList;
+    TextView drugNameTextView;
+    TextView drugDoseTextView;
+    TextView whenToTakeTextView;
+    TextView notesTextView;
+
+    LinearLayout imagesLinearLayout;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -110,59 +117,70 @@ public class ListViewFragment extends Fragment {
             }
         });
 
-        bookList = (ListView) view.findViewById(R.id.bookListView);
+        drugList = (ListView) view.findViewById(R.id.drugListView);
         DatabaseHandler db = new DatabaseHandler(getContext());
-        final ArrayList<Drug> booksArrayList = db.getAllBooks();
-        //final ArrayList<Image> images = db.getAllImages();
+        final ArrayList<Drug> drugsArrayList = db.getAllDrugs();
+
 
 
         db.closeDB();
-        final CustomAdapter adapter = new CustomAdapter(getContext(), booksArrayList);
-        bookList.setAdapter(adapter);
-        bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        final CustomAdapter adapter = new CustomAdapter(getContext(), drugsArrayList);
+        drugList.setAdapter(adapter);
+        drugList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                TextView details = (TextView) view.findViewById(R.id.details);
+                TextView detailsTextView = (TextView) view.findViewById(R.id.detailsTextView);
 
-                imagesLayout =  (LinearLayout) view.findViewById(R.id.imagesLayout);
+                imagesLinearLayout =  (LinearLayout) view.findViewById(R.id.imagesLinearLayout);
 
-                ImageView chevron = (ImageView) view.findViewById(R.id.chevron);
+                ImageView chevronImageView = (ImageView) view.findViewById(R.id.chevronImageView);
 
 
-                 if(imagesLayout.getVisibility() == View.GONE || imagesLayout.getVisibility() == View.INVISIBLE){
-                     imagesLayout.setVisibility(View.VISIBLE);
+                 if(imagesLinearLayout.getVisibility() == View.GONE || imagesLinearLayout.getVisibility() == View.INVISIBLE){
+                     imagesLinearLayout.setVisibility(View.VISIBLE);
 
                     //update the text of the show more
-                    details.setText("Click to show less");
+                    detailsTextView.setText("Hide photo");
                     //update the chevron image
-                    chevron.setImageResource(R.drawable.ic_expand_less_black_24dp);
+                    chevronImageView.setImageResource(R.drawable.ic_expand_less_black_24dp);
 
                 }
                 else{
-                     imagesLayout.setVisibility(View.GONE);
+                     imagesLinearLayout.setVisibility(View.GONE);
                     //update the text of the show more
-                    details.setText("Click to show more");
+                    detailsTextView.setText("Show photo");
                     //update the chevron image
-                    chevron.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                    chevronImageView.setImageResource(R.drawable.ic_expand_more_black_24dp);
                 }
             }
         });
 
-        bookList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        drugList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                Drug book = booksArrayList.get(position);
-                int book_id = book.getId();
+                Drug drug = drugsArrayList.get(position);
+                int drug_id = drug.getId();
 
-                db.deleteBook(book_id);
-                db.deleteImage(book_id);
+                //Deletes stored image files for the CardView, when the CardView is deleted
+                CardView cardView = (CardView)drugList.getChildAt(position);
+                LinearLayout imagesLayout = (LinearLayout) cardView.findViewById(R.id.imagesLinearLayout);
+                if(imagesLayout.getChildCount() > 0){
+                    ArrayList<Image> drugImages = db.getAllImages(drug.getId());
+                    for(int i = 0; i < drugImages.size(); i++){
+                       Image image = drugImages.get(i);
+                        File file = new File(image.getResource());
+                        file.delete();
+                    }
+                }
+
+                db.deleteDrug(drug_id);
+                db.deleteImage(drug_id);
                 db.closeDB();
 
-
-                booksArrayList.remove(position);
-                bookList.setAdapter(bookList.getAdapter());
+                drugsArrayList.remove(position);
+                drugList.setAdapter(drugList.getAdapter());
 
                 return false;
             }
@@ -194,7 +212,6 @@ public class ListViewFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-
     }
 
     @Override
@@ -243,7 +260,7 @@ public class ListViewFragment extends Fragment {
          * we populate the item_view's name TextView
          */
         public View getView(int position, View convertView, ViewGroup parent){
-            final Drug book = getItem(position);
+            final Drug drug = getItem(position);
 
             if(!fab.isShown()){
                 fab.setImageResource(R.drawable.ic_add_black_24dp);
@@ -254,17 +271,17 @@ public class ListViewFragment extends Fragment {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_view, parent, false);
             }
 
-            imagesLayout = (LinearLayout) convertView.findViewById(R.id.imagesLayout);
-            imagesLayout.setVisibility(View.GONE);
-            if(imagesLayout.getChildCount() == 0){
+            imagesLinearLayout = (LinearLayout) convertView.findViewById(R.id.imagesLinearLayout);
+            imagesLinearLayout.setVisibility(View.GONE);
+            if(imagesLinearLayout.getChildCount() == 0){
                 //Grab all the photos that match the id of the current location
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                ArrayList<Image> bookImages = db.getAllImages(book.getId());
+                ArrayList<Image> drugImages = db.getAllImages(drug.getId());
                 db.closeDB();
 
                 //Add those photos to the gallery
-                for(int i =0; i < bookImages.size(); i++){
-                    Bitmap image = BitmapFactory.decodeFile(bookImages.get(i).getResource());
+                for(int i =0; i < drugImages.size(); i++){
+                    Bitmap image = BitmapFactory.decodeFile(drugImages.get(i).getResource());
 
                     Log.i("***Image Size Bytes***", "" + image.getByteCount());
 
@@ -272,29 +289,34 @@ public class ListViewFragment extends Fragment {
                     imageView.setImageBitmap(image);
                     imageView.setAdjustViewBounds(true);
                     imageView.setPadding(0,20,0,20);
-                    imagesLayout.addView(imageView);
+                    imagesLinearLayout.addView(imageView);
                 }
             }
 
+            drugNameTextView = (TextView) convertView.findViewById(R.id.drugNameTextView);
+            drugNameTextView.setText(drug.getDrugName());
 
+            drugDoseTextView = (TextView) convertView.findViewById(R.id.drugDoseTextView);
+            drugDoseTextView.setText(drug.getDrugDose());
 
-            bookDescriptionTextView = (TextView) convertView.findViewById(R.id.description);
-            bookDescriptionTextView.setText(book.getDescription());
+            whenToTakeTextView = (TextView) convertView.findViewById(R.id.whenToTakeTextView);
+            whenToTakeTextView.setText(drug.getWhenToTake());
 
-            TextView name = (TextView) convertView.findViewById(R.id.name);
-            name.setText(book.getTitle());
-            ImageView image = (ImageView) convertView.findViewById(R.id.intentIcon);
-            image.setOnClickListener(new View.OnClickListener() {
+            notesTextView = (TextView) convertView.findViewById(R.id.notesTextView);
+            notesTextView.setText(drug.getNotes());
+
+            LinearLayout intentIconImageView = (LinearLayout) convertView.findViewById(R.id.editIcon);
+            intentIconImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Uri webpage = Uri.parse(book.getUrl());
-                   //Uri webpage = Uri.parse("http://www.doctorwho.tv/");
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(webpage);
-                    //startActivity(intent);
-                    if(intent.resolveActivity(getActivity().getPackageManager()) != null){
-                        startActivity(intent);
-                    }
+                    Log.i("**EditButton**", "Clicked!");
+//                    Uri webpage = Uri.parse(book.getUrl());
+//                    Intent intent = new Intent(Intent.ACTION_VIEW);
+//                    intent.setData(webpage);
+//                    //startActivity(intent);
+//                    if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+//                        startActivity(intent);
+//                    }
 
                 }
             });

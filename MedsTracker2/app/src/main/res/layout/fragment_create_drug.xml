@@ -17,10 +17,9 @@
         <!-- TODO: Update blank fragment layout -->
 
         <TextView
-            android:text="Title"
+            android:text="Drug name:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/titleLabel"
             android:layout_column="0"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="22sp" />
@@ -30,15 +29,19 @@
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters"
             android:ems="10"
+            android:hint="eg. Aspirin"
             android:textColor="#000000"
-            android:id="@+id/bookTitleEditText"
-            android:layout_column="1" />
+            android:id="@+id/drugNameEditText"
+            android:layout_column="1">
+
+            <requestFocus />
+
+        </EditText>
 
         <TextView
-            android:text="Description"
+            android:text="Drug dose:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/descriptionLabel"
             android:textColor="@color/colorPrimaryDark"
             android:layout_column="0"
             android:textSize="22sp" />
@@ -48,16 +51,16 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:gravity="top|left"
+            android:hint="eg. 325 mg (1 tablet)"
             android:ems="10"
             android:textColor="#000000"
-            android:id="@+id/bookDescriptionEditText"
+            android:id="@+id/drugDoseEditText"
             android:layout_column="1" />
 
         <TextView
-            android:text="URL"
+            android:text="When to take:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/urlLabel"
             android:textColor="@color/colorPrimaryDark"
             android:layout_column="0"
             android:textSize="22sp" />
@@ -65,12 +68,29 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textUri"
+            android:inputType="textMultiLine"
             android:ems="10"
             android:textColor="#000000"
+            android:hint="eg. every 6 hours"
+            android:id="@+id/whenToTakeEditText"
+            android:layout_column="1" />
 
+        <TextView
+            android:text="Notes:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_column="0"
+            android:textSize="22sp" />
 
-            android:id="@+id/bookUrlEditText"
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:textColor="#000000"
+            android:hint="eg. Take with food"
+            android:id="@+id/notesEditText"
             android:layout_column="1" />
 
 

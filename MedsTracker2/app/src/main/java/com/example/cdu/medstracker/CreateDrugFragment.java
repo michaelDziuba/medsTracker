@@ -3,12 +3,15 @@ package com.example.cdu.medstracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,13 +27,14 @@ import android.widget.EditText;
  */
 public class CreateDrugFragment extends Fragment {
 
-    Button submit;
+    //Button submit;
 
     FragmentManager fm;
 
-    EditText bookTitle;
-    EditText bookDescription;
-    EditText bookUrl;
+    EditText drugName;
+    EditText drugDose;
+    EditText whenToTake;
+    EditText notes;
 
     FloatingActionButton fab = MainActivity.fab;
 
@@ -84,25 +88,28 @@ public class CreateDrugFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_drug, container, false);
 
+
+
         if(fab.isShown()){
             fab.setVisibility(View.INVISIBLE);
         }
 
-        bookTitle = (EditText) view.findViewById(R.id.bookTitleEditText);
+        drugName = (EditText) view.findViewById(R.id.drugNameEditText);
+
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
 
 
-        bookDescription = (EditText) view.findViewById(R.id.bookDescriptionEditText);
+        drugDose = (EditText) view.findViewById(R.id.drugDoseEditText);
 
+        whenToTake = (EditText) view.findViewById(R.id.whenToTakeEditText);
+        whenToTake.setMaxLines(Integer.MAX_VALUE); // Or specify a lower value if you want
+        whenToTake.setHorizontallyScrolling(false);
 
-        bookUrl = (EditText) view.findViewById(R.id.bookUrlEditText);
+        notes = (EditText) view.findViewById(R.id.notesEditText);
 
-
-        bookUrl.setMaxLines(Integer.MAX_VALUE); // Or specify a lower value if you want
-        bookUrl.setHorizontallyScrolling(false);
 
         Button submit = (Button) view.findViewById(R.id.submitButton);
-
-        submit = (Button) view.findViewById(R.id.submitButton);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +121,9 @@ public class CreateDrugFragment extends Fragment {
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                 }
 
-                Drug book = new Drug(bookTitle.getText().toString(), bookDescription.getText().toString(), bookUrl.getText().toString());
+                Drug drug = new Drug(drugName.getText().toString(), drugDose.getText().toString(), whenToTake.getText().toString(), notes.getText().toString());
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                db.addBook(book);
+                db.addDrug(drug);
                 db.closeDB();
                 fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
@@ -124,9 +131,9 @@ public class CreateDrugFragment extends Fragment {
         });
 
 
+
         return view;
     }
-
 
 
 
@@ -170,4 +177,6 @@ public class CreateDrugFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

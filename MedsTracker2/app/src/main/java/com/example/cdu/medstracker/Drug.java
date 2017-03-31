@@ -7,26 +7,29 @@ package com.example.cdu.medstracker;
 public class Drug {
 
     private int id;
-    private String title;
-    private String description;
-    private String url;
+    private String drugName;
+    private String drugDose;
+    private String whenToTake;
+    private String notes;
 
     public Drug(){
 
     }
 
-    public Drug(int id, String title, String description, String url){
+    public Drug(int id, String drugName, String drugDose, String whenToTake, String notes){
         this.id = id;
-        this.title = title;
-        this.description = description;
-        this.url = url;
+        this.drugName = drugName;
+        this.drugDose = drugDose;
+        this.whenToTake = whenToTake;
+        this.notes = notes;
     }
 
-    public Drug(String title, String description, String url){
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.url = url;
+    public Drug(String drugName, String drugDose, String whenToTake, String notes){
+        this.id = 0;
+        this.drugName = drugName;
+        this.drugDose = drugDose;
+        this.whenToTake = whenToTake;
+        this.notes = notes;
     }
 
     public int getId() {
@@ -37,32 +40,40 @@ public class Drug {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDrugName() {
+        return drugName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDrugDose() {
+        return drugDose;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDrugDose(String drugDose) {
+        this.drugDose = drugDose;
     }
 
-    public String getUrl() {
-        return url;
+    public String getWhenToTake() {
+        return whenToTake;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setWhenToTake(String whenToTake) {
+        this.whenToTake = whenToTake;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Override
     public String toString(){
-        return this.getTitle();
+        return this.getDrugName();
     }
 }

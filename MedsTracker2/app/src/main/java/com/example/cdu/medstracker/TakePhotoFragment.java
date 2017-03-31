@@ -309,12 +309,12 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
         if (type == MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_"+ timeStamp + ".jpg");
-        } else if(type == MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "VID_"+ timeStamp + ".mp4");
-        } else {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg");
+        }
+//        else if(type == MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO) {
+//            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "VID_"+ timeStamp + ".mp4");
+//        }
+        else {
             return null;
         }
 
