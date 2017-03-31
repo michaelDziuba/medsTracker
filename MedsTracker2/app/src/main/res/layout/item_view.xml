@@ -5,50 +5,120 @@
     xmlns:cardView="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    cardView:cardCornerRadius="5dp"
-    cardView:contentPadding="16dp"
-    cardView:cardElevation="2dp"
+    android:layout_margin="@dimen/cardview_margin"
+    cardView:cardCornerRadius="@dimen/cardview_corner_radius"
+    cardView:contentPaddingLeft="@dimen/activity_horizontal_margin"
+    cardView:contentPaddingTop="@dimen/cardview_padding"
+    cardView:contentPaddingBottom="@dimen/activity_horizontal_margin"
+    cardView:contentPaddingRight="@dimen/cardview_padding"
+    cardView:cardElevation="@dimen/cardview_elevation"
     cardView:cardUseCompatPadding="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
            <LinearLayout
                android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="horizontal"
-               android:padding="0dp">
+               android:layout_height="wrap_content"
+               android:orientation="horizontal">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Name: "
+                   android:textStyle="bold|normal"/>
                    <TextView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:id="@+id/name"
+                   android:textColor="#000000"
+                   android:id="@+id/drugNameTextView"
                    android:padding="4dp"
-                   android:textSize="24sp"
-                   android:text="Drug Name Here"
+                   android:textSize="@dimen/cardview_header_text_size"
                    android:layout_weight="1"
-                   android:fontFamily="serif"/>
+                   android:fontFamily="serif"
+                   android:textStyle="bold|normal"/>
 
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:layout_weight="1"
+                   android:background="@drawable/button_background"
+                   android:id="@+id/editIcon"
+                   android:gravity="center">
                  <ImageView
-                   android:layout_width="160dp"
-                   android:layout_height="80dp"
-                   cardView:srcCompat="@drawable/ic_chevron_right_black_24dp"
-                   android:id="@+id/intentIcon"
-                   android:layout_weight="1" />
+                   android:layout_width="120dp"
+                   android:layout_height="25dp"
+                   cardView:srcCompat="@drawable/ic_mode_edit_black_24dp" />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textColor="#000000"
+                       android:text="Edit"
+                       android:textStyle="bold|normal"/>
+
+               </LinearLayout>
            </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/description"
-            android:textStyle="normal|italic"/>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount: "
+                android:textStyle="bold|normal"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="@dimen/cardview_text_size"
+                android:id="@+id/drugDoseTextView"
+                android:textStyle="bold|normal"/>
+        </LinearLayout>
+
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="When: "
+                 android:textStyle="bold|normal"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="@dimen/cardview_text_size"
+                android:id="@+id/whenToTakeTextView"
+                android:textStyle="bold|normal"/>
+         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How: "
+                android:textStyle="bold|normal"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="@dimen/cardview_text_size"
+                android:id="@+id/notesTextView"
+                android:textStyle="bold|normal"/>
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/imagesLayout" />
+            android:id="@+id/imagesLinearLayout" />
 
 
 
@@ -58,10 +128,10 @@
                 android:orientation="horizontal"
                 android:paddingTop="5dp">
                 <TextView
-                    android:text="Click to view more"
+                    android:text="Show photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/details"
+                    android:id="@+id/detailsTextView"
                     android:gravity="center_horizontal"
                     android:textStyle="normal|italic"
                     android:layout_gravity="right"/>
@@ -70,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     cardView:srcCompat="@drawable/ic_expand_more_black_24dp"
-                    android:id="@+id/chevron"
+                    android:id="@+id/chevronImageView"
                     android:layout_gravity="bottom|right"/>
             </LinearLayout>
 

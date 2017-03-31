@@ -68,13 +68,10 @@ public class AddPhotoFragment extends Fragment {
 
 
     FloatingActionButton fab = MainActivity.fab;
-    Spinner spin;
+    Spinner drugSpinner;
     ImageView cameraButton;
-    LinearLayout galleryLayout;
-    ArrayList<Drug> bookList;
-
-    private static final int CAMERA_INTENT = 1;
-    private String imageLocation;
+    LinearLayout galleryLinearLayout;
+    ArrayList<Drug> drugList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -122,16 +119,8 @@ public class AddPhotoFragment extends Fragment {
             fab.setVisibility(View.INVISIBLE);
         }
 
-//        Button takePhotoButton = (Button) view.findViewById(R.id.takePhoto);
-//        takePhotoButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ((MainActivity)getActivity()).takePhotos();
-//            }
-//        });
 
-        galleryLayout = (LinearLayout) view.findViewById(R.id.galleryLayout);
-
+        galleryLinearLayout = (LinearLayout) view.findViewById(R.id.galleryLinearLayout);
 
         if(photoPath != null){
             ImageView imageView = new ImageView(getContext());
@@ -142,34 +131,30 @@ public class AddPhotoFragment extends Fragment {
             imageView.setImageBitmap(BitmapFactory.decodeFile(photoPath));
             imageView.setBackgroundColor(Color.LTGRAY);
             imageView.setPadding(0,15,0,15);
-            galleryLayout.addView(imageView);
+            galleryLinearLayout.addView(imageView);
         }
 
-
-        spin = (Spinner) view.findViewById(R.id.bookSpinner);
-
+        drugSpinner = (Spinner) view.findViewById(R.id.drugSpinner);
 
         DatabaseHandler db = new DatabaseHandler(getContext());
 
-        bookList = db.getAllBooks();
+        drugList = db.getAllDrugs();
 
-        //db.closeDB();
-
-        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, bookList);
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, drugList);
         adapter.setDropDownViewResource(R.layout.spinner_item_layout);
-        spin.setAdapter(adapter);
-        spin.setSelection(selectedItem);
+        drugSpinner.setAdapter(adapter);
+        drugSpinner.setSelection(selectedItem);
 
 
-        Drug book = (Drug) spin.getSelectedItem();
-        if(book == null){
+        Drug drug = (Drug) drugSpinner.getSelectedItem();
+        if(drug == null){
             Toast toast = Toast.makeText(getActivity(), "Please add a drug,\nbefore adding a photo", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
         }
 
         if(photoPath != null){
-            Image image = new Image(book.getId(), photoPath);
+            Image image = new Image(drug.getId(), photoPath);
 
                /**
                 * Add the photo to the database
@@ -186,11 +171,11 @@ public class AddPhotoFragment extends Fragment {
 
         db.closeDB();
 
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        drugSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position != selectedItem) {
-                    galleryLayout.removeAllViews();
+                    galleryLinearLayout.removeAllViews();
                 }
 //                TextView textView = (TextView) parent.getSelectedView();
 //                if(textView != null) {
@@ -210,132 +195,15 @@ public class AddPhotoFragment extends Fragment {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                selectedItem = spin.getSelectedItemPosition();
-
+                selectedItem = drugSpinner.getSelectedItemPosition();
                 ((MainActivity)getActivity()).takePhotos();
-
-//                File image = null;
-//                try{
-//                    image = createImage();
-//                }catch(IOException e){
-//                    e.printStackTrace();
-//                }
-//
-//
-//                if (image != null) {
-//                    Uri photoURI = FileProvider.getUriForFile(getContext(), "com.example.install.medstracker.android.fileprovider", image);
-//
-//                    Intent intent = new Intent();
-//                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//
-//
-//                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-//                        startActivityForResult(intent, CAMERA_INTENT);
-//
-//                    }
-//
-//
-//                }
             }
         });
 
         return view;
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(requestCode == CAMERA_INTENT && resultCode == RESULT_OK){
-//           Bitmap bitmapImage = BitmapFactory.decodeFile(imageLocation);
-//            int height = bitmapImage.getHeight() ;
-//            int width = bitmapImage.getWidth();
-//            int newWidth = 400;
-//            int newHeight = newWidth * height / width;
-//            bitmapImage = getResizedBitmap(bitmapImage, newWidth, newHeight);
-//
-////            Matrix matrix = new Matrix();
-////            matrix.postRotate(90);
-////            bitmapImage = Bitmap.createBitmap(bitmapImage, 0, 0, bitmapImage.getWidth(), bitmapImage.getHeight(), matrix, true);
-//
-//            FileOutputStream fOut;
-//            try {
-//                fOut = new FileOutputStream(imageLocation);
-//                bitmapImage.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
-//                fOut.flush();
-//                fOut.close();
-//
-//            } catch (FileNotFoundException e1) {
-//                // TODO Auto-generated catch block
-//                e1.printStackTrace();
-//            } catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//
-//
-////            int nh = (int) ( bitmapImage.getHeight() * (512.0 / bitmapImage.getWidth()) );
-////            Bitmap scaled = Bitmap.createScaledBitmap(bitmapImage, 512, nh, true);
-//           // your_imageview.setImageBitmap(scaled);
-//
-//
-//            ImageView imageView = new ImageView(getContext());
-//            imageView.setMaxHeight(400);
-//            imageView.setScaleType(ImageView.ScaleType.FIT_START);
-//            imageView.setAdjustViewBounds(true);
-//            //imageView.setImageBitmap(scaled);
-//            imageView.setImageBitmap(bitmapImage);
-//            imageView.setPadding(0,15,0,15);
-//            galleryLayout.addView(imageView);
-//
-//            Drug book = (Drug) spin.getSelectedItem();
-//           if(book != null) {
-//               Image image = new Image(book.getId(), imageLocation);
-//
-//               /**
-//                * Add the photo to the database
-//                */
-//               DatabaseHandler db = new DatabaseHandler(getContext());
-//               int id = (int) db.addImage(image);
-//               if (id != -1) {
-//                   image.setId(id);
-//                   Toast.makeText(getActivity(), "Photo Added", Toast.LENGTH_LONG).show();
-//               } else {
-//                   Toast.makeText(getActivity(), "Photo Not Added", Toast.LENGTH_LONG).show();
-//               }
-//               db.closeDB();
-//           }else{
-//               Toast.makeText(getActivity(), "Please add a book,\nbefore adding a photo", Toast.LENGTH_LONG).show();
-//           }
-//        }
-//    }
-//
-//    /**
-//     * This method is used to create a temp
-//     * file that the Camera will use to save a photo
-//     * We will generate a file with a collision free name
-//     * (hiking_log_timestamp.jpg)
-//     * This method throws an IOException because we might not
-//     * be able to create the file
-//     * @return
-//     * @throws IOException
-//     */
-//    File createImage() throws IOException{
-//        //Create a timestamp to help create a collision free name
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHss").format(new Date());
-//        //Create the name of the image
-//        String fileName = "book_list_" + timeStamp;
-//        //Grab the directory we want to save the image
-//        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-//        //Create the image in that directory
-//        File bitmapImage = File.createTempFile(fileName, ".jpg", directory);
-//
-//        //Save the location of the image
-//        imageLocation = bitmapImage.getAbsolutePath();
-//        return bitmapImage;
-//    }
+
 
 
 
@@ -398,68 +266,6 @@ public class AddPhotoFragment extends Fragment {
             }
         }
     }
-
-
-
-//    public File saveBitmapToFile(File file){
-//        try {
-//
-//            // BitmapFactory options to downsize the image
-//            BitmapFactory.Options o = new BitmapFactory.Options();
-//            o.inJustDecodeBounds = true;
-//            o.inSampleSize = 6;
-//            // factor of downsizing the image
-//
-//            FileInputStream inputStream = new FileInputStream(file);
-//            //Bitmap selectedBitmap = null;
-//            BitmapFactory.decodeStream(inputStream, null, o);
-//            inputStream.close();
-//
-//            // The new size we want to scale to
-//            final int REQUIRED_SIZE=75;
-//
-//            // Find the correct scale value. It should be the power of 2.
-//            int scale = 1;
-//            while(o.outWidth / scale / 2 >= REQUIRED_SIZE &&
-//                    o.outHeight / scale / 2 >= REQUIRED_SIZE) {
-//                scale *= 2;
-//            }
-//
-//            BitmapFactory.Options o2 = new BitmapFactory.Options();
-//            o2.inSampleSize = scale;
-//            inputStream = new FileInputStream(file);
-//
-//            Bitmap selectedBitmap = BitmapFactory.decodeStream(inputStream, null, o2);
-//            inputStream.close();
-//
-//            // here i override the original image file
-//            file.createNewFile();
-//            FileOutputStream outputStream = new FileOutputStream(file);
-//
-//            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100 , outputStream);
-//
-//            return file;
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
-//
-//
-//    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-//        int width = bm.getWidth();
-//        int height = bm.getHeight();
-//        float scaleWidth = ((float) newWidth) / width;
-//        float scaleHeight = ((float) newHeight) / height;
-//        // CREATE A MATRIX FOR THE MANIPULATION
-//        Matrix matrix = new Matrix();
-//        // RESIZE THE BIT MAP
-//        matrix.postScale(scaleWidth, scaleHeight);
-//
-//        // "RECREATE" THE NEW BITMAP
-//        return Bitmap.createBitmap(
-//                bm, 0, 0, width, height, matrix, false);
-//    }
-
 
 
 }

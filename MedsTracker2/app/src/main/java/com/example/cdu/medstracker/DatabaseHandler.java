@@ -19,28 +19,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String ID = "_id";  //common column name for all tables
 
-    private static final String BOOKS = "books";  //table name
-    private static final String TITLE = "title";  //column name for books table
-    private static final String DESCRIPTION = "description"; //column name for books table
-    private static final String URL = "url"; //column name for books table
+    private static final String DRUGS = "drugs";  //table name
+    private static final String  DRUG_NAME = "drugName";  //column name for drugs table
+    private static final String DRUG_DOSE = "drugDose"; //column name for drugs table
+    private static final String WHEN_TO_TAKE = "whenToTake"; //column name for drugs table
+    private static final String NOTES = "notes"; //column name for drugs table
 
 
     private static final String IMAGES = "images";  //table name
-    private static final String BOOK_ID = "book_id";  //column name for images table
+    private static final String DRUG_ID = "drug_id";  //column name for images table
     private static final String IMAGE_PATH = "image_path";  //column name for images table
 
 
-    private static final String CREATE_BOOKS_TABLE = "CREATE TABLE IF NOT EXISTS " +  BOOKS + " (" +
+    private static final String CREATE_DRUGS_TABLE = "CREATE TABLE IF NOT EXISTS " +  DRUGS + " (" +
                                                     ID + " INTEGER PRIMARY KEY, " +
-                                                    TITLE + " TEXT, " +
-                                                    DESCRIPTION + " TEXT, " +
-                                                     URL + " TEXT)";
+                                                    DRUG_NAME + " TEXT, " +
+                                                    DRUG_DOSE + " TEXT, " +
+                                                    WHEN_TO_TAKE + " TEXT," +
+                                                    NOTES + ")";
 
 
 
     private static final String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS " + IMAGES + " (" +
             ID + " INTEGER PRIMARY KEY, " +
-            BOOK_ID + " INTEGER REFERENCES " + BOOKS + "("  + ID + "), " +
+            DRUG_ID + " INTEGER REFERENCES " + DRUGS + "("  + ID + "), " +
             IMAGE_PATH + " TEXT)";
 
 
@@ -50,14 +52,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     public void onCreate(SQLiteDatabase db){
-        db.execSQL(CREATE_BOOKS_TABLE);
+        db.execSQL(CREATE_DRUGS_TABLE);
         db.execSQL(CREATE_IMAGES_TABLE);
 
     }
 
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion ){
-        db.execSQL("DROP TABLE IF EXISTS " + BOOKS);
+        db.execSQL("DROP TABLE IF EXISTS " + DRUGS);
         db.execSQL("DROP TABLE IF EXISTS " + IMAGES);
         onCreate(db);
     }
@@ -74,14 +76,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * CREATE OPERATIONS
      */
 
-    public void addBook(Drug book){
+    public void addDrug(Drug drug){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         //values.put(ID, 0);
-        values.put(TITLE, book.getTitle());
-        values.put(DESCRIPTION, book.getDescription());
-        values.put(URL, book.getUrl());
-        db.insert(BOOKS, null, values);
+        values.put(DRUG_NAME, drug.getDrugName());
+        values.put(DRUG_DOSE, drug.getDrugDose());
+        values.put(WHEN_TO_TAKE, drug.getWhenToTake());
+        values.put(NOTES, drug.getNotes());
+        db.insert(DRUGS, null, values);
     }
 
 
@@ -89,7 +92,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * READ OPERATIONS
      */
 
-    public Drug getBook(int id){
+    public Drug getDrug(int id){
         /**
          * Create a readable database
          */
@@ -102,35 +105,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
          * Databases do not have a record 0
          * we use cursor.moveToFirst() to have it at the first record returned
          */
-        Cursor cursor = db.query(BOOKS,
-                new String[] {ID, TITLE, DESCRIPTION, URL},
+        Cursor cursor = db.query(DRUGS,
+                new String[] {ID, DRUG_NAME, DRUG_DOSE, WHEN_TO_TAKE, NOTES},
                 "=?", new String[]{String.valueOf(id)}, null, null, null);
         if(cursor != null)
             cursor.moveToFirst();
         /**
          * We create a location object using the cursor record
          */
-        Drug book = new Drug(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
-        return book;
+        Drug drug = new Drug(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+        return drug;
     }
 
-    public ArrayList<Drug> getAllBooks(){
-        ArrayList<Drug> bookList = new ArrayList<Drug>();
-        String selectQuery = "SELECT * FROM " + BOOKS;
+    public ArrayList<Drug> getAllDrugs(){
+        ArrayList<Drug> drugList = new ArrayList<Drug>();
+        String selectQuery = "SELECT * FROM " + DRUGS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()){
             do{
-                Drug book = new Drug();
-                book.setId(cursor.getInt(0));
-                book.setTitle(cursor.getString(1));
-                book.setDescription(cursor.getString(2));
-                book.setUrl(cursor.getString(3));
-                bookList.add(book);
+                Drug drug = new Drug();
+                drug.setId(cursor.getInt(0));
+                drug.setDrugName(cursor.getString(1));
+                drug.setDrugDose(cursor.getString(2));
+                drug.setWhenToTake(cursor.getString(3));
+                drug.setNotes(cursor.getString(4));
+                drugList.add(drug);
 
             } while(cursor.moveToNext());
         }
-        return  bookList;
+        return  drugList;
     }
 
 
@@ -138,22 +142,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * UPDATE OPERATIONS
      */
 
-    public int updateBook(Drug book){
+    public int updateDrug(Drug drug){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(TITLE, book.getTitle());
-        values.put(DESCRIPTION, book.getDescription());
-        values.put(URL, book.getUrl());
-        return db.update(BOOKS, values, ID + " = ?",
-                new String[]{String.valueOf(book.getId())});
+        values.put(DRUG_NAME, drug.getDrugName());
+        values.put(DRUG_DOSE, drug.getDrugDose());
+        values.put(WHEN_TO_TAKE, drug.getWhenToTake());
+        return db.update(DRUGS, values, ID + " = ?",
+                new String[]{String.valueOf(drug.getId())});
     }
     /**
      * DELETE OPERATIONS
      */
 
-    public void deleteBook(long book_id){
+    public void deleteDrug(long drug_id){
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(BOOKS, ID + " = ?", new String[]{String.valueOf(book_id)});
+        db.delete(DRUGS, ID + " = ?", new String[]{String.valueOf(drug_id)});
     }
 
     /**
@@ -184,22 +188,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
        // contentValues.put(ID, 0);
-        contentValues.put(BOOK_ID, image.getBook_id());
+        contentValues.put(DRUG_ID, image.getDrug_id());
         contentValues.put(IMAGE_PATH, image.getResource());
         Long lastInsertId = db.insert(IMAGES, null, contentValues);
         db.close();
         return lastInsertId;
     }
 
-    public void deleteImage(long book_id) {
+    public void deleteImage(long drug_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(IMAGES, BOOK_ID + " = ?", new String[] { String.valueOf(book_id) });
+        db.delete(IMAGES, DRUG_ID + " = ?", new String[] { String.valueOf(drug_id) });
     }
 
     public int updateImage(Image image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(BOOK_ID, image.getBook_id());
+        contentValues.put(DRUG_ID, image.getDrug_id());
         contentValues.put(IMAGE_PATH, image.getResource());
         return db.update(IMAGES, contentValues, ID + " = ?", new String[] { String.valueOf(image.getId()) });
     }
@@ -216,7 +220,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 Image image = new Image();
                 image.setId(cursor.getInt(0));
-                image.setBook_id(cursor.getInt(1));
+                image.setDrug_id(cursor.getInt(1));
                 image.setResource(cursor.getString(2));
                 imageList.add(image);
             } while (cursor.moveToNext());
@@ -225,13 +229,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * The second getAllImages is used to grab all images associated with a book
-     * @param book_id
+     * The second getAllImages is used to grab all images associated with a drug
+     * @param drug_id
      * @return
      */
-    public ArrayList<Image> getAllImages(int book_id) {
+    public ArrayList<Image> getAllImages(int drug_id) {
         ArrayList<Image> imageList = new ArrayList<Image>();
-        String selectQuery = "SELECT  * FROM " + IMAGES + " WHERE " + BOOK_ID + " = " + book_id;
+        String selectQuery = "SELECT  * FROM " + IMAGES + " WHERE " + DRUG_ID + " = " + drug_id;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -240,7 +244,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do{
                 Image image = new Image();
                 image.setId(cursor.getInt(0));
-                image.setBook_id(cursor.getInt(1));
+                image.setDrug_id(cursor.getInt(1));
                 image.setResource(cursor.getString(2));
                 imageList.add(image);
             }while(cursor.moveToNext());

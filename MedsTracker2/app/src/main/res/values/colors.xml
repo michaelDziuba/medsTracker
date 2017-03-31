@@ -6,4 +6,6 @@
     <color name="backgroundColor">#D32F2F</color>
 
     <color name="navbar_color">#212121</color>
+
+    <color name="button_color">#FFEA00</color>
 </resources>
