@@ -16,7 +16,6 @@
             android:text="Drug Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
             android:textSize="22sp"
             android:layout_marginTop="15dp"
             android:textAlignment="center" />
@@ -33,14 +32,13 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:id="@+id/bookSpinner" />
+            android:id="@+id/drugSpinner" />
         </FrameLayout>
 
         <TextView
             android:text="Click the icon to add a photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView3"
             android:textSize="22sp"
             android:textAlignment="center" />
 
@@ -58,6 +56,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/galleryLayout" ></LinearLayout>
+            android:id="@+id/galleryLinearLayout" ></LinearLayout>
     </LinearLayout>
 </ScrollView>

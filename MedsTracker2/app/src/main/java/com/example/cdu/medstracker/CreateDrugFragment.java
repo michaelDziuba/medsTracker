@@ -27,13 +27,14 @@ import android.widget.EditText;
  */
 public class CreateDrugFragment extends Fragment {
 
-    Button submit;
+    //Button submit;
 
     FragmentManager fm;
 
-    EditText bookTitle;
-    EditText bookDescription;
-    EditText bookUrl;
+    EditText drugName;
+    EditText drugDose;
+    EditText whenToTake;
+    EditText notes;
 
     FloatingActionButton fab = MainActivity.fab;
 
@@ -93,25 +94,22 @@ public class CreateDrugFragment extends Fragment {
             fab.setVisibility(View.INVISIBLE);
         }
 
-        bookTitle = (EditText) view.findViewById(R.id.bookTitleEditText);
+        drugName = (EditText) view.findViewById(R.id.drugNameEditText);
 
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
 
 
+        drugDose = (EditText) view.findViewById(R.id.drugDoseEditText);
 
-        bookDescription = (EditText) view.findViewById(R.id.bookDescriptionEditText);
+        whenToTake = (EditText) view.findViewById(R.id.whenToTakeEditText);
+        whenToTake.setMaxLines(Integer.MAX_VALUE); // Or specify a lower value if you want
+        whenToTake.setHorizontallyScrolling(false);
 
+        notes = (EditText) view.findViewById(R.id.notesEditText);
 
-        bookUrl = (EditText) view.findViewById(R.id.bookUrlEditText);
-
-
-        bookUrl.setMaxLines(Integer.MAX_VALUE); // Or specify a lower value if you want
-        bookUrl.setHorizontallyScrolling(false);
 
         Button submit = (Button) view.findViewById(R.id.submitButton);
-
-        submit = (Button) view.findViewById(R.id.submitButton);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,9 +121,9 @@ public class CreateDrugFragment extends Fragment {
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                 }
 
-                Drug book = new Drug(bookTitle.getText().toString(), bookDescription.getText().toString(), bookUrl.getText().toString());
+                Drug drug = new Drug(drugName.getText().toString(), drugDose.getText().toString(), whenToTake.getText().toString(), notes.getText().toString());
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                db.addBook(book);
+                db.addDrug(drug);
                 db.closeDB();
                 fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
@@ -136,7 +134,6 @@ public class CreateDrugFragment extends Fragment {
 
         return view;
     }
-
 
 
 
