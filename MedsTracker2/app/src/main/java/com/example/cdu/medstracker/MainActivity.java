@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements
         ListViewFragment.OnFragmentInteractionListener,
         CreateDrugFragment.OnFragmentInteractionListener,
         ViewPagerControllerFragment.OnFragmentInteractionListener,
-        ViewPagerContentFragment.OnFragmentInteractionListener{
+        ViewPagerContentFragment.OnFragmentInteractionListener,
+        EditDrugFragment.OnFragmentInteractionListener{
 
 
     DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -174,6 +175,20 @@ public class MainActivity extends AppCompatActivity implements
     public void returnToAddPhotos(){
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.content_main, new AddPhotoFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void goToEditDrug(){
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.content_main, new EditDrugFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void goToListView(){
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.content_main, new ListViewFragment());
         transaction.addToBackStack(null);
         transaction.commit();
     }

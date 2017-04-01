@@ -148,6 +148,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(DRUG_NAME, drug.getDrugName());
         values.put(DRUG_DOSE, drug.getDrugDose());
         values.put(WHEN_TO_TAKE, drug.getWhenToTake());
+        values.put(NOTES, drug.getNotes());
         return db.update(DRUGS, values, ID + " = ?",
                 new String[]{String.valueOf(drug.getId())});
     }

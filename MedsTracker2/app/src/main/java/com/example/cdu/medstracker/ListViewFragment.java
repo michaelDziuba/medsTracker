@@ -1,15 +1,20 @@
 package com.example.cdu.medstracker;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,6 +44,8 @@ import java.util.ArrayList;
 public class ListViewFragment extends Fragment {
 
 
+    private static final int REQUEST_CODE = 0x11;
+    String[] permissions = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.CAMERA"};
 
     FragmentManager fm;
     FloatingActionButton fab = MainActivity.fab;
@@ -48,6 +56,10 @@ public class ListViewFragment extends Fragment {
     TextView notesTextView;
 
     LinearLayout imagesLinearLayout;
+
+    public static ArrayList<Drug> drugsArrayList;
+
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -119,7 +131,7 @@ public class ListViewFragment extends Fragment {
 
         drugList = (ListView) view.findViewById(R.id.drugListView);
         DatabaseHandler db = new DatabaseHandler(getContext());
-        final ArrayList<Drug> drugsArrayList = db.getAllDrugs();
+        drugsArrayList = db.getAllDrugs();
 
 
 
@@ -155,39 +167,6 @@ public class ListViewFragment extends Fragment {
                 }
             }
         });
-
-        drugList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                DatabaseHandler db = new DatabaseHandler(getContext());
-                Drug drug = drugsArrayList.get(position);
-                int drug_id = drug.getId();
-
-                //Deletes stored image files for the CardView, when the CardView is deleted
-                CardView cardView = (CardView)drugList.getChildAt(position);
-                LinearLayout imagesLayout = (LinearLayout) cardView.findViewById(R.id.imagesLinearLayout);
-                if(imagesLayout.getChildCount() > 0){
-                    ArrayList<Image> drugImages = db.getAllImages(drug.getId());
-                    for(int i = 0; i < drugImages.size(); i++){
-                       Image image = drugImages.get(i);
-                        File file = new File(image.getResource());
-                        file.delete();
-                    }
-                }
-
-                db.deleteDrug(drug_id);
-                db.deleteImage(drug_id);
-                db.closeDB();
-
-                drugsArrayList.remove(position);
-                drugList.setAdapter(drugList.getAdapter());
-
-                return false;
-            }
-        });
-
-
-
 
         return view;
     }
@@ -260,7 +239,8 @@ public class ListViewFragment extends Fragment {
          * we populate the item_view's name TextView
          */
         public View getView(int position, View convertView, ViewGroup parent){
-            final Drug drug = getItem(position);
+            final int positionFinal = position;
+            final Drug drug = getItem(positionFinal);
 
             if(!fab.isShown()){
                 fab.setImageResource(R.drawable.ic_add_black_24dp);
@@ -305,19 +285,74 @@ public class ListViewFragment extends Fragment {
             notesTextView = (TextView) convertView.findViewById(R.id.notesTextView);
             notesTextView.setText(drug.getNotes());
 
-            LinearLayout intentIconImageView = (LinearLayout) convertView.findViewById(R.id.editIcon);
-            intentIconImageView.setOnClickListener(new View.OnClickListener() {
+            LinearLayout deleteIcon = (LinearLayout) convertView.findViewById(R.id.deleteIcon);
+            deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i("**EditButton**", "Clicked!");
-//                    Uri webpage = Uri.parse(book.getUrl());
-//                    Intent intent = new Intent(Intent.ACTION_VIEW);
-//                    intent.setData(webpage);
-//                    //startActivity(intent);
-//                    if(intent.resolveActivity(getActivity().getPackageManager()) != null){
-//                        startActivity(intent);
-//                    }
 
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                    alert.setTitle("Delete this drug?");
+                    //alert.setMessage("");
+                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DatabaseHandler db = new DatabaseHandler(getContext());
+                            int drug_id = drug.getId();
+
+                            //Deletes stored image files for the CardView, when the CardView is deleted
+                            CardView cardView = (CardView)drugList.getChildAt(positionFinal);
+                            LinearLayout imagesLayout = (LinearLayout) cardView.findViewById(R.id.imagesLinearLayout);
+                            if(imagesLayout.getChildCount() > 0){
+                                ArrayList<Image> drugImages = db.getAllImages(drug.getId());
+                                for(int i = 0; i < drugImages.size(); i++){
+                                    Image image = drugImages.get(i);
+                                    File file = new File(image.getResource());
+                                    file.delete();
+                                }
+                            }
+
+                            db.deleteDrug(drug_id);
+                            db.deleteImage(drug_id);
+                            db.closeDB();
+
+
+                            drugsArrayList.remove(positionFinal);
+                            drugList.setAdapter(drugList.getAdapter());
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alert.show();
+                }
+            });
+
+
+            LinearLayout editIcon = (LinearLayout) convertView.findViewById(R.id.editIcon);
+            editIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Log.i("**EditButton**", "Clicked!");
+                    EditDrugFragment.drug = drug;
+                    ((MainActivity)getActivity()).goToEditDrug();
+                }
+            });
+
+            LinearLayout addPhotoIcon = (LinearLayout) convertView.findViewById(R.id.addPhotoIcon);
+            addPhotoIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Asks the user for permission to access camera and files on the user's device
+                    ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_CODE);
+                    TakePhotoFragment.drug = drug;
+                    ((MainActivity)getActivity()).takePhotos();
                 }
             });
 
@@ -326,7 +361,17 @@ public class ListViewFragment extends Fragment {
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext().getApplicationContext(), "PERMISSION_GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext().getApplicationContext(), "PERMISSION_DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 }

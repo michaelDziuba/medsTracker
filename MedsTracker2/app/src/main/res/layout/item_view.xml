@@ -38,26 +38,7 @@
                    android:fontFamily="serif"
                    android:textStyle="bold|normal"/>
 
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:orientation="vertical"
-                   android:layout_weight="1"
-                   android:background="@drawable/button_background"
-                   android:id="@+id/editIcon"
-                   android:gravity="center">
-                 <ImageView
-                   android:layout_width="120dp"
-                   android:layout_height="25dp"
-                   cardView:srcCompat="@drawable/ic_mode_edit_black_24dp" />
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textColor="#000000"
-                       android:text="Edit"
-                       android:textStyle="bold|normal"/>
 
-               </LinearLayout>
            </LinearLayout>
 
         <LinearLayout
@@ -115,11 +96,75 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/cardview_padding"
+                android:layout_marginBottom="@dimen/cardview_padding"
+                android:id="@+id/deleteIcon"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    cardView:srcCompat="@drawable/ic_delete_black_24dp" />
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="5"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/cardview_padding"
+                android:layout_marginBottom="@dimen/cardview_padding"
+                android:id="@+id/editIcon"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    cardView:srcCompat="@drawable/ic_mode_edit_black_24dp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="5"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/cardview_padding"
+                android:layout_marginBottom="@dimen/cardview_padding"
+                android:id="@+id/addPhotoIcon"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    cardView:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="20"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imagesLinearLayout" />
-
 
 
             <LinearLayout
