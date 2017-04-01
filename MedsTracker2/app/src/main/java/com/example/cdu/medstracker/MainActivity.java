@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             //transaction.replace(R.id.content_main, new ItemFragment());
             transaction.replace(R.id.content_main, new ListViewFragment());
-
             transaction.commit();
 
         } else if (id == R.id.nav_drugs_guide) {
@@ -148,6 +147,15 @@ public class MainActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             transaction.replace(R.id.content_main, new ViewPagerControllerFragment());
             transaction.commit();
+        } else if (id == R.id.nav_phone) {
+
+
+        } else if (id == R.id.nav_alarm) {
+
+
+        } else if (id == R.id.nav_about) {
+
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
