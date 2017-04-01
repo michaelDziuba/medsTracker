@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_location_city_black_24dp"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="Home"
             app:itemTextAppearance="?android:attr/textAppearanceLarge"/>
         <item
@@ -16,9 +16,22 @@
         <item
             android:id="@+id/nav_drugs_guide"
             android:icon="@drawable/ic_whatshot_black_24dp"
-            android:title="Drugs guide" />
+            android:title="Guide" />
 
+        <item
+            android:id="@+id/nav_phone"
+            android:icon="@drawable/ic_contact_phone_black_24dp"
+            android:title="Phone" />
 
+        <item
+            android:id="@+id/nav_alarm"
+            android:icon="@drawable/ic_alarm_black_24dp"
+            android:title="Alarm" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_help_black_24dp"
+            android:title="About" />
 
     </group>
 
