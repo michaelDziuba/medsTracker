@@ -1,6 +1,7 @@
 package com.example.cdu.medstracker;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -354,6 +355,18 @@ public class ListViewFragment extends Fragment {
                 public void onClick(View v) {
                     TakePhotoFragment.drug = drug;
                     ((MainActivity)getActivity()).takePhotos();
+                }
+            });
+
+            LinearLayout webIcon = (LinearLayout) convertView.findViewById(R.id.webIcon);
+            webIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                    intent.putExtra(SearchManager.QUERY, drug.getDrugName() + " drug information -pdf");
+                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
                 }
             });
 

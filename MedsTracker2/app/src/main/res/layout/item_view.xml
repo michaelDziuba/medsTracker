@@ -116,7 +116,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="5"/>
+                android:layout_weight="4"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="5"/>
+                android:layout_weight="4"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,6 +150,25 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     cardView:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/cardview_padding"
+                android:layout_marginBottom="@dimen/cardview_padding"
+                android:id="@+id/webIcon"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    cardView:srcCompat="@drawable/ic_language_black_24dp" />
             </LinearLayout>
 
             <Space
