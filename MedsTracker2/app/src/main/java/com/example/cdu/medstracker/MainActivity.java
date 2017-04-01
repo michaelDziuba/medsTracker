@@ -22,12 +22,12 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
-        AddPhotoFragment.OnFragmentInteractionListener,
         TakePhotoFragment.OnFragmentInteractionListener,
         ListViewFragment.OnFragmentInteractionListener,
         CreateDrugFragment.OnFragmentInteractionListener,
         ViewPagerControllerFragment.OnFragmentInteractionListener,
-        ViewPagerContentFragment.OnFragmentInteractionListener{
+        ViewPagerContentFragment.OnFragmentInteractionListener,
+        EditDrugFragment.OnFragmentInteractionListener{
 
 
     DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -148,13 +148,6 @@ public class MainActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             transaction.replace(R.id.content_main, new ViewPagerControllerFragment());
             transaction.commit();
-        } else if (id == R.id.nav_add_photo) {
-
-            FragmentTransaction tran = fm.beginTransaction();
-            tran.setCustomAnimations(R.anim.slide_in, R.anim.slide_out);
-            tran.addToBackStack(null);
-            tran.replace(R.id.content_main, new AddPhotoFragment());
-            tran.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -171,9 +164,17 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
-    public void returnToAddPhotos(){
+
+    public void goToEditDrug(){
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.content_main, new AddPhotoFragment());
+        transaction.replace(R.id.content_main, new EditDrugFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void goToListView(){
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.content_main, new ListViewFragment());
         transaction.addToBackStack(null);
         transaction.commit();
     }

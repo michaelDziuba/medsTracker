@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,9 @@ import java.util.Date;
  */
 public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTextureListener  {
 
+    public static Drug drug = null;
+
+    FloatingActionButton fab = MainActivity.fab;
 
     @Deprecated
     private Camera mCamera;
@@ -93,7 +97,9 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_take_photo, container, false);
 
-        //makePictureDirectory();
+        if(fab.isShown()){
+            fab.setVisibility(View.INVISIBLE);
+        }
 
         mTextureView = (TextureView)view.findViewById(R.id.textureView);
         mTextureView.setSurfaceTextureListener(this);
@@ -132,10 +138,9 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
             @Override
             public void onClick(View v) {
 
-                Log.d("*****", "DataGlobal" + dataGlobal);
+               // Log.d("*****", "DataGlobal" + dataGlobal);
                 if(dataGlobal != null) {
                     File pictureFile = getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
-
 
                     if (pictureFile == null) {
                         Log.d("*****", "Error creating media file, check storage permissions!!!");
@@ -143,18 +148,46 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                     }
 
                     try {
-                        AddPhotoFragment.photoPath = pictureFile.getPath();
+                        //AddPhotoFragment.photoPath = pictureFile.getPath();
+
+
 
                         FileOutputStream fos = new FileOutputStream(pictureFile);
                         fos.write(dataGlobal);
                         fos.close();
+
+                        DatabaseHandler db = new DatabaseHandler(getContext());
+
+                        if(drug != null){
+                            Image image = new Image(drug.getId(), pictureFile.getPath());
+
+                            /**
+                             * Add the photo to the database
+                             */
+                            //DatabaseHandler db = new DatabaseHandler(getContext());
+                            int id = (int) db.addImage(image);
+                            if (id != -1) {
+                                image.setId(id);
+                                Toast.makeText(getActivity(), "Photo Added", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Photo Not Added", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        db.closeDB();
+
+
                         //Toast.makeText(getActivity(), "Picture Saved", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 //                    mCamera.startPreview();
 //                    previewShowing = true;
-                    ((MainActivity)getActivity()).returnToAddPhotos();
+                    //((MainActivity)getActivity()).returnToAddPhotos();
+
+                    ((MainActivity)getActivity()).goToListView();
+
+
                 }else{
                     Toast.makeText(getActivity(), "Please take a picture,\nthen press SAVE", Toast.LENGTH_LONG).show();
                 }
