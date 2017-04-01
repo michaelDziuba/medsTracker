@@ -35,8 +35,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     ID + " INTEGER PRIMARY KEY, " +
                                                     DRUG_NAME + " TEXT, " +
                                                     DRUG_DOSE + " TEXT, " +
-                                                    WHEN_TO_TAKE + " TEXT," +
-                                                    NOTES + ")";
+                                                    WHEN_TO_TAKE + " TEXT, " +
+                                                    NOTES + " TEXT)";
 
 
 

@@ -43,9 +43,9 @@ import java.util.ArrayList;
  */
 public class ListViewFragment extends Fragment {
 
-
     private static final int REQUEST_CODE = 0x11;
     String[] permissions = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.CAMERA"};
+
 
     FragmentManager fm;
     FloatingActionButton fab = MainActivity.fab;
@@ -112,10 +112,13 @@ public class ListViewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
+
         if(!fab.isShown()){
             fab.setVisibility(View.VISIBLE);
         }
 
+        //Asks the user for permission to access camera and files on the user's device
+        ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_CODE);
 
         fm = getActivity().getSupportFragmentManager();
         fab.setImageResource(R.drawable.ic_add_black_24dp);
@@ -349,8 +352,6 @@ public class ListViewFragment extends Fragment {
             addPhotoIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Asks the user for permission to access camera and files on the user's device
-                    ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_CODE);
                     TakePhotoFragment.drug = drug;
                     ((MainActivity)getActivity()).takePhotos();
                 }
@@ -359,7 +360,6 @@ public class ListViewFragment extends Fragment {
             return  convertView;
         }
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
