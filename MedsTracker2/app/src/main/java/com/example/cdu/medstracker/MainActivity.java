@@ -27,7 +27,10 @@ public class MainActivity extends AppCompatActivity implements
         CreateDrugFragment.OnFragmentInteractionListener,
         ViewPagerControllerFragment.OnFragmentInteractionListener,
         ViewPagerContentFragment.OnFragmentInteractionListener,
-        EditDrugFragment.OnFragmentInteractionListener{
+        EditDrugFragment.OnFragmentInteractionListener,
+        ListViewPhoneFragment.OnFragmentInteractionListener,
+        CreatePhoneFragment.OnFragmentInteractionListener,
+        EditPhoneFragment.OnFragmentInteractionListener{
 
 
     DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -149,7 +152,11 @@ public class MainActivity extends AppCompatActivity implements
             transaction.commit();
         } else if (id == R.id.nav_phone) {
 
-
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out);
+            transaction.addToBackStack(null);
+            transaction.replace(R.id.content_main, new ListViewPhoneFragment());
+            transaction.commit();
         } else if (id == R.id.nav_alarm) {
 
 
@@ -183,6 +190,13 @@ public class MainActivity extends AppCompatActivity implements
     public void goToListView(){
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.content_main, new ListViewFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void goToEditPhone(){
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.content_main, new EditPhoneFragment());
         transaction.addToBackStack(null);
         transaction.commit();
     }
