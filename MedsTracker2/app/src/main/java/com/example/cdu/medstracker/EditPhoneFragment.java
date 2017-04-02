@@ -3,41 +3,39 @@ package com.example.cdu.medstracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateDrugFragment.OnFragmentInteractionListener} interface
+ * {@link EditPhoneFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CreateDrugFragment#newInstance} factory method to
+ * Use the {@link EditPhoneFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateDrugFragment extends Fragment {
+public class EditPhoneFragment extends Fragment {
 
-    //Button submit;
+    public static Phone phone = null;
 
     FragmentManager fm;
 
-    EditText drugName;
-    EditText drugDose;
-    EditText whenToTake;
-    EditText notes;
+    private EditText editPhoneName;
+    private EditText editPhoneNumber;
+    private EditText editPhoneNote;
+
+    private Button savePhoneButton;
 
     FloatingActionButton fab = MainActivity.fab;
-
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -51,7 +49,7 @@ public class CreateDrugFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CreateDrugFragment() {
+    public EditPhoneFragment() {
         // Required empty public constructor
     }
 
@@ -61,11 +59,11 @@ public class CreateDrugFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CreateDrugFragment.
+     * @return A new instance of fragment EditPhoneFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CreateDrugFragment newInstance(String param1, String param2) {
-        CreateDrugFragment fragment = new CreateDrugFragment();
+    public static EditPhoneFragment newInstance(String param1, String param2) {
+        EditPhoneFragment fragment = new EditPhoneFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -86,44 +84,43 @@ public class CreateDrugFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_create_drug, container, false);
-
-
+        View view = inflater.inflate(R.layout.fragment_edit_phone, container, false);
 
         if(fab.isShown()){
             fab.setVisibility(View.INVISIBLE);
         }
 
-        drugName = (EditText) view.findViewById(R.id.drugNameEditText);
+//        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
 
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+        fm = getChildFragmentManager();
 
+        if(phone != null) {
+            editPhoneName = (EditText) view.findViewById(R.id.editPhoneName);
+            editPhoneName.setText(phone.getPhoneName());
+            editPhoneNumber = (EditText) view.findViewById(R.id.editPhoneNumber);
+            editPhoneNumber.setText(phone.getPhoneNumber());
+            editPhoneNote = (EditText) view.findViewById(R.id.editPhoneNote);
+            editPhoneNote.setText(phone.getPhoneNote());
+        }
 
-        drugDose = (EditText) view.findViewById(R.id.drugDoseEditText);
-
-        whenToTake = (EditText) view.findViewById(R.id.whenToTakeEditText);
-//        whenToTake.setMaxLines(Integer.MAX_VALUE);
-//        whenToTake.setHorizontallyScrolling(false);
-
-        notes = (EditText) view.findViewById(R.id.notesEditText);
-
-
-        Button submit = (Button) view.findViewById(R.id.submitButton);
-
-        submit.setOnClickListener(new View.OnClickListener() {
+        savePhoneButton = (Button) view.findViewById(R.id.savePhoneButton);
+        savePhoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Dismiss the keyboard
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if(imm.isAcceptingText()) { // verify if the soft keyboard is open
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                 }
 
-                Drug drug = new Drug(drugName.getText().toString(), drugDose.getText().toString(), whenToTake.getText().toString(), notes.getText().toString());
+                phone.setPhoneName(editPhoneName.getText().toString());
+                phone.setPhoneNumber(editPhoneNumber.getText().toString());
+                phone.setPhoneNote(editPhoneNote.getText().toString());
+
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                db.addDrug(drug);
+                db.updatePhone(phone);
+
                 db.closeDB();
                 fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
@@ -131,12 +128,8 @@ public class CreateDrugFragment extends Fragment {
         });
 
 
-
         return view;
     }
-
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -173,10 +166,7 @@ public class CreateDrugFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
 }

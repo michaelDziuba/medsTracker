@@ -31,6 +31,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String IMAGE_PATH = "image_path";  //column name for images table
 
 
+    private static final String PHONES = "phones";  //table name
+    private static final String  PHONE_NAME = "phoneName";  //column name for phones table
+    private static final String PHONE_NUMBER = "phoneNumber"; //column name for phones table
+    private static final String PHONE_NOTE = "phoneNote"; //column name for phones table
+
+
     private static final String CREATE_DRUGS_TABLE = "CREATE TABLE IF NOT EXISTS " +  DRUGS + " (" +
                                                     ID + " INTEGER PRIMARY KEY, " +
                                                     DRUG_NAME + " TEXT, " +
@@ -38,12 +44,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     WHEN_TO_TAKE + " TEXT, " +
                                                     NOTES + " TEXT)";
 
-
-
     private static final String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS " + IMAGES + " (" +
             ID + " INTEGER PRIMARY KEY, " +
             DRUG_ID + " INTEGER REFERENCES " + DRUGS + "("  + ID + "), " +
             IMAGE_PATH + " TEXT)";
+
+    private static final String CREATE_PHONES_TABLE = "CREATE TABLE IF NOT EXISTS " +  PHONES + " (" +
+            ID + " INTEGER PRIMARY KEY, " +
+            PHONE_NAME + " TEXT, " +
+            PHONE_NUMBER + " TEXT, " +
+            PHONE_NOTE + " TEXT)";
 
 
     public DatabaseHandler(Context context){
@@ -54,13 +64,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         db.execSQL(CREATE_DRUGS_TABLE);
         db.execSQL(CREATE_IMAGES_TABLE);
-
+        db.execSQL(CREATE_PHONES_TABLE);
     }
 
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion ){
         db.execSQL("DROP TABLE IF EXISTS " + DRUGS);
         db.execSQL("DROP TABLE IF EXISTS " + IMAGES);
+        db.execSQL("DROP TABLE IF EXISTS " + PHONES);
         onCreate(db);
     }
 
@@ -255,5 +266,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
+    public long addPhone(Phone phone) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PHONE_NAME, phone.getPhoneName());
+        contentValues.put(PHONE_NUMBER, phone.getPhoneNumber());
+        contentValues.put(PHONE_NOTE, phone.getPhoneNote());
+        Long lastInsertId = db.insert(PHONES, null, contentValues);
+        db.close();
+        return lastInsertId;
+    }
 
+    public void deletePhone(long phone_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(PHONES, ID + " = ?", new String[] { String.valueOf(phone_id) });
+    }
+
+
+
+    public int updatePhone(Phone phone) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PHONE_NAME, phone.getPhoneName());
+        values.put(PHONE_NUMBER, phone.getPhoneNumber());
+        values.put(PHONE_NOTE, phone.getPhoneNote());
+        return db.update(PHONES, values, ID + " = ?", new String[]{String.valueOf(phone.getId())});
+    }
+
+
+    public ArrayList<Phone> getAllPhones(){
+        ArrayList<Phone> phoneList = new ArrayList<Phone>();
+        String selectQuery = "SELECT * FROM " + PHONES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            do{
+                Phone phone = new Phone();
+                phone.setId(cursor.getInt(0));
+                phone.setPhoneName(cursor.getString(1));
+                phone.setPhoneNumber(cursor.getString(2));
+                phone.setPhoneNote(cursor.getString(3));
+                phoneList.add(phone);
+
+            } while(cursor.moveToNext());
+        }
+        return  phoneList;
+    }
 }

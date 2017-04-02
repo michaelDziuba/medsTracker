@@ -7,17 +7,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        tools:context="com.example.cdu.medstracker.CreateDrugFragment"
+        tools:context="com.example.cdu.medstracker.CreatePhoneFragment"
         android:columnCount="2"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:useDefaultMargins="true">
 
-        <!-- TODO: Update blank fragment layout -->
 
         <TextView
-            android:text="Drug name:"
+            android:text="Name:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
@@ -29,9 +28,9 @@
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters"
             android:ems="10"
-            android:hint="eg. Aspirin"
+            android:hint="eg. Dr. Andrew Smith"
             android:textColor="#000000"
-            android:id="@+id/drugNameEditText"
+            android:id="@+id/phoneNameEditText"
             android:layout_column="1">
 
             <requestFocus />
@@ -39,7 +38,7 @@
         </EditText>
 
         <TextView
-            android:text="Drug dose:"
+            android:text="Phone:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
@@ -49,16 +48,18 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
+            android:inputType="phone"
             android:gravity="top|left"
-            android:hint="eg. 325 mg (1 tablet)"
+            android:hint="519 448 1111"
             android:ems="10"
             android:textColor="#000000"
-            android:id="@+id/drugDoseEditText"
+            android:id="@+id/phoneNumberEditText"
             android:layout_column="1" />
 
+
+
         <TextView
-            android:text="When to take:"
+            android:text="Note:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
@@ -71,26 +72,8 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:textColor="#000000"
-            android:hint="eg. every 6 hours"
-            android:id="@+id/whenToTakeEditText"
-            android:layout_column="1" />
-
-        <TextView
-            android:text="Notes:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_column="0"
-            android:textSize="22sp" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:textColor="#000000"
-            android:hint="eg. Take with food"
-            android:id="@+id/notesEditText"
+            android:hint="eg. Family doctor"
+            android:id="@+id/phoneNoteEditText"
             android:layout_column="1" />
 
 
@@ -99,7 +82,7 @@
             android:text="CREATE CARD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/submitButton"
+            android:id="@+id/phoneCreateButton"
             android:layout_columnSpan="2"
             android:layout_column="0" />
     </GridLayout>
