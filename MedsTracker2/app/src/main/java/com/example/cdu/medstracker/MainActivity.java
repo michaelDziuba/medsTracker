@@ -157,9 +157,6 @@ public class MainActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             transaction.replace(R.id.content_main, new ListViewPhoneFragment());
             transaction.commit();
-        } else if (id == R.id.nav_alarm) {
-
-
         } else if (id == R.id.nav_about) {
 
 
