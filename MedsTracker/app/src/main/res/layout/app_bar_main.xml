@@ -27,15 +27,16 @@
 
 
 
-                <TextView
+                    <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name"
+                    android:text="MEDS TRACKER +"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    android:id="@+id/toolbar_title" />
+                    android:id="@+id/toolbar_title"
+                    />
 
                 <!--<Space-->
                     <!--android:layout_width="0dp"-->
@@ -46,7 +47,9 @@
                 <!--<ImageView-->
                     <!--android:layout_width="@dimen/appBarImageWidth"-->
                     <!--android:layout_height="@dimen/appBarImageHeight"-->
-                    <!--android:src="@drawable/greek_salad" />-->
+                    <!--android:src="@drawable/medlogo"-->
+
+                    <!--/>-->
 
 
             </LinearLayout>

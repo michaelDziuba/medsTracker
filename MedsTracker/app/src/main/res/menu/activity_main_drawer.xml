@@ -5,16 +5,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_location_city_black_24dp"
+            android:icon="@drawable/ic_add_location_black_24dp"
             android:title="@string/app_name"
             app:itemTextAppearance="?android:attr/textAppearanceLarge"/>
         <item
             android:id="@+id/nav_your_drugs"
-            android:icon="@drawable/ic_local_library_black_24dp"
+            android:icon="@drawable/ic_local_pharmacy_black_24dp"
             android:title="Your drugs" />
         <item
             android:id="@+id/nav_drugs_guide"
-            android:icon="@drawable/ic_whatshot_black_24dp"
+            android:icon="@drawable/ic_local_library_black_24dp"
             android:title="Drugs guide" />
 
         <item
