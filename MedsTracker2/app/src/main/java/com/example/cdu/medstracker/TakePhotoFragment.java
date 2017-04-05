@@ -17,7 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,6 +38,9 @@ import java.util.Date;
  * create an instance of this fragment.
  */
 public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTextureListener  {
+
+    private int pictureWidth;
+    private int pictureHeight;
 
     public static Drug drug = null;
 
@@ -149,9 +155,6 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
 
                     try {
                         //AddPhotoFragment.photoPath = pictureFile.getPath();
-
-
-
                         FileOutputStream fos = new FileOutputStream(pictureFile);
                         fos.write(dataGlobal);
                         fos.close();
@@ -159,7 +162,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                         DatabaseHandler db = new DatabaseHandler(getContext());
 
                         if(drug != null){
-                            Image image = new Image(drug.getId(), pictureFile.getPath());
+                            Image image = new Image(drug.getId(), pictureFile.getPath(), pictureWidth, pictureHeight);
 
                             /**
                              * Add the photo to the database
@@ -269,9 +272,11 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
 
                 mCamera.setDisplayOrientation(90);
 
+                pictureWidth = params.getPreviewSize().width;
+                pictureHeight = params.getPreviewSize().height;
 
-                getView().getLayoutParams().width=params.getPreviewSize().height;
-                getView().getLayoutParams().height=params.getPreviewSize().width;
+                getView().getLayoutParams().width = pictureWidth;
+                getView().getLayoutParams().height = pictureHeight;
 
                 mCamera.setPreviewTexture(surface);
                 mCamera.startPreview();
