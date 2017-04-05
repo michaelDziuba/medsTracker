@@ -8,6 +8,8 @@ public class Image {
     private int id;
     private int drug_id = -1;
     private String resource;
+    private int pictureWidth;
+    private int pictureHeight;
 
     public Image(int id, int drug_id, String resource){
         this.id = id;
@@ -15,10 +17,13 @@ public class Image {
         this.resource = resource;
     }
 
-    public Image(int drug_id, String resource){
+
+    public Image(int drug_id, String resource, int pictureWidth, int pictureHeight){
         this.id = 0;
         this.drug_id = drug_id;
         this.resource = resource;
+        this.pictureWidth = pictureWidth;
+        this.pictureHeight = pictureHeight;
     }
 
     public Image(){
@@ -46,6 +51,22 @@ public class Image {
 
     public String getResource() {
         return resource;
+    }
+
+    public int getPictureWidth() {
+        return pictureWidth;
+    }
+
+    public void setPictureWidth(int pictureWidth) {
+        this.pictureWidth = pictureWidth;
+    }
+
+    public int getPictureHeight() {
+        return pictureHeight;
+    }
+
+    public void setPictureHeight(int pictureHeight) {
+        this.pictureHeight = pictureHeight;
     }
 
     public void setResource(String resource) {

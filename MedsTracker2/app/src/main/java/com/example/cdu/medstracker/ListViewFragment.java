@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -260,21 +263,37 @@ public class ListViewFragment extends Fragment {
             if(imagesLinearLayout.getChildCount() == 0){
                 //Grab all the photos that match the id of the current location
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                ArrayList<Image> drugImages = db.getAllImages(drug.getId());
+               final ArrayList<Image> drugImages = db.getAllImages(drug.getId());
                 db.closeDB();
+
 
                 //Add those photos to the gallery
                 for(int i =0; i < drugImages.size(); i++){
-                    Bitmap image = BitmapFactory.decodeFile(drugImages.get(i).getResource());
+                    final Image image = drugImages.get(i);
+                    //Bitmap bitmapImage = BitmapFactory.decodeFile(image.getResource());
+                    final File imageFile = new File(image.getResource());
 
-                    Log.i("***Image Size Bytes***", "" + image.getByteCount());
+                    final ImageView imageView = new ImageView(getContext());
 
-                    ImageView imageView = new ImageView(getContext());
-                    imageView.setImageBitmap(image);
-                    imageView.setAdjustViewBounds(true);
-                    imageView.setPadding(0,20,0,20);
+                    Picasso.with(getContext().getApplicationContext()).load(imageFile).resize(image.getPictureWidth(), image.getPictureHeight()).centerInside().into(imageView, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                                Bitmap bitmapImage = BitmapFactory.decodeFile(image.getResource());
+                                imageView.setImageBitmap(bitmapImage);
+                                imageView.setAdjustViewBounds(true);
+                                imageView.setPadding(0,0,0,20);
+                        }
+                    });
+                    
+
                     imagesLinearLayout.addView(imageView);
                 }
+
             }
 
             drugNameTextView = (TextView) convertView.findViewById(R.id.drugNameTextView);

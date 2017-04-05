@@ -29,6 +29,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String IMAGES = "images";  //table name
     private static final String DRUG_ID = "drug_id";  //column name for images table
     private static final String IMAGE_PATH = "image_path";  //column name for images table
+    private static final String IMAGE_WIDTH = "image_width"; //column name for images table
+    private static final String IMAGE_HEIGHT = "image_height"; //column name for images table
 
 
     private static final String PHONES = "phones";  //table name
@@ -47,7 +49,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS " + IMAGES + " (" +
             ID + " INTEGER PRIMARY KEY, " +
             DRUG_ID + " INTEGER REFERENCES " + DRUGS + "("  + ID + "), " +
-            IMAGE_PATH + " TEXT)";
+            IMAGE_PATH + " TEXT, " +
+            IMAGE_WIDTH + " INTEGER, " +
+            IMAGE_HEIGHT + " INTEGER)";
 
     private static final String CREATE_PHONES_TABLE = "CREATE TABLE IF NOT EXISTS " +  PHONES + " (" +
             ID + " INTEGER PRIMARY KEY, " +
@@ -202,6 +206,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
        // contentValues.put(ID, 0);
         contentValues.put(DRUG_ID, image.getDrug_id());
         contentValues.put(IMAGE_PATH, image.getResource());
+        contentValues.put(IMAGE_WIDTH, image.getPictureWidth());
+        contentValues.put(IMAGE_HEIGHT, image.getPictureHeight());
         Long lastInsertId = db.insert(IMAGES, null, contentValues);
         db.close();
         return lastInsertId;
@@ -217,6 +223,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DRUG_ID, image.getDrug_id());
         contentValues.put(IMAGE_PATH, image.getResource());
+        contentValues.put(IMAGE_WIDTH, image.getPictureWidth());
+        contentValues.put(IMAGE_HEIGHT, image.getPictureHeight());
         return db.update(IMAGES, contentValues, ID + " = ?", new String[] { String.valueOf(image.getId()) });
     }
 
@@ -234,6 +242,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 image.setId(cursor.getInt(0));
                 image.setDrug_id(cursor.getInt(1));
                 image.setResource(cursor.getString(2));
+                image.setPictureWidth(cursor.getInt(3));
+                image.setPictureHeight(cursor.getInt(4));
                 imageList.add(image);
             } while (cursor.moveToNext());
         }
@@ -258,6 +268,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 image.setId(cursor.getInt(0));
                 image.setDrug_id(cursor.getInt(1));
                 image.setResource(cursor.getString(2));
+                image.setPictureWidth(cursor.getInt(3));
+                image.setPictureHeight(cursor.getInt(4));
                 imageList.add(image);
             }while(cursor.moveToNext());
         }
