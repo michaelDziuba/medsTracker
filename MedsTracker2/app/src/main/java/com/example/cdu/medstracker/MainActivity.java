@@ -1,8 +1,10 @@
 package com.example.cdu.medstracker;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -79,6 +81,14 @@ public class MainActivity extends AppCompatActivity implements
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.add(R.id.content_main, new MainFragment());
         transaction.commit();
+
+       // AsyncTask.execute(new Runnable() {
+//            @Override
+//            public void run() {
+
+
+//            }
+//        });
     }
 
     @Override
@@ -196,6 +206,15 @@ public class MainActivity extends AppCompatActivity implements
         transaction.replace(R.id.content_main, new EditPhoneFragment());
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+
+    public void openWebPage(String url) {
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     @Override

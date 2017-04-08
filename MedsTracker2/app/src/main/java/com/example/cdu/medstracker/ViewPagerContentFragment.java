@@ -1,10 +1,13 @@
 package com.example.cdu.medstracker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,27 +88,84 @@ public class ViewPagerContentFragment extends Fragment {
         //gets image view for displaying images in the view pager
         ImageView imageView = (ImageView) view.findViewById(R.id.imageViewPager);
 
+        final TextView viewPagerTextView = (TextView) view.findViewById(R.id.viewPagerTextView);
+        SpannableString content;
+
         //sets viewpager fragment background color and image, depending on the item number in the View pager
         switch(mParam1) {
             case "1":
-                imageView.setImageResource(R.drawable.drug_man);
-                view.setBackgroundColor(Color.rgb(90,155,150));
+                imageView.setImageResource(R.drawable.faqs);
+                view.setBackgroundColor(Color.rgb(90,125,120));
+                content = new SpannableString(getActivity().getString(R.string.drug_faqs_read_more));
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                viewPagerTextView.setText(content);
+                viewPagerTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerTextView.setTextColor(Color.GREEN);
+                        ((MainActivity)getActivity()).openWebPage(getActivity().getString(R.string.drug_faqs_url));
+                    }
+                });
                 break;
             case "2":
-                imageView.setImageResource(R.drawable.drug_man);
-                view.setBackgroundColor(Color.rgb(195,125,180));
+                imageView.setImageResource(R.drawable.forbidden_beer);
+                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
+                view.setBackgroundColor(Color.rgb(90,110,120));
+                content = new SpannableString(getActivity().getString(R.string.drug_interactions_read_more));
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                viewPagerTextView.setText(content);
+                viewPagerTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerTextView.setTextColor(Color.GREEN);
+                        ((MainActivity)getActivity()).openWebPage(getActivity().getString(R.string.drug_interactions_url));
+                    }
+                });
                 break;
             case "3":
-                imageView.setImageResource(R.drawable.drug_man);
-                view.setBackgroundColor(Color.rgb(240,104,59));
+                imageView.setImageResource(R.drawable.error);
+                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
+                view.setBackgroundColor(Color.rgb(105,105,150));
+                content = new SpannableString(getActivity().getString(R.string.drug_tips_read_more));
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                viewPagerTextView.setText(content);
+                viewPagerTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerTextView.setTextColor(Color.GREEN);
+                        ((MainActivity)getActivity()).openWebPage(getActivity().getString(R.string.drug_tips_url));
+                    }
+                });
                 break;
             case "4":
-                imageView.setImageResource(R.drawable.drug_man);
-                view.setBackgroundColor(Color.rgb(240,104,120));
+                imageView.setImageResource(R.drawable.medical_symbol);
+                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
+                view.setBackgroundColor(Color.rgb(135,105,150));
+                content = new SpannableString(getActivity().getString(R.string.drug_side_effects_read_more));
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                viewPagerTextView.setText(content);
+                viewPagerTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerTextView.setTextColor(Color.GREEN);
+                        ((MainActivity)getActivity()).openWebPage(getActivity().getString(R.string.drug_side_effects_url));
+                    }
+                });
                 break;
             case "5":
-                imageView.setImageResource(R.drawable.drug_man);
-                view.setBackgroundColor(Color.rgb(195,130,120));
+                imageView.setImageResource(R.drawable.drug_disposal);
+                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
+                view.setBackgroundColor(Color.rgb(150,105,120));
+                content = new SpannableString(getActivity().getString(R.string.drug_disposal_read_more));
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                viewPagerTextView.setText(content);
+                viewPagerTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerTextView.setTextColor(Color.GREEN);
+                        ((MainActivity)getActivity()).openWebPage(getActivity().getString(R.string.drug_disposal_url));
+                    }
+                });
                 break;
             default: break;
         }
