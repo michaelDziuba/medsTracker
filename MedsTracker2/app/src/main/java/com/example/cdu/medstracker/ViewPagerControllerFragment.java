@@ -2,6 +2,7 @@ package com.example.cdu.medstracker;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,13 +30,8 @@ public class ViewPagerControllerFragment extends Fragment {
     private SectionsPagerAdapter sectionsPagerAdapter;
     ViewPager viewPager;
 
-    ViewPagerContentFragment[] viewPagerContentFragments = {
-            ViewPagerContentFragment.newInstance("1", "Drugs Guide 1", ""),
-            ViewPagerContentFragment.newInstance("2", "Drugs Guide 2", ""),
-            ViewPagerContentFragment.newInstance("3", "Drugs Guide 3", ""),
-            ViewPagerContentFragment.newInstance("4", "Drugs Guide 4", ""),
-            ViewPagerContentFragment.newInstance("5", "Drugs Guide 5", "")
-    };
+    public ViewPagerContentFragment[] viewPagerContentFragments;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,6 +63,9 @@ public class ViewPagerControllerFragment extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
+
+
         return fragment;
     }
 
@@ -77,6 +76,13 @@ public class ViewPagerControllerFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        viewPagerContentFragments = new ViewPagerContentFragment[]{
+                ViewPagerContentFragment.newInstance("1", getActivity().getString(R.string.drug_faqs_header), getActivity().getString(R.string.drug_faqs_text)),
+                ViewPagerContentFragment.newInstance("2", getActivity().getString(R.string.drug_interactions_header), getActivity().getString(R.string.drug_interactions_text)),
+                ViewPagerContentFragment.newInstance("3", getActivity().getString(R.string.drug_tips_header), getActivity().getString(R.string.drug_tips_text)),
+                ViewPagerContentFragment.newInstance("4", getActivity().getString(R.string.drug_side_effects_header), getActivity().getString(R.string.drug_side_effects_text)),
+                ViewPagerContentFragment.newInstance("5", getActivity().getString(R.string.drug_disposal_header), getActivity().getString(R.string.drug_disposal_text))
+        };
     }
 
     @Override
