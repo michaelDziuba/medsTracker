@@ -8,6 +8,31 @@
 
     <string name="home_page_header">Home Page</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="drug_disposal_header">Disposal of drugs</string>
+    <string name="drug_disposal_text">Medicines play an important role in treating many conditions and diseases and when they are no longer needed it is important to dispose of them properly to help reduce harm from accidental exposure or intentional misuse....</string>
+    <string name="drug_disposal_read_more">www.fda.gov</string>
+    <string name="drug_disposal_url">https://www.fda.gov/Drugs/ResourcesForYou/Consumers/BuyingUsingMedicineSafely/EnsuringSafeUseofMedicine/SafeDisposalofMedicines/ucm186187.htm</string>
+
+    <string name="drug_side_effects_header">Side effects</string>
+    <string name="drug_side_effects_text">Drug side effects are unwanted or unexpected drug reactions.  Ask your health care professional about any possible side effects and what, if any steps should be taken to reduce the risk when you are prescribed a drug....</string>
+    <string name="drug_side_effects_read_more">www.fda.gov</string>
+    <string name="drug_side_effects_url">https://www.fda.gov/drugs/resourcesforyou/consumers/ucm196029.htm</string>
+
+    <string name="drug_tips_header">Medication errors</string>
+    <string name="drug_tips_text">Every time you receive a refill, look at the medication before you leave the pharmacy to make sure it looks the same as what you had before....</string>
+    <string name="drug_tips_read_more">www.fda.gov</string>
+    <string name="drug_tips_url">https://www.fda.gov/ForConsumers/ConsumerUpdates/ucm096403.htm</string>
+
+
+    <string name="drug_faqs_header">Medication FAQs</string>
+    <string name="drug_faqs_text">Why is it so important to take my medications?\n\nTaking medication exactly as your doctor recommends is not always as simple as it may seem....</string>
+    <string name="drug_faqs_read_more">www1.shoppersdrugmart.ca</string>
+    <string name="drug_faqs_url">https://www1.shoppersdrugmart.ca/en/health-and-pharmacy/medication-faqs</string>
+
+    <string name="drug_interactions_header">Drug interactions</string>
+    <string name="drug_interactions_text">If you are taking any sort of medication, it\'s recommended that you avoid alcohol, which can increase or decrease the effect of many drugs....</string>
+    <string name="drug_interactions_read_more">www.fda.gov</string>
+    <string name="drug_interactions_url">https://www.fda.gov/ForConsumers/ConsumerUpdates/ucm096386.htm</string>
+
 </resources>
