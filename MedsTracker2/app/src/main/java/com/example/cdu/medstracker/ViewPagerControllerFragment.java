@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.cdu.medstracker.transforms.DepthPageTransformer;
+import com.example.cdu.medstracker.transforms.FlipHorizontalTransformer;
 
 
 /**
@@ -106,7 +107,7 @@ public class ViewPagerControllerFragment extends Fragment {
         viewPager.setOffscreenPageLimit(0);
 
         //Sets animation for View Pager
-        viewPager.setPageTransformer(true, new DepthPageTransformer());
+        viewPager.setPageTransformer(true, new FlipHorizontalTransformer());
 
         ImageButton leftButton = (ImageButton) view.findViewById(R.id.left_nav);
         ImageButton rightButton = (ImageButton) view.findViewById(R.id.right_nav);

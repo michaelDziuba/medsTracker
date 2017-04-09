@@ -95,6 +95,7 @@ public class ViewPagerContentFragment extends Fragment {
         switch(mParam1) {
             case "1":
                 imageView.setImageResource(R.drawable.faqs);
+                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
                 view.setBackgroundColor(Color.rgb(90,125,120));
                 content = new SpannableString(getActivity().getString(R.string.drug_faqs_read_more));
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);

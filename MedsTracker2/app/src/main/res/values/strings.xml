@@ -10,12 +10,12 @@
 
 
     <string name="drug_disposal_header">Disposal of drugs</string>
-    <string name="drug_disposal_text">Medicines play an important role in treating many conditions and diseases and when they are no longer needed it is important to dispose of them properly to help reduce harm from accidental exposure or intentional misuse....</string>
+    <string name="drug_disposal_text">When medicines are no longer needed, it is important to dispose of them properly to help reduce harm from accidental exposure or intentional misuse....</string>
     <string name="drug_disposal_read_more">www.fda.gov</string>
     <string name="drug_disposal_url">https://www.fda.gov/Drugs/ResourcesForYou/Consumers/BuyingUsingMedicineSafely/EnsuringSafeUseofMedicine/SafeDisposalofMedicines/ucm186187.htm</string>
 
     <string name="drug_side_effects_header">Side effects</string>
-    <string name="drug_side_effects_text">Drug side effects are unwanted or unexpected drug reactions.  Ask your health care professional about any possible side effects and what, if any steps should be taken to reduce the risk when you are prescribed a drug....</string>
+    <string name="drug_side_effects_text">Drug side effects are unwanted or unexpected drug reactions.  Ask your health care professional about any possible side effects and what, if any steps should be taken to reduce the risk....</string>
     <string name="drug_side_effects_read_more">www.fda.gov</string>
     <string name="drug_side_effects_url">https://www.fda.gov/drugs/resourcesforyou/consumers/ucm196029.htm</string>
 
