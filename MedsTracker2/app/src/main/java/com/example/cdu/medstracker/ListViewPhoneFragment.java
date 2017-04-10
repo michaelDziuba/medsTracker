@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -275,6 +276,9 @@ public class ListViewPhoneFragment extends Fragment {
                     intent.setData(Uri.parse("tel:" + phone.getPhoneNumber()));
                     if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivity(intent);
+                    }else{
+                        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No installed software to complete the task", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
                     }
                 }
             });
