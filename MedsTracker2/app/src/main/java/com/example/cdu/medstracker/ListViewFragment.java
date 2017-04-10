@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -385,6 +386,9 @@ public class ListViewFragment extends Fragment {
                     intent.putExtra(SearchManager.QUERY, drug.getDrugName() + " drug information -pdf");
                     if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivity(intent);
+                    }else{
+                        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No installed software to complete the task", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
                     }
                 }
             });
