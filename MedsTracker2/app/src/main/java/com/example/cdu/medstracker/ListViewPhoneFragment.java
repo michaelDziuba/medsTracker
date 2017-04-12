@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -41,6 +43,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ListViewPhoneFragment extends Fragment {
+
+    public static int colorCode;
 
     private static final int REQUEST_CODE = 0x12;
     String[] permissions = {"android.permission.CALL_PHONE"};
@@ -210,6 +214,24 @@ public class ListViewPhoneFragment extends Fragment {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.phone_item_view, parent, false);
             }
 
+            CardView phoneCardView = (CardView) convertView;
+
+            switch(colorCode){
+                case 0:
+                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.whiteCardView));
+                    break;
+                case 1:
+                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.yellowCardView));
+                    break;
+                case 2:
+                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.brownCardView));
+                    break;
+                case 3:
+                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.roseCardView));
+                    break;
+                default: break;
+
+            }
 
 
             phoneNameTextView = (TextView) convertView.findViewById(R.id.phoneNameTextView);
@@ -221,7 +243,7 @@ public class ListViewPhoneFragment extends Fragment {
             phoneNoteTextView = (TextView) convertView.findViewById(R.id.phoneNoteTextView);
             phoneNoteTextView.setText(phone.getPhoneNote());
 
-           deletePhoneIcon = (LinearLayout) convertView.findViewById(R.id.deletePhoneIcon);
+            deletePhoneIcon = (LinearLayout) convertView.findViewById(R.id.deletePhoneIcon);
             deletePhoneIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -288,7 +310,12 @@ public class ListViewPhoneFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        //refreshes the ListView layout
+        phoneListView.setAdapter(phoneListView.getAdapter());
+    }
 
 
 
