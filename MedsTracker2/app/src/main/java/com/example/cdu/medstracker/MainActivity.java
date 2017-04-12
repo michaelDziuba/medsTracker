@@ -211,6 +211,20 @@ public class MainActivity extends AppCompatActivity implements
         transaction.addToBackStack(null);
         transaction.commit();
     }
+    public void goToDrugs(){
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.content_main, new ListViewFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    public void goToPhone(){
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.content_main, new ListViewPhoneFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
 
 
     public void openWebPage(String url) {

@@ -1,15 +1,13 @@
 package com.example.cdu.medstracker;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
 
 
 /**
@@ -72,7 +70,20 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_main, container, false);
-
+        Button buttondrugs = (Button)view.findViewById(R.id.buttonDrugs);
+        buttondrugs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).goToDrugs();
+            }
+        });
+        Button buttonphone = (Button)view.findViewById(R.id.buttonPhone);
+        buttonphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).goToPhone();
+            }
+        });
         return view;
     }
 
