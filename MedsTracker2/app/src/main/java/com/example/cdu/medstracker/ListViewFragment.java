@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -47,6 +48,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ListViewFragment extends Fragment {
+
+    public static int colorCode;
 
     private static final int REQUEST_CODE = 0x11;
     String[] permissions = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.CAMERA"};
@@ -157,8 +160,8 @@ public class ListViewFragment extends Fragment {
                 ImageView chevronImageView = (ImageView) view.findViewById(R.id.chevronImageView);
 
 
-                 if(imagesLinearLayout.getVisibility() == View.GONE || imagesLinearLayout.getVisibility() == View.INVISIBLE){
-                     imagesLinearLayout.setVisibility(View.VISIBLE);
+                if(imagesLinearLayout.getVisibility() == View.GONE || imagesLinearLayout.getVisibility() == View.INVISIBLE){
+                    imagesLinearLayout.setVisibility(View.VISIBLE);
 
                     //update the text of the show more
                     detailsTextView.setText("Hide photo");
@@ -167,7 +170,7 @@ public class ListViewFragment extends Fragment {
 
                 }
                 else{
-                     imagesLinearLayout.setVisibility(View.GONE);
+                    imagesLinearLayout.setVisibility(View.GONE);
                     //update the text of the show more
                     detailsTextView.setText("Show photo");
                     //update the chevron image
@@ -259,12 +262,31 @@ public class ListViewFragment extends Fragment {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_view, parent, false);
             }
 
+            CardView drugCardView = (CardView) convertView;
+
+            switch(colorCode){
+                case 0:
+                    drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.whiteCardView));
+                    break;
+                case 1:
+                    drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.yellowCardView));
+                    break;
+                case 2:
+                    drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.brownCardView));
+                    break;
+                case 3:
+                    drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.roseCardView));
+                    break;
+                default: break;
+
+            }
+
             imagesLinearLayout = (LinearLayout) convertView.findViewById(R.id.imagesLinearLayout);
             imagesLinearLayout.setVisibility(View.GONE);
             if(imagesLinearLayout.getChildCount() == 0){
                 //Grab all the photos that match the id of the current location
                 DatabaseHandler db = new DatabaseHandler(getContext());
-               final ArrayList<Image> drugImages = db.getAllImages(drug.getId());
+                final ArrayList<Image> drugImages = db.getAllImages(drug.getId());
                 db.closeDB();
 
 
@@ -284,13 +306,13 @@ public class ListViewFragment extends Fragment {
 
                         @Override
                         public void onError() {
-                                Bitmap bitmapImage = BitmapFactory.decodeFile(image.getResource());
-                                imageView.setImageBitmap(bitmapImage);
-                                imageView.setAdjustViewBounds(true);
-                                imageView.setPadding(0,0,0,20);
+                            Bitmap bitmapImage = BitmapFactory.decodeFile(image.getResource());
+                            imageView.setImageBitmap(bitmapImage);
+                            imageView.setAdjustViewBounds(true);
+                            imageView.setPadding(0,0,0,20);
                         }
                     });
-                    
+
 
                     imagesLinearLayout.addView(imageView);
                 }
@@ -396,6 +418,15 @@ public class ListViewFragment extends Fragment {
             return  convertView;
         }
     }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //refreshes the ListView layout
+        drugList.setAdapter(drugList.getAdapter());
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

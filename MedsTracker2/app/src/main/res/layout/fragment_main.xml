@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="300dp"
-            android:src="@drawable/drugs" />
+            android:src="@drawable/medtrackerlogo" />
 
         <Space
             android:layout_width="match_parent"
@@ -26,9 +26,21 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textColor="#212121"
-            android:textSize="30sp"
-            android:text="@string/home_page_header"/>
-
+            android:textSize="30sp" />
+        <Button
+            android:layout_width="match_parent"
+            android:text="Your Drugs"
+            android:textColor="#FFFFFF"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="match_parent"
+            android:text="Phone"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

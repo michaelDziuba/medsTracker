@@ -1,16 +1,19 @@
 package com.example.cdu.medstracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,12 +35,16 @@ public class MainActivity extends AppCompatActivity implements
         EditDrugFragment.OnFragmentInteractionListener,
         ListViewPhoneFragment.OnFragmentInteractionListener,
         CreatePhoneFragment.OnFragmentInteractionListener,
-        EditPhoneFragment.OnFragmentInteractionListener{
+        EditPhoneFragment.OnFragmentInteractionListener,
+        AboutFragment.OnFragmentInteractionListener{
 
 
-    DisplayMetrics displayMetrics = new DisplayMetrics();
-    public static int screenWidth;
-    public static int screenHeight;
+    SharedPreferences sharedPreferences;
+    public int drugListBackgroundChoice;
+    public final String DRUG_BACKGROUND_CHOICE = "drug_background_choice";
+    public int phoneListBackgroundChoice;
+    public final String PHONE_BACKGROUND_CHOICE = "phone_background_choice";
+
 
     public static FloatingActionButton fab;
 
@@ -50,10 +57,15 @@ public class MainActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        PreferenceManager.getDefaultSharedPreferences(this.getBaseContext()).registerOnSharedPreferenceChangeListener(PreferencesChangeHandler);
+        drugListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(DRUG_BACKGROUND_CHOICE, "0"));
+        phoneListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(PHONE_BACKGROUND_CHOICE, "0"));
+        changeBackgroundColor(DRUG_BACKGROUND_CHOICE, drugListBackgroundChoice);
+        changeBackgroundColor(PHONE_BACKGROUND_CHOICE, phoneListBackgroundChoice);
 
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        screenWidth = displayMetrics.heightPixels;
-        screenHeight = displayMetrics.widthPixels;
+
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFEA00")));
@@ -99,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -108,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivityForResult(intent, 1);
             return true;
         }
 
@@ -153,7 +168,11 @@ public class MainActivity extends AppCompatActivity implements
             transaction.replace(R.id.content_main, new ListViewPhoneFragment());
             transaction.commit();
         } else if (id == R.id.nav_about) {
-
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out);
+            transaction.addToBackStack(null);
+            transaction.replace(R.id.content_main, new AboutFragment());
+            transaction.commit();
 
         }
 
@@ -209,4 +228,33 @@ public class MainActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    /**
+     * Shared preferences listener that listens for a change in user selected settings,
+     *  assigns a user selected value to the menuChoice property and calls on a method to change the recipe names and descriptions
+     *   available to the user through the ListView
+     */
+    private SharedPreferences.OnSharedPreferenceChangeListener PreferencesChangeHandler = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if(key.equals(DRUG_BACKGROUND_CHOICE)){
+                drugListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(key, "0"));
+                changeBackgroundColor(DRUG_BACKGROUND_CHOICE, drugListBackgroundChoice);
+            }else if(key.equals(PHONE_BACKGROUND_CHOICE)){
+                phoneListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(key, "0"));
+                changeBackgroundColor(PHONE_BACKGROUND_CHOICE, phoneListBackgroundChoice);
+            }
+        }
+    };
+
+
+    //assigns color code to ListViewFragment for changing the color of its CardViews
+    private void changeBackgroundColor(String backgroundType, int choice){
+        if(backgroundType.equals(DRUG_BACKGROUND_CHOICE)){
+            ListViewFragment.colorCode = choice;
+        }else if(backgroundType.equals(PHONE_BACKGROUND_CHOICE)){
+            ListViewPhoneFragment.colorCode = choice;
+        }
+    }
+
 }

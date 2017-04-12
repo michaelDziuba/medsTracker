@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:entries="@array/drug_list_background_names"
+        android:entryValues="@array/drug_list_background_values"
+        android:key="drug_background_choice"
+        android:title="Drug List background color"
+        android:persistent="true"
+        android:layout="@layout/drugs_list_settings_layout"
+        android:defaultValue="0" />
+
+    <ListPreference
+        android:entries="@array/phone_list_background_names"
+        android:entryValues="@array/phone_list_background_values"
+        android:key="phone_background_choice"
+        android:title="Phone List background color"
+        android:persistent="true"
+        android:layout="@layout/phone_list_settings_layout"
+        android:defaultValue="0" />
+
+</PreferenceScreen>

@@ -10,12 +10,12 @@
             app:itemTextAppearance="?android:attr/textAppearanceLarge"/>
         <item
             android:id="@+id/nav_your_drugs"
-            android:icon="@drawable/ic_local_library_black_24dp"
+            android:icon="@drawable/ic_local_pharmacy_black_24dp"
             android:title="Your drugs" />
 
         <item
             android:id="@+id/nav_drugs_guide"
-            android:icon="@drawable/ic_whatshot_black_24dp"
+            android:icon="@drawable/ic_local_library_black_24dp"
             android:title="Guide" />
 
         <item
