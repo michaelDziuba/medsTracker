@@ -4,94 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/activity_vertical_margin"
+    android:orientation="horizontal"
     android:minHeight="?android:attr/listPreferredItemHeight">
 
-    <!--<GridLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/rectangle">-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:layout_column="0"-->
-            <!--android:layout_row="0"-->
-            <!--app:srcCompat="@drawable/ic_color_lens_black_24dp"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:textAlignment="center"-->
-            <!--android:layout_column="2"-->
-            <!--android:layout_row="0"-->
-            <!--android:text="Card Color"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:textColor="@color/textColor"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textSize="18sp" />-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:textAlignment="center"-->
-            <!--android:layout_column="2"-->
-            <!--android:layout_row="1"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:text="Card Color"-->
-            <!--android:textColor="@color/textColor"-->
-            <!--android:textStyle="normal"-->
-            <!--android:textSize="18sp" />-->
-        <!---->
-        <!--<Space android:layout_width="100dp"-->
-            <!--android:layout_height="10dp"-->
-            <!--android:layout_column="1"-->
-            <!--android:layout_row="1" />-->
-
-    <!--</GridLayout>-->
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
-    android:background="@drawable/rectangle"
-    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_height="70dp"
+        android:padding="10dp"
+        android:background="@drawable/rectangle"
+        android:orientation="horizontal">
 
-        <ImageView
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_color_lens_black_24dp"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/ic_color_lens_black_24dp"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAlignment="center"
-            android:text="Card Color"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:text="Card Color"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/cardview_header_text_size" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:text="For Drugs and Phone list"
+                android:textColor="@color/textColor"
+                android:textStyle="normal"
+                android:textSize="@dimen/cardview_text_size" />
+            </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="5"/>
     </LinearLayout>
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:textAlignment="center"
-        android:text="For Drugs and Phone list"
-        android:textColor="@color/textColor"
-        android:textStyle="normal"
-        android:textSize="16sp" />
-</LinearLayout>
 
 </LinearLayout>

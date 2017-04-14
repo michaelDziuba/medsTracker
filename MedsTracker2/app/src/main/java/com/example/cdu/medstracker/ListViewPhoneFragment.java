@@ -249,7 +249,7 @@ public class ListViewPhoneFragment extends Fragment {
                 public void onClick(View v) {
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setTitle("Delete this phone?");
+                    alert.setTitle(getString(R.string.delete_phone_confirm));
                     //alert.setMessage("");
                     alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         @Override

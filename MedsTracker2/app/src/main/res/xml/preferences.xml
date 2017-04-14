@@ -5,10 +5,52 @@
         android:entries="@array/background_names"
         android:entryValues="@array/background_values"
         android:key="cardview_background_choice"
-        android:title="List Background Color"
+        android:title="Card Color"
         android:persistent="true"
         android:layout="@layout/drugs_list_settings_layout"
         android:defaultValue="0" />
 
+    <PreferenceScreen
+        android:layout="@layout/preference_header_layout">
+
+        <PreferenceScreen
+            android:layout="@layout/preference_header_layout_second"
+            android:enabled="false"/>
+
+    <Preference
+        android:layout="@layout/preference_pic_layout_tablets">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://pixabay.com/en/tablets-pills-vitamins-antibiotic-1796506/" />
+    </Preference>
+
+    <Preference
+        android:layout="@layout/preference_pic_layout_faqs">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://pixabay.com/en/town-sign-place-name-sign-support-1699981/" />
+    </Preference>
+
+    <Preference
+        android:layout="@layout/preference_pic_layout_medical_symbol">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://pixabay.com/en/doctor-orange-medical-symbol-296571/" />
+    </Preference>
+
+    <Preference
+        android:layout="@layout/preference_pic_layout_error">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://pixabay.com/en/error-crash-problem-failure-63628/" />
+    </Preference>
+
+    <Preference
+        android:layout="@layout/preference_pic_layout_beer">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://pixabay.com/en/beer-beer-mug-foam-the-thirst-1669298/" />
+    </Preference>
+
+    <Preference
+        android:layout="@layout/preference_pic_layout_logo"
+        android:enabled="false" />
+
+</PreferenceScreen>
 
 </PreferenceScreen>

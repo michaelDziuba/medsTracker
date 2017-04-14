@@ -51,4 +51,7 @@
         • Logo Created By Sobhi Houri\n
         • Other images are Public Domain\n
     </string>
+
+    <string name="delete_phone_confirm">Delete this phone card?</string>
+    <string name="delete_drug_confirm">Delete this drug card?</string>
 </resources>

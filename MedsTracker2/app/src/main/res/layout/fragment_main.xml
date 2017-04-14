@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="#FFFFFF"
-    android:layout_height="match_parent">
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="20dp"
-        tools:context="com.example.install.medstracker.MainFragment">
+         android:background="@color/textColor"
+        tools:context="com.example.cdu.medstracker.MainFragment">
 
-        <!-- TODO: Update blank fragment layout -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="230dp"
             android:src="@drawable/medtrackerlogo" />
 
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_vertical_margin" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="#212121"
-            android:textSize="30sp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="5"/>
+
         <Button
             android:layout_width="match_parent"
             android:text="Your Drugs"
             android:id="@+id/buttonDrugs"
-            android:textColor="#FFFFFF"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/textColor"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_height="wrap_content" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
         <Button
             android:layout_width="match_parent"
             android:text="Phone"
             android:id="@+id/buttonPhone"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="@color/colorPrimary"
-            android:layout_margin="10dp"
+            android:textColor="@color/textColor"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_height="wrap_content" />
 
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
     </LinearLayout>
-</ScrollView>
+

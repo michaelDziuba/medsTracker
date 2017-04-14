@@ -337,7 +337,7 @@ public class ListViewFragment extends Fragment {
                 public void onClick(View v) {
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setTitle("Delete this drug?");
+                    alert.setTitle(getString(R.string.delete_drug_confirm));
                     //alert.setMessage("");
                     alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         @Override
