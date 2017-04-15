@@ -25,9 +25,11 @@
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:id="@+id/phoneNameTextView1"
                    android:text="Name: "
                    android:textStyle="bold|normal"/>
-                   <TextView
+
+                <TextView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:textColor="#000000"
@@ -48,8 +50,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/phoneTextView2"
                 android:text="Phone: "
                 android:textStyle="bold|normal"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,6 +70,7 @@
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:id="@+id/phoneTextView3"
                  android:text="Note: "
                  android:textStyle="bold|normal"/>
             <TextView
@@ -95,6 +100,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/phoneDeleteImageView"
                     cardView:srcCompat="@drawable/ic_delete_black_24dp" />
             </LinearLayout>
             <Space
@@ -113,6 +119,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/phoneEditImageView"
                     cardView:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
             </LinearLayout>
@@ -132,6 +139,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/phoneTalkImageView"
                     cardView:srcCompat="@drawable/ic_phone_in_talk_black_24dp" />
             </LinearLayout>
 

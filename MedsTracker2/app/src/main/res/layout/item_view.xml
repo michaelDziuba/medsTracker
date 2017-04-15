@@ -22,22 +22,24 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:orientation="horizontal">
+
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:id="@+id/textViewDrugCard1"
                    android:text="Name: "
                    android:textStyle="bold|normal"/>
-                   <TextView
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:textColor="#000000"
-                   android:id="@+id/drugNameTextView"
-                   android:padding="4dp"
-                   android:textSize="@dimen/cardview_header_text_size"
-                   android:layout_weight="1"
-                   android:fontFamily="serif"
-                   android:textStyle="bold|normal"/>
 
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textColor="#000000"
+                       android:id="@+id/drugNameTextView"
+                       android:padding="4dp"
+                       android:textSize="@dimen/cardview_header_text_size"
+                       android:layout_weight="1"
+                       android:fontFamily="serif"
+                       android:textStyle="bold|normal"/>
 
            </LinearLayout>
 
@@ -45,11 +47,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/textViewDrugCard2"
                 android:text="Amount: "
                 android:textStyle="bold|normal"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,17 +62,21 @@
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/drugDoseTextView"
                 android:textStyle="bold|normal"/>
+
         </LinearLayout>
 
          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:id="@+id/textViewDrugCard3"
                  android:text="When: "
                  android:textStyle="bold|normal"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,17 +84,21 @@
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/whenToTakeTextView"
                 android:textStyle="bold|normal"/>
+
          </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/textViewDrugCard4"
                 android:text="How: "
                 android:textStyle="bold|normal"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,6 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,15 +122,19 @@
                 android:layout_marginBottom="@dimen/cardview_padding"
                 android:id="@+id/deleteIcon"
                 android:gravity="center">
+
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/deleteDrugImageView"
                     cardView:srcCompat="@drawable/ic_delete_black_24dp" />
+
             </LinearLayout>
             <Space
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="4"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,9 +144,11 @@
                 android:layout_marginBottom="@dimen/cardview_padding"
                 android:id="@+id/editIcon"
                 android:gravity="center">
+
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/editDrugImageView"
                     cardView:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
             </LinearLayout>
@@ -146,9 +166,11 @@
                 android:layout_marginBottom="@dimen/cardview_padding"
                 android:id="@+id/addPhotoIcon"
                 android:gravity="center">
+
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/addPhotoDrugImageView"
                     cardView:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
             </LinearLayout>
 
@@ -165,9 +187,11 @@
                 android:layout_marginBottom="@dimen/cardview_padding"
                 android:id="@+id/webIcon"
                 android:gravity="center">
+
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/webDrugImageView"
                     cardView:srcCompat="@drawable/ic_language_black_24dp" />
             </LinearLayout>
 

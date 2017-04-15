@@ -60,9 +60,11 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         PreferenceManager.getDefaultSharedPreferences(this.getBaseContext()).registerOnSharedPreferenceChangeListener(PreferencesChangeHandler);
         cardViewBackgroundChoice = Integer.parseInt(sharedPreferences.getString(CARDVIEW_BACKGROUND_CHOICE, "0"));
+        if(cardViewBackgroundChoice == 0){
+            PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
+        }
         changeBackgroundColor(CARDVIEW_BACKGROUND_CHOICE, cardViewBackgroundChoice);
 
 

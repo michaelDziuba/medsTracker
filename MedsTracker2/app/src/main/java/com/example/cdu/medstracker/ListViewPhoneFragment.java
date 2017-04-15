@@ -216,18 +216,52 @@ public class ListViewPhoneFragment extends Fragment {
 
             CardView phoneCardView = (CardView) convertView;
 
+            TextView textView1 = (TextView) convertView.findViewById(R.id.phoneNameTextView1);
+            TextView textView2 = (TextView) convertView.findViewById(R.id.phoneNameTextView);
+            TextView textView3 = (TextView) convertView.findViewById(R.id.phoneTextView2);
+            TextView textView4 = (TextView) convertView.findViewById(R.id.phoneNumberTextView);
+            TextView textView5 = (TextView) convertView.findViewById(R.id.phoneTextView3);
+            TextView textView6 = (TextView) convertView.findViewById(R.id.phoneNoteTextView);
+//            TextView textView7 = (TextView) convertView.findViewById(R.id.textViewDrugCard4);
+//            TextView textView8 = (TextView) convertView.findViewById(R.id.notesTextView);
+//            TextView textView9 = (TextView) convertView.findViewById(R.id.detailsTextView);
+
+
+            ImageView imageView1 = (ImageView) convertView.findViewById(R.id.phoneDeleteImageView);
+            ImageView imageView2 = (ImageView) convertView.findViewById(R.id.phoneEditImageView);
+            ImageView imageView3 = (ImageView) convertView.findViewById(R.id.phoneTalkImageView);
+            //ImageView imageView4 = (ImageView) convertView.findViewById(R.id.webDrugImageView);
+
             switch(colorCode){
                 case 0:
                     phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.whiteCardView));
+
+                    textView1.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView2.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView3.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView4.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView5.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView6.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+
+                    imageView1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_delete_black_24dp));
+                    imageView2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_mode_edit_black_24dp));
+                    imageView3.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_phone_in_talk_black_24dp));
+
                     break;
                 case 1:
-                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.yellowCardView));
-                    break;
-                case 2:
-                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.brownCardView));
-                    break;
-                case 3:
-                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.roseCardView));
+                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.brown));
+
+                    textView1.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView2.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView3.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView4.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView5.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView6.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+
+                    imageView1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_delete_white_24dp));
+                    imageView2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_mode_edit_white_24dp));
+                    imageView3.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_phone_in_talk_white_24dp));
+
                     break;
                 default: break;
 

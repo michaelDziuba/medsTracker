@@ -11,6 +11,7 @@
     <color name="button_color">#FFEA00</color>
 
     <color name="textColor">#FFFFFF</color>
+    <color name="blackTextColor">#000000</color>
 
     <color name="faqsColor">#5A7D78</color>
     <color name="interactionsColor">#5E6E78</color>
@@ -22,5 +23,8 @@
     <color name="yellowCardView">#F0F595</color>
     <color name="brownCardView">#C38C5A</color>
     <color name="roseCardView">#FF645A</color>
+
+    <color name="brown">#96041E</color>
+    <color name="white">#000000</color>
 
 </resources>
