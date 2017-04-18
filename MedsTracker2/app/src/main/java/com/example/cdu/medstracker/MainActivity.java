@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -40,10 +41,12 @@ public class MainActivity extends AppCompatActivity implements
 
 
     SharedPreferences sharedPreferences;
-    public int drugListBackgroundChoice;
-    public final String DRUG_BACKGROUND_CHOICE = "drug_background_choice";
-    public int phoneListBackgroundChoice;
-    public final String PHONE_BACKGROUND_CHOICE = "phone_background_choice";
+    public int cardViewBackgroundChoice;
+    public final String CARDVIEW_BACKGROUND_CHOICE = "cardview_background_choice";
+//    public int drugListBackgroundChoice;
+//    public final String DRUG_BACKGROUND_CHOICE = "drug_background_choice";
+//    public int phoneListBackgroundChoice;
+//    public final String PHONE_BACKGROUND_CHOICE = "phone_background_choice";
 
 
     public static FloatingActionButton fab;
@@ -58,18 +61,24 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         PreferenceManager.getDefaultSharedPreferences(this.getBaseContext()).registerOnSharedPreferenceChangeListener(PreferencesChangeHandler);
-        drugListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(DRUG_BACKGROUND_CHOICE, "0"));
-        phoneListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(PHONE_BACKGROUND_CHOICE, "0"));
-        changeBackgroundColor(DRUG_BACKGROUND_CHOICE, drugListBackgroundChoice);
-        changeBackgroundColor(PHONE_BACKGROUND_CHOICE, phoneListBackgroundChoice);
+        cardViewBackgroundChoice = Integer.parseInt(sharedPreferences.getString(CARDVIEW_BACKGROUND_CHOICE, "0"));
+        if(cardViewBackgroundChoice == 0){
+            PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
+        }
+        changeBackgroundColor(CARDVIEW_BACKGROUND_CHOICE, cardViewBackgroundChoice);
+
+
+//        drugListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(DRUG_BACKGROUND_CHOICE, "0"));
+//        phoneListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(PHONE_BACKGROUND_CHOICE, "0"));
+//        changeBackgroundColor(DRUG_BACKGROUND_CHOICE, drugListBackgroundChoice);
+//        changeBackgroundColor(PHONE_BACKGROUND_CHOICE, phoneListBackgroundChoice);
 
 
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFEA00")));
-        fab.setRippleColor(Color.parseColor("#00E676"));
+        fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.fab_color)));
+        fab.setRippleColor(ContextCompat.getColor(getApplicationContext(), R.color.fab_ripple_color));
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -233,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }else{
-            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "No installed software to complete the task", Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.no_installed_software), Snackbar.LENGTH_SHORT);
             snackbar.show();
         }
     }
@@ -251,24 +260,29 @@ public class MainActivity extends AppCompatActivity implements
     private SharedPreferences.OnSharedPreferenceChangeListener PreferencesChangeHandler = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if(key.equals(DRUG_BACKGROUND_CHOICE)){
-                drugListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(key, "0"));
-                changeBackgroundColor(DRUG_BACKGROUND_CHOICE, drugListBackgroundChoice);
-            }else if(key.equals(PHONE_BACKGROUND_CHOICE)){
-                phoneListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(key, "0"));
-                changeBackgroundColor(PHONE_BACKGROUND_CHOICE, phoneListBackgroundChoice);
+            if(key.equals(CARDVIEW_BACKGROUND_CHOICE)){
+                cardViewBackgroundChoice = Integer.parseInt(sharedPreferences.getString(key, "0"));
+                changeBackgroundColor(CARDVIEW_BACKGROUND_CHOICE, cardViewBackgroundChoice);
             }
+
+//            else if(key.equals(PHONE_BACKGROUND_CHOICE)){
+//                phoneListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(key, "0"));
+//                changeBackgroundColor(PHONE_BACKGROUND_CHOICE, phoneListBackgroundChoice);
+//            }
         }
     };
 
 
     //assigns color code to ListViewFragment for changing the color of its CardViews
     private void changeBackgroundColor(String backgroundType, int choice){
-        if(backgroundType.equals(DRUG_BACKGROUND_CHOICE)){
+        if(backgroundType.equals(CARDVIEW_BACKGROUND_CHOICE)){
             ListViewFragment.colorCode = choice;
-        }else if(backgroundType.equals(PHONE_BACKGROUND_CHOICE)){
             ListViewPhoneFragment.colorCode = choice;
         }
+
+//        else if(backgroundType.equals(PHONE_BACKGROUND_CHOICE)){
+//            ListViewPhoneFragment.colorCode = choice;
+//        }
     }
 
 }

@@ -121,9 +121,9 @@ public class EditDrugFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle("Delete photo?");
+                alert.setTitle(getString(R.string.delete_photo));
                 //alert.setMessage("");
-                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DatabaseHandler db = new DatabaseHandler(getContext());
@@ -137,13 +137,13 @@ public class EditDrugFragment extends Fragment {
                         db.closeDB();
                         dialog.dismiss();
 
-                        Toast toast = Toast.makeText(getActivity(), "Photo deleted", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getActivity(), getString(R.string.photo_deleted), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
                         toast.show();
                     }
                 });
 
-                alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

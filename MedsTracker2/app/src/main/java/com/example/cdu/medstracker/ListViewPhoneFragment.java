@@ -216,18 +216,47 @@ public class ListViewPhoneFragment extends Fragment {
 
             CardView phoneCardView = (CardView) convertView;
 
+            TextView textView1 = (TextView) convertView.findViewById(R.id.phoneNameTextView1);
+            TextView textView2 = (TextView) convertView.findViewById(R.id.phoneNameTextView);
+            TextView textView3 = (TextView) convertView.findViewById(R.id.phoneTextView2);
+            TextView textView4 = (TextView) convertView.findViewById(R.id.phoneNumberTextView);
+            TextView textView5 = (TextView) convertView.findViewById(R.id.phoneTextView3);
+            TextView textView6 = (TextView) convertView.findViewById(R.id.phoneNoteTextView);
+
+            ImageView imageView1 = (ImageView) convertView.findViewById(R.id.phoneDeleteImageView);
+            ImageView imageView2 = (ImageView) convertView.findViewById(R.id.phoneEditImageView);
+            ImageView imageView3 = (ImageView) convertView.findViewById(R.id.phoneTalkImageView);
+
             switch(colorCode){
                 case 0:
                     phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.whiteCardView));
+
+                    textView1.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView2.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView3.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView4.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView5.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView6.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+
+                    imageView1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_delete_black_24dp));
+                    imageView2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_mode_edit_black_24dp));
+                    imageView3.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_phone_in_talk_black_24dp));
+
                     break;
                 case 1:
-                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.yellowCardView));
-                    break;
-                case 2:
-                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.brownCardView));
-                    break;
-                case 3:
-                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.roseCardView));
+                    phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.brown));
+
+                    textView1.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView2.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView3.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView4.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView5.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView6.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+
+                    imageView1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_delete_white_24dp));
+                    imageView2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_mode_edit_white_24dp));
+                    imageView3.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_phone_in_talk_white_24dp));
+
                     break;
                 default: break;
 
@@ -249,9 +278,9 @@ public class ListViewPhoneFragment extends Fragment {
                 public void onClick(View v) {
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setTitle("Delete this phone?");
+                    alert.setTitle(getString(R.string.delete_phone_confirm));
                     //alert.setMessage("");
-                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             DatabaseHandler db = new DatabaseHandler(getContext());
@@ -267,7 +296,7 @@ public class ListViewPhoneFragment extends Fragment {
                         }
                     });
 
-                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -299,7 +328,7 @@ public class ListViewPhoneFragment extends Fragment {
                     if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivity(intent);
                     }else{
-                        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No installed software to complete the task", Snackbar.LENGTH_SHORT);
+                        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.no_installed_software), Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
                 }
@@ -327,9 +356,9 @@ public class ListViewPhoneFragment extends Fragment {
 
         if (requestCode == REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext().getApplicationContext(), "PERMISSION_GRANTED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext().getApplicationContext(), getString(R.string.permission_granted), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext().getApplicationContext(), "PERMISSION_DENIED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext().getApplicationContext(), getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
             }
         }
     }

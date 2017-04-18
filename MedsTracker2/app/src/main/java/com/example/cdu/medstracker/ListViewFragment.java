@@ -52,7 +52,7 @@ public class ListViewFragment extends Fragment {
     public static int colorCode;
 
     private static final int REQUEST_CODE = 0x11;
-    String[] permissions = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.CAMERA"};
+    String[] permissions = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
 
 
     FragmentManager fm;
@@ -121,6 +121,8 @@ public class ListViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
 
+
+
         if(!fab.isShown()){
             fab.setVisibility(View.VISIBLE);
         }
@@ -157,24 +159,32 @@ public class ListViewFragment extends Fragment {
 
                 imagesLinearLayout =  (LinearLayout) view.findViewById(R.id.imagesLinearLayout);
 
-                ImageView chevronImageView = (ImageView) view.findViewById(R.id.chevronImageView);
-
+                //ImageView chevronImageView = (ImageView) view.findViewById(R.id.chevronImageView);
+                final ImageView imageViewChevron = (ImageView) view.findViewById(R.id.chevronImageView);
 
                 if(imagesLinearLayout.getVisibility() == View.GONE || imagesLinearLayout.getVisibility() == View.INVISIBLE){
                     imagesLinearLayout.setVisibility(View.VISIBLE);
 
                     //update the text of the show more
-                    detailsTextView.setText("Hide photo");
+                    detailsTextView.setText(getString(R.string.hide_photo));
                     //update the chevron image
-                    chevronImageView.setImageResource(R.drawable.ic_expand_less_black_24dp);
+                    //imageViewChevron.setImageResource(R.drawable.ic_expand_less_black_24dp);
+                    switch(colorCode){
+                        case 0: imageViewChevron.setImageResource(R.drawable.ic_expand_less_black_24dp); break;
+                        case 1: imageViewChevron.setImageResource(R.drawable.ic_expand_less_white_24dp); break;
+                    }
 
                 }
                 else{
                     imagesLinearLayout.setVisibility(View.GONE);
                     //update the text of the show more
-                    detailsTextView.setText("Show photo");
+                    detailsTextView.setText(getString(R.string.show_photo));
                     //update the chevron image
-                    chevronImageView.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                    //imageViewChevron.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                    switch(colorCode){
+                        case 0: imageViewChevron.setImageResource(R.drawable.ic_expand_more_black_24dp); break;
+                        case 1: imageViewChevron.setImageResource(R.drawable.ic_expand_more_white_24dp); break;
+                    }
                 }
             }
         });
@@ -263,19 +273,62 @@ public class ListViewFragment extends Fragment {
             }
 
             CardView drugCardView = (CardView) convertView;
+            TextView textView1 = (TextView) convertView.findViewById(R.id.textViewDrugCard1);
+            TextView textView2 = (TextView) convertView.findViewById(R.id.drugNameTextView);
+            TextView textView3 = (TextView) convertView.findViewById(R.id.textViewDrugCard2);
+            TextView textView4 = (TextView) convertView.findViewById(R.id.drugDoseTextView);
+            TextView textView5 = (TextView) convertView.findViewById(R.id.textViewDrugCard3);
+            TextView textView6 = (TextView) convertView.findViewById(R.id.whenToTakeTextView);
+            TextView textView7 = (TextView) convertView.findViewById(R.id.textViewDrugCard4);
+            TextView textView8 = (TextView) convertView.findViewById(R.id.notesTextView);
+            TextView textView9 = (TextView) convertView.findViewById(R.id.detailsTextView);
+
+
+            ImageView imageView1 = (ImageView) convertView.findViewById(R.id.deleteDrugImageView);
+            ImageView imageView2 = (ImageView) convertView.findViewById(R.id.editDrugImageView);
+            ImageView imageView3 = (ImageView) convertView.findViewById(R.id.addPhotoDrugImageView);
+            ImageView imageView4 = (ImageView) convertView.findViewById(R.id.webDrugImageView);
+
+            ImageView imageViewChevron = (ImageView) convertView.findViewById(R.id.chevronImageView);
 
             switch(colorCode){
                 case 0:
                     drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.whiteCardView));
+
+                    textView1.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView2.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView3.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView4.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView5.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView6.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView7.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView8.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+                    textView9.setTextColor(ContextCompat.getColor(getContext(), R.color.blackTextColor));
+
+                    imageView1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_delete_black_24dp));
+                    imageView2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_mode_edit_black_24dp));
+                    imageView3.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_a_photo_black_24dp));
+                    imageView4.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_language_black_24dp));
+                    imageViewChevron.setImageResource(R.drawable.ic_expand_more_black_24dp);
                     break;
                 case 1:
-                    drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.yellowCardView));
-                    break;
-                case 2:
-                    drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.brownCardView));
-                    break;
-                case 3:
-                    drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.roseCardView));
+                    drugCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.brown));
+
+                    textView1.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView2.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView3.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView4.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView5.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView6.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView7.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView8.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+                    textView9.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor));
+
+                    imageView1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_delete_white_24dp));
+                    imageView2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_mode_edit_white_24dp));
+                    imageView3.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_a_photo_white_24dp));
+                    imageView4.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_language_white_24dp));
+                    imageViewChevron.setImageResource(R.drawable.ic_expand_more_white_24dp);
                     break;
                 default: break;
 
@@ -337,9 +390,9 @@ public class ListViewFragment extends Fragment {
                 public void onClick(View v) {
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setTitle("Delete this drug?");
+                    alert.setTitle(getString(R.string.delete_drug_confirm));
                     //alert.setMessage("");
-                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             DatabaseHandler db = new DatabaseHandler(getContext());
@@ -369,7 +422,7 @@ public class ListViewFragment extends Fragment {
                         }
                     });
 
-                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -405,11 +458,11 @@ public class ListViewFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                    intent.putExtra(SearchManager.QUERY, drug.getDrugName() + " drug information -pdf");
+                    intent.putExtra(SearchManager.QUERY, drug.getDrugName() + " " + getString(R.string.search_intent_query));
                     if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivity(intent);
                     }else{
-                        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No installed software to complete the task", Snackbar.LENGTH_SHORT);
+                        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.no_installed_software), Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
                 }
@@ -434,9 +487,9 @@ public class ListViewFragment extends Fragment {
 
         if (requestCode == REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext().getApplicationContext(), "PERMISSION_GRANTED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext().getApplicationContext(), getString(R.string.permission_granted), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext().getApplicationContext(), "PERMISSION_DENIED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext().getApplicationContext(), getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
             }
         }
     }
