@@ -7,7 +7,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         tools:context="com.example.cdu.medstracker.EditDrugFragment"
         android:columnCount="2"
         android:paddingTop="@dimen/activity_vertical_margin"
@@ -31,7 +31,7 @@
             android:inputType="textCapCharacters|textImeMultiLine"
 
             android:ems="10"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:id="@+id/editDrugName"
             android:layout_column="1">
 
@@ -53,7 +53,7 @@
             android:inputType="textImeMultiLine"
             android:gravity="top|left"
             android:ems="10"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:id="@+id/editDrugDose"
             android:layout_column="1" />
 
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:inputType="textImeMultiLine"
             android:ems="10"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:id="@+id/editDrugWhen"
             android:layout_column="1" />
 
@@ -88,7 +88,7 @@
             android:includeFontPadding="true"
             android:inputType="textImeMultiLine"
             android:ems="10"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:id="@+id/editDrugNotes"
             android:layout_column="1" />
 
@@ -127,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:text="Delete Photo"
             android:textStyle="bold|normal"/>
     </LinearLayout>

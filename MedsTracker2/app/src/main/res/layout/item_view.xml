@@ -33,7 +33,7 @@
                    <TextView
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:textColor="#000000"
+                       android:textColor="@color/black"
                        android:id="@+id/drugNameTextView"
                        android:padding="4dp"
                        android:textSize="@dimen/cardview_header_text_size"
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/drugDoseTextView"
                 android:textStyle="bold|normal"/>
@@ -80,7 +80,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/whenToTakeTextView"
                 android:textStyle="bold|normal"/>
@@ -102,7 +102,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/notesTextView"
                 android:textStyle="bold|normal"/>
