@@ -26,7 +26,9 @@
 
     <color name="brown">#96041E</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+
+   <color name="black">#000000</color>
+
 
     <color name="fab_color">#FFEA00</color>
     <color name="fab_ripple_color">#00E676</color>

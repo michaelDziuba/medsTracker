@@ -264,9 +264,13 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
             try {
                 Camera.Parameters params = mCamera.getParameters();
                 params.setRotation(90);
-                params.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO);
-                params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
 
+               if (getActivity().getPackageManager().hasSystemFeature("android.hardware.camera.FLASH_MODE_AUTO")){
+                   params.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO);
+               }
+                if(getActivity().getPackageManager().hasSystemFeature("android.hardware.camera.FOCUS_MODE_AUTO")){
+                    params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+                }
 
                 params.setZoom(2);
 
