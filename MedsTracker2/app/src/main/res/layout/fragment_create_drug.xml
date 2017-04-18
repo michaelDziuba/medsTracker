@@ -6,7 +6,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         tools:context="com.example.cdu.medstracker.CreateDrugFragment"
         android:columnCount="2"
         android:paddingTop="@dimen/activity_vertical_margin"
@@ -30,7 +30,7 @@
             android:inputType="textCapCharacters"
             android:ems="10"
             android:hint="eg. Aspirin"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:id="@+id/drugNameEditText"
             android:layout_column="1">
 
@@ -53,7 +53,7 @@
             android:gravity="top|left"
             android:hint="eg. 325 mg (1 tablet)"
             android:ems="10"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:id="@+id/drugDoseEditText"
             android:layout_column="1" />
 
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:hint="eg. every 6 hours"
             android:id="@+id/whenToTakeEditText"
             android:layout_column="1" />
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:hint="eg. Take with food"
             android:id="@+id/notesEditText"
             android:layout_column="1" />
