@@ -52,7 +52,7 @@ public class ListViewFragment extends Fragment {
     public static int colorCode;
 
     private static final int REQUEST_CODE = 0x11;
-    String[] permissions = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.CAMERA"};
+    String[] permissions = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
 
 
     FragmentManager fm;
@@ -166,7 +166,7 @@ public class ListViewFragment extends Fragment {
                     imagesLinearLayout.setVisibility(View.VISIBLE);
 
                     //update the text of the show more
-                    detailsTextView.setText("Hide photo");
+                    detailsTextView.setText(getString(R.string.hide_photo));
                     //update the chevron image
                     //imageViewChevron.setImageResource(R.drawable.ic_expand_less_black_24dp);
                     switch(colorCode){
@@ -178,7 +178,7 @@ public class ListViewFragment extends Fragment {
                 else{
                     imagesLinearLayout.setVisibility(View.GONE);
                     //update the text of the show more
-                    detailsTextView.setText("Show photo");
+                    detailsTextView.setText(getString(R.string.show_photo));
                     //update the chevron image
                     //imageViewChevron.setImageResource(R.drawable.ic_expand_more_black_24dp);
                     switch(colorCode){
@@ -392,7 +392,7 @@ public class ListViewFragment extends Fragment {
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     alert.setTitle(getString(R.string.delete_drug_confirm));
                     //alert.setMessage("");
-                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             DatabaseHandler db = new DatabaseHandler(getContext());
@@ -422,7 +422,7 @@ public class ListViewFragment extends Fragment {
                         }
                     });
 
-                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -458,11 +458,11 @@ public class ListViewFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                    intent.putExtra(SearchManager.QUERY, drug.getDrugName() + " drug information -pdf");
+                    intent.putExtra(SearchManager.QUERY, drug.getDrugName() + " " + getString(R.string.search_intent_query));
                     if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivity(intent);
                     }else{
-                        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No installed software to complete the task", Snackbar.LENGTH_SHORT);
+                        Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.no_installed_software), Snackbar.LENGTH_SHORT);
                         snackbar.show();
                     }
                 }
@@ -487,9 +487,9 @@ public class ListViewFragment extends Fragment {
 
         if (requestCode == REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext().getApplicationContext(), "PERMISSION_GRANTED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext().getApplicationContext(), getString(R.string.permission_granted), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext().getApplicationContext(), "PERMISSION_DENIED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext().getApplicationContext(), getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
             }
         }
     }

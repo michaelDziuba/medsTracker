@@ -119,9 +119,9 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                     dataGlobal = null;
                     mCamera.startPreview();
                     previewShowing = true;
-                    Toast.makeText(getActivity(), "Picture Deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.photo_deleted), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getActivity(), "There is no picture to delete", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.no_photo_to_delete), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -149,7 +149,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                     File pictureFile = getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
 
                     if (pictureFile == null) {
-                        Log.d("*****", "Error creating media file, check storage permissions!!!");
+                        //Log.d("*****", "Error creating media file, check storage permissions!!!");
                         return;
                     }
 
@@ -171,9 +171,9 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                             int id = (int) db.addImage(image);
                             if (id != -1) {
                                 image.setId(id);
-                                Toast.makeText(getActivity(), "Photo Added", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), getString(R.string.photo_added), Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getActivity(), "Photo Not Added", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), getString(R.string.photo_not_added), Toast.LENGTH_LONG).show();
                             }
                         }
 
@@ -192,7 +192,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
 
 
                 }else{
-                    Toast.makeText(getActivity(), "Please take a picture,\nthen press SAVE", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.please_take_picture), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -224,7 +224,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
     @Override
     public void onPause(){
         super.onPause();
-        Log.i("****","onPause() called");
+        //Log.i("****","onPause() called");
         dataGlobal = null;
         previewShowing = true;
     }
@@ -316,7 +316,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                 @Override
                 public void onPictureTaken(byte[] data, Camera camera) {
                     dataGlobal = data;
-                    Toast.makeText(getActivity(), "Picture Taken", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.picture_taken), Toast.LENGTH_SHORT).show();
                 }
             };
 
@@ -327,7 +327,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
-        Log.i("External Storage state", Environment.getExternalStorageState());
+        //Log.i("External Storage state", Environment.getExternalStorageState());
 
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "com.example.cdu.medstracker");
 
@@ -338,7 +338,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
         // Create the storage directory if it does not exist
         if (! mediaStorageDir.exists()){
             if (! mediaStorageDir.mkdirs()){
-                Log.d("CameraApi", "failed to create directory");
+                //Log.d("CameraApi", "failed to create directory");
                 return null;
             }
         }

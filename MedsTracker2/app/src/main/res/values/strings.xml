@@ -54,4 +54,29 @@
 
     <string name="delete_phone_confirm">Delete this phone card?</string>
     <string name="delete_drug_confirm">Delete this drug card?</string>
+
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+
+    <string name="hide_photo">Hide photo</string>
+    <string name="show_photo">Show photo</string>
+
+    <string name="permission_granted">PERMISSION_GRANTED</string>
+    <string name="permission_denied">PERMISSION_DENIED</string>
+
+    <string name="no_installed_software">No installed software to complete the task</string>
+
+    <string name="search_intent_query">drug information -pdf</string>
+
+    <string name="delete_photo">Delete photo?</string>
+    <string name="photo_deleted">Photo deleted</string>
+    <string name="no_photo_to_delete">There is no photo to delete</string>
+
+    <string name="photo_added">Photo added</string>
+    <string name="photo_not_added">Photo not added</string>
+
+    <string name="please_take_picture">Please take a picture, then press SAVE</string>
+
+    <string name="picture_taken">Picture taken</string>
+
 </resources>
