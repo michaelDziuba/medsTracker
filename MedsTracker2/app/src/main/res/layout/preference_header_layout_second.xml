@@ -11,7 +11,7 @@
     android:textColor="@color/textColor"
     android:textSize="@dimen/cardview_header_text_size"
     android:textStyle="bold"
-    android:text="Image sources"/>
+    android:text="@string/settings_button_image_sources"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -19,6 +19,6 @@
         android:textColor="@color/textColor"
         android:textSize="@dimen/cardview_text_size"
         android:textStyle="italic"
-        android:text="All images in this App are Public Domain, except for the App logo."/>
+        android:text="@string/settings_button_image_sources_details"/>
 
 </LinearLayout>

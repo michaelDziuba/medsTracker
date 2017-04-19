@@ -17,9 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/deleteButton"
-        android:text="DELETE"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
+        android:text="@string/delete_button"
+        android:layout_marginLeft="@dimen/take_photo_margin"
+        android:layout_marginBottom="@dimen/take_photo_margin"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" />
 
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_camera_alt_black_24dp"
         android:id="@+id/takePicture"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/take_photo_margin"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -36,9 +36,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/saveButton"
-        android:text="SAVE"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:text="@string/save_button"
+        android:layout_marginRight="@dimen/take_photo_margin"
+        android:layout_marginBottom="@dimen/take_photo_margin"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 

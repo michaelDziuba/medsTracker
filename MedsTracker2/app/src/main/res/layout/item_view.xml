@@ -27,12 +27,14 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:id="@+id/textViewDrugCard1"
-                   android:text="Name: "
-                   android:textStyle="bold|normal"/>
+                   android:text="@string/drug_name_label"
+                   android:textStyle="normal"/>
+
 
                    <TextView
-                       android:layout_width="match_parent"
+                       android:layout_width="0dp"
                        android:layout_height="wrap_content"
+                       android:layout_marginLeft="@dimen/form_field_margin"
                        android:textColor="@color/black"
                        android:id="@+id/drugNameTextView"
                        android:padding="4dp"
@@ -52,12 +54,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewDrugCard2"
-                android:text="Amount: "
-                android:textStyle="bold|normal"/>
+                android:text="@string/drug_doze_label"
+                android:textStyle="normal"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/form_field_margin"
                 android:textColor="@color/black"
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/drugDoseTextView"
@@ -74,12 +77,13 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:id="@+id/textViewDrugCard3"
-                 android:text="When: "
-                 android:textStyle="bold|normal"/>
+                 android:text="@string/drug_when_label"
+                 android:textStyle="normal"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/form_field_margin"
                 android:textColor="@color/black"
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/whenToTakeTextView"
@@ -96,12 +100,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewDrugCard4"
-                android:text="How: "
-                android:textStyle="bold|normal"/>
+                android:text="@string/drug_note_label"
+                android:textStyle="normal"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/form_field_margin"
                 android:textColor="@color/black"
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/notesTextView"
@@ -124,8 +129,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/deleteDrugImageView"
                     cardView:srcCompat="@drawable/ic_delete_black_24dp" />
 
@@ -146,8 +151,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/editDrugImageView"
                     cardView:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
@@ -168,8 +173,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/addPhotoDrugImageView"
                     cardView:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
             </LinearLayout>
@@ -189,8 +194,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/webDrugImageView"
                     cardView:srcCompat="@drawable/ic_language_black_24dp" />
             </LinearLayout>
@@ -214,9 +219,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingTop="5dp">
+                android:paddingTop="@dimen/card_inner_padding">
                 <TextView
-                    android:text="Show photo"
+                    android:text="@string/show_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/detailsTextView"

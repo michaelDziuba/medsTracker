@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     tools:context="com.example.cdu.medstracker.ViewPagerControllerFragment">
 
 
@@ -17,21 +17,21 @@
 
 
     <ImageButton
-        android:layout_width="38dp"
-        android:layout_height="108dp"
+        android:layout_width="@dimen/view_pager_controller_button_width"
+        android:layout_height="@dimen/view_pager_controller_button_height"
         android:id="@+id/left_nav"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginLeft="@dimen/view_pager_controller_button_margin_side"
+        android:layout_marginTop="@dimen/view_pager_controller_button_margin_top"
         android:layout_gravity="top|left"
         app:srcCompat="@drawable/ic_chevron_left_black_24dp"
         />
 
     <ImageButton
-        android:layout_width="38dp"
-        android:layout_height="108dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="@dimen/view_pager_controller_button_width"
+        android:layout_height="@dimen/view_pager_controller_button_height"
+        android:layout_marginTop="@dimen/view_pager_controller_button_margin_top"
         android:layout_gravity="top|right"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="@dimen/view_pager_controller_button_margin_side"
         android:id="@+id/right_nav"
         app:srcCompat="@drawable/ic_chevron_right_black_24dp"
         />

@@ -2,15 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="@dimen/sources_layout_size">
 
     <ImageView
-        android:layout_width="50dp"
+        android:layout_width="@dimen/sources_layout_size"
         android:layout_height="wrap_content"
         android:src="@drawable/error"
         android:background="@color/textColor"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        />
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,8 +19,8 @@
         android:textColor="@color/textColor"
         android:textSize="@dimen/cardview_text_size"
         android:textStyle="bold"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/sources_margin_left"
         android:ellipsize="end"
-        android:text="https://pixabay.com/en/doctor-orange-medical-symbol-296571/"/>
+        android:text="@string/sources_error_url"/>
 
 </LinearLayout>

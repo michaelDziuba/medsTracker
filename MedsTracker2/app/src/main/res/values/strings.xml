@@ -41,16 +41,16 @@
    <string name="ABOUT">ABOUT</string>
     <string name="about_text">Use MedsTracker to:\n
 
-• Post photos of your daily medication\n
+• Take photos of your daily medication\n
 • Go to “Your Drugs” to create a new reminder include a title, description, and daily dose of your medication\n
 • Go to “Add Photo” to add a photo of your medication so that you\’ll know you’re taking the correct medication.\n
-• Guide tab is a helpful guide to avoid drug interaction. Our information is FDA approved.\n
+• Guide tab is a helpful guide for taking medications. \n
 • Phone tab is a helpful tool to add contacts in case of an emergency. An example would be your family doctor or a relative.\n</string>
-    <string name="about_text2">
-        • Application Developed By Sobhi and Mike\n
-        • Logo Created By Sobhi Houri\n
-        • Other images are Public Domain\n
-    </string>
+    <!--<string name="about_text2">-->
+        <!--• Application Developed By Sobhi and Mike\n-->
+        <!--• Logo Created By Sobhi Houri\n-->
+        <!--• Other images are Public Domain\n-->
+    <!--</string>-->
 
     <string name="delete_phone_confirm">Delete this phone card?</string>
     <string name="delete_drug_confirm">Delete this drug card?</string>
@@ -78,5 +78,53 @@
     <string name="please_take_picture">Please take a picture, then press SAVE</string>
 
     <string name="picture_taken">Picture taken</string>
+
+    <string name="settings_button_header">Card Color</string>
+    <string name="settings_button_details">For Drugs and Phone list</string>
+    <string name="settings_button_image_sources">Image sources</string>
+    <string name="settings_button_image_sources_details">All images in this App are Public Domain, except for the App logo.</string>
+
+
+    <string name="drug_name_label">Drug:</string>
+    <string name="drug_name_hint">eg. Aspirin</string>
+
+    <string name="drug_doze_label">Dose:</string>
+    <string name="drug_doze_hint">eg. 325 mg</string>
+
+    <string name="drug_when_label">When:</string>
+    <string name="drug_when_hint">eg. every 6 hours</string>
+
+    <string name="drug_note_label">Notes:</string>
+    <string name="drug_note_hint">eg. Take with food</string>
+
+    <string name="create_card_button">CREATE CARD</string>
+
+
+    <string name="phone_name_label">Name:</string>
+    <string name="phone_name_hint">eg. Dr. Andrew Smith</string>
+
+    <string name="phone_number_label">Phone:</string>
+    <string name="phone_number_hint">519 448 1111</string>
+
+    <string name="phone_note_label">Note:</string>
+    <string name="phone_note_hint">eg. Family doctor"</string>
+
+    <string name="edit_drug_delete_photo">Delete photo</string>
+
+    <string name="save_button">SAVE</string>
+
+    <string name="home_page_your_drugs_button">YOUR DRUGS</string>
+    <string name="home_page_phone_button">PHONE</string>
+
+    <string name="delete_button">DELETE</string>
+
+    <string name="sources_beer_url">https://pixabay.com/en/doctor-orange-medical-symbol-296571/</string>
+    <string name="sources_error_url">https://pixabay.com/en/doctor-orange-medical-symbol-296571/</string>
+    <string name="sources_faqs_url">https://pixabay.com/en/tablets-pills-vitamins-antibiotic-1796506/</string>
+
+    <string name="created_by_sobhi">Created by Sobhi Houri</string>
+
+    <string name="sources_medical_symbol_url">https://pixabay.com/en/doctor-orange-medical-symbol-296571/</string>
+    <string name="sources_tablets_url">https://pixabay.com/en/tablets-pills-vitamins-antibiotic-1796506/</string>
 
 </resources>

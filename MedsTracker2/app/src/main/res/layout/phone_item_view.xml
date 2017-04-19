@@ -13,6 +13,9 @@
     cardView:contentPaddingRight="@dimen/cardview_padding"
     cardView:cardElevation="@dimen/cardview_elevation"
     cardView:cardUseCompatPadding="true">
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,12 +29,13 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:id="@+id/phoneNameTextView1"
-                   android:text="Name: "
-                   android:textStyle="bold|normal"/>
+                   android:text="@string/phone_name_label"
+                   android:textStyle="normal"/>
 
                 <TextView
-                   android:layout_width="match_parent"
+                   android:layout_width="0dp"
                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/form_field_margin"
                    android:textColor="@color/black"
                    android:id="@+id/phoneNameTextView"
                    android:padding="4dp"
@@ -51,12 +55,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/phoneTextView2"
-                android:text="Phone: "
-                android:textStyle="bold|normal"/>
+                android:text="@string/phone_number_label"
+                android:textStyle="normal"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/form_field_margin"
                 android:textColor="@color/black"
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/phoneNumberTextView"
@@ -71,11 +76,12 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:id="@+id/phoneTextView3"
-                 android:text="Note: "
-                 android:textStyle="bold|normal"/>
+                 android:text="@string/phone_note_label"
+                 android:textStyle="normal"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/form_field_margin"
                 android:textColor="@color/black"
                 android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/phoneNoteTextView"
@@ -98,8 +104,8 @@
                 android:id="@+id/deletePhoneIcon"
                 android:gravity="center">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/card_icon_size"
+                    android:layout_height="@dimen/card_icon_size"
                     android:id="@+id/phoneDeleteImageView"
                     cardView:srcCompat="@drawable/ic_delete_black_24dp" />
             </LinearLayout>
@@ -117,8 +123,8 @@
                 android:id="@+id/editPhoneIcon"
                 android:gravity="center">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/phoneEditImageView"
                     cardView:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
@@ -137,8 +143,8 @@
                 android:id="@+id/phoneIcon"
                 android:gravity="center">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/phoneTalkImageView"
                     cardView:srcCompat="@drawable/ic_phone_in_talk_black_24dp" />
             </LinearLayout>

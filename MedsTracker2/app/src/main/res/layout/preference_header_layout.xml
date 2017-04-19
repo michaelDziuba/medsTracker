@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textAlignment="center"
-            android:text="Image sources"
+            android:text="@string/settings_button_image_sources"
             android:textColor="@color/textColor"
             android:textStyle="bold"
             android:textSize="@dimen/cardview_header_text_size" />

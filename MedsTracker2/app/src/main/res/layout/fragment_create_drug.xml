@@ -5,7 +5,7 @@
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         tools:context="com.example.cdu.medstracker.CreateDrugFragment"
         android:columnCount="2"
@@ -17,86 +17,86 @@
         <!-- TODO: Update blank fragment layout -->
 
         <TextView
-            android:text="Drug name:"
+            android:text="@string/drug_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="22sp" />
+            android:textSize="@dimen/form_field_label" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters"
-            android:ems="10"
-            android:hint="eg. Aspirin"
+            android:ems="@integer/edit_text_ems_text_size"
+            android:hint="@string/drug_name_hint"
             android:textColor="@color/black"
             android:id="@+id/drugNameEditText"
             android:layout_column="1">
 
+            <!--Requests focus for this EditText, when the parent view is first displayed-->
             <requestFocus />
 
         </EditText>
 
         <TextView
-            android:text="Drug dose:"
+            android:text="@string/drug_doze_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:layout_column="0"
-            android:textSize="22sp" />
+            android:textSize="@dimen/form_field_label" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:gravity="top|left"
-            android:hint="eg. 325 mg (1 tablet)"
-            android:ems="10"
+            android:hint="@string/drug_doze_hint"
+            android:ems="@integer/edit_text_ems_text_size"
             android:textColor="@color/black"
             android:id="@+id/drugDoseEditText"
             android:layout_column="1" />
 
         <TextView
-            android:text="When to take:"
+            android:text="@string/drug_when_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:layout_column="0"
-            android:textSize="22sp" />
+            android:textSize="@dimen/form_field_label" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:ems="10"
+            android:ems="@integer/edit_text_ems_text_size"
             android:textColor="@color/black"
-            android:hint="eg. every 6 hours"
+            android:hint="@string/drug_when_hint"
             android:id="@+id/whenToTakeEditText"
             android:layout_column="1" />
 
         <TextView
-            android:text="Notes:"
+            android:text="@string/drug_note_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:layout_column="0"
-            android:textSize="22sp" />
+            android:textSize="@dimen/form_field_label" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:ems="10"
+            android:ems="@integer/edit_text_ems_text_size"
             android:textColor="@color/black"
-            android:hint="eg. Take with food"
+            android:hint="@string/drug_note_hint"
             android:id="@+id/notesEditText"
             android:layout_column="1" />
 
 
 
         <Button
-            android:text="CREATE CARD"
+            android:text="@string/create_card_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/submitButton"

@@ -14,7 +14,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="@dimen/home_page_image_height"
             android:src="@drawable/medtrackerlogo" />
 
         <Space
@@ -24,7 +24,7 @@
 
         <Button
             android:layout_width="match_parent"
-            android:text="Your Drugs"
+            android:text="@string/home_page_your_drugs_button"
             android:id="@+id/buttonDrugs"
             android:textColor="@color/textColor"
             android:background="@color/colorPrimary"
@@ -38,7 +38,7 @@
 
         <Button
             android:layout_width="match_parent"
-            android:text="Phone"
+            android:text="@string/home_page_phone_button"
             android:id="@+id/buttonPhone"
             android:textColor="@color/textColor"
             android:background="@color/colorPrimary"

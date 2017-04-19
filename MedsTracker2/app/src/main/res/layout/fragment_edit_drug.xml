@@ -18,19 +18,18 @@
         <!-- TODO: Update blank fragment layout -->
 
         <TextView
-            android:text="Name:"
+            android:text="@string/drug_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="22sp" />
+            android:textSize="@dimen/form_field_label" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters|textImeMultiLine"
-
-            android:ems="10"
+            android:ems="@integer/edit_text_ems_text_size"
             android:textColor="@color/black"
             android:id="@+id/editDrugName"
             android:layout_column="1">
@@ -40,54 +39,53 @@
         </EditText>
 
         <TextView
-            android:text="Amount:"
+            android:text="@string/drug_doze_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:layout_column="0"
-            android:textSize="22sp" />
+            android:textSize="@dimen/form_field_label" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textImeMultiLine"
-            android:gravity="top|left"
-            android:ems="10"
+            android:ems="@integer/edit_text_ems_text_size"
             android:textColor="@color/black"
             android:id="@+id/editDrugDose"
             android:layout_column="1" />
 
         <TextView
-            android:text="When:"
+            android:text="@string/drug_when_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:layout_column="0"
-            android:textSize="22sp" />
+            android:textSize="@dimen/form_field_label" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textImeMultiLine"
-            android:ems="10"
+            android:ems="@integer/edit_text_ems_text_size"
             android:textColor="@color/black"
             android:id="@+id/editDrugWhen"
             android:layout_column="1" />
 
         <TextView
-            android:text="How:"
+            android:text="@string/drug_note_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:layout_column="0"
-            android:textSize="22sp" />
+            android:textSize="@dimen/form_field_label" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="true"
             android:inputType="textImeMultiLine"
-            android:ems="10"
+            android:ems="@integer/edit_text_ems_text_size"
             android:textColor="@color/black"
             android:id="@+id/editDrugNotes"
             android:layout_column="1" />
@@ -113,13 +111,13 @@
            android:layout_height="wrap_content"
            android:orientation="horizontal">
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/delete_photo_icon_size"
+                android:layout_height="@dimen/delete_photo_icon_size"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_delete_black_24dp" />
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/delete_photo_icon_size"
+            android:layout_height="@dimen/delete_photo_icon_size"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
        </LinearLayout>
@@ -128,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="Delete Photo"
+            android:text="@string/delete_photo"
             android:textStyle="bold|normal"/>
     </LinearLayout>
     <Space android:layout_width="0dp"
@@ -136,7 +134,7 @@
         android:layout_weight="20"/>
 
     <Button
-        android:text="Save"
+        android:text="@string/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

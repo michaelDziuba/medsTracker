@@ -14,5 +14,46 @@
     <dimen name="cardview_corner_radius">5dp</dimen>
     <dimen name="cardview_margin">2dp</dimen>
 
+    <dimen name="gird_layout_padding">5dp</dimen>
+
     <dimen name="viewpager_padding">8dp</dimen>
+
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="toolbar_textSize">20sp</dimen>
+
+    <dimen name="settings_button_height">70dp</dimen>
+    <dimen name="setting_button_padding">10dp</dimen>
+
+    <dimen name="about_header_textSize">40sp</dimen>
+    <dimen name="about_body_textSize">20sp</dimen>
+
+    <dimen name="form_field_label">22sp</dimen>
+
+    <dimen name="form_field_margin">10sp</dimen>
+
+    <dimen name="delete_photo_icon_size">40dp</dimen>
+
+    <dimen name="home_page_image_height">230dp</dimen>
+
+    <dimen name="take_photo_margin">8dp</dimen>
+
+    <dimen name="view_pager_header">30sp</dimen>
+    <dimen name="view_pager_image_height">130dp</dimen>
+    <dimen name="view_pager_image_view_padding">40dp</dimen>
+    <dimen name="view_pager_body_text_size">18sp</dimen>
+
+    <dimen name="view_pager_controller_button_width">38dp</dimen>
+    <dimen name="view_pager_controller_button_height">108dp</dimen>
+    <dimen name="view_pager_controller_button_margin_top">60dp</dimen>
+    <dimen name="view_pager_controller_button_margin_side">8dp</dimen>
+
+    <dimen name="nav_header_layout_height">200dp</dimen>
+    <dimen name="nav_header_image_height">150dp</dimen>
+
+    <dimen name="card_icon_size">40dp</dimen>
+    <dimen name="card_inner_padding">4dp</dimen>
+
+    <dimen name="sources_layout_size">50dp</dimen>
+    <dimen name="sources_margin_left">10dp</dimen>
+
 </resources>

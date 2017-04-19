@@ -17,18 +17,18 @@ android:layout_height="match_parent">
 
 
     <TextView
-        android:text="Name: "
+        android:text="@string/phone_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_column="0"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="22sp" />
+        android:textSize="@dimen/form_field_label" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textCapCharacters|textImeMultiLine"
-        android:ems="10"
+        android:ems="@integer/edit_text_ems_text_size"
         android:textColor="@color/black"
         android:id="@+id/editPhoneName"
         android:layout_column="1">
@@ -38,42 +38,41 @@ android:layout_height="match_parent">
     </EditText>
 
     <TextView
-        android:text="Phone: "
+        android:text="@string/phone_number_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimaryDark"
         android:layout_column="0"
-        android:textSize="22sp" />
+        android:textSize="@dimen/form_field_label" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="phone"
-        android:gravity="top|left"
-        android:ems="10"
+        android:ems="@integer/edit_text_ems_text_size"
         android:textColor="@color/black"
         android:id="@+id/editPhoneNumber"
         android:layout_column="1" />
 
     <TextView
-        android:text="Note: "
+        android:text="@string/phone_note_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimaryDark"
         android:layout_column="0"
-        android:textSize="22sp" />
+        android:textSize="@dimen/form_field_label" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textImeMultiLine"
-        android:ems="10"
+        android:ems="@integer/edit_text_ems_text_size"
         android:textColor="@color/black"
         android:id="@+id/editPhoneNote"
         android:layout_column="1" />
 
         <Button
-            android:text="Save"
+            android:text="@string/save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="0"
