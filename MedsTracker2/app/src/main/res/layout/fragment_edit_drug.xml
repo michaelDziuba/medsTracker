@@ -126,7 +126,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="@string/delete_photo"
+            android:text="@string/edit_drug_delete_photo"
+            android:textSize="@dimen/form_field_label"
             android:textStyle="bold|normal"/>
     </LinearLayout>
     <Space android:layout_width="0dp"

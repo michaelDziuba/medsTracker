@@ -13,6 +13,7 @@
     cardView:contentPaddingRight="@dimen/cardview_padding"
     cardView:cardElevation="@dimen/cardview_elevation"
     cardView:cardUseCompatPadding="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,6 +27,7 @@
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:textSize="@dimen/cardview_text_size"
                    android:id="@+id/textViewDrugCard1"
                    android:text="@string/drug_name_label"
                    android:textStyle="normal"/>
@@ -53,6 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/textViewDrugCard2"
                 android:text="@string/drug_doze_label"
                 android:textStyle="normal"/>
@@ -76,6 +79,7 @@
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:textSize="@dimen/cardview_text_size"
                  android:id="@+id/textViewDrugCard3"
                  android:text="@string/drug_when_label"
                  android:textStyle="normal"/>
@@ -99,6 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/cardview_text_size"
                 android:id="@+id/textViewDrugCard4"
                 android:text="@string/drug_note_label"
                 android:textStyle="normal"/>
@@ -129,8 +134,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/card_icon_size"
+                    android:layout_height="@dimen/card_icon_size"
                     android:id="@+id/deleteDrugImageView"
                     cardView:srcCompat="@drawable/ic_delete_black_24dp" />
 
@@ -151,8 +156,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/card_icon_size"
+                    android:layout_height="@dimen/card_icon_size"
                     android:id="@+id/editDrugImageView"
                     cardView:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
@@ -173,8 +178,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/card_icon_size"
+                    android:layout_height="@dimen/card_icon_size"
                     android:id="@+id/addPhotoDrugImageView"
                     cardView:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
             </LinearLayout>
@@ -194,8 +199,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/card_icon_size"
+                    android:layout_height="@dimen/card_icon_size"
                     android:id="@+id/webDrugImageView"
                     cardView:srcCompat="@drawable/ic_language_black_24dp" />
             </LinearLayout>
@@ -223,6 +228,7 @@
                 <TextView
                     android:text="@string/show_photo"
                     android:layout_width="wrap_content"
+                    android:textSize="@dimen/cardview_text_size"
                     android:layout_height="wrap_content"
                     android:id="@+id/detailsTextView"
                     android:gravity="center_horizontal"
@@ -230,8 +236,8 @@
                     android:layout_gravity="right"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/card_icon_size"
+                    android:layout_height="@dimen/card_icon_size"
                     cardView:srcCompat="@drawable/ic_expand_more_black_24dp"
                     android:id="@+id/chevronImageView"
                     android:layout_gravity="bottom|right"/>
