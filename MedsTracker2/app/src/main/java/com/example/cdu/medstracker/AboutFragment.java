@@ -67,11 +67,25 @@ public class AboutFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates the About Page view for the app
+     *
+     * @param inflater  inflates the fragment's view
+     * @param container  A special view that contains the fragment's view
+     * @param savedInstanceState  bundle of saved items for restoring the fragment's view from memory
+     * @return  Returns the inflated view of this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /*
+         * Inflate the layout for this fragment
+        */
         View view = inflater.inflate(R.layout.fragment_about, container, false);
+
+        /**
+         * Hide the Floating Action Button, if it's shown
+         */
         if(fab.isShown()){
             fab.setVisibility(View.INVISIBLE);
         }

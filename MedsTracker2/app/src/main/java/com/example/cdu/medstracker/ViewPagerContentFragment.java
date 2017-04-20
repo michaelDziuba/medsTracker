@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -25,8 +26,6 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class ViewPagerContentFragment extends Fragment {
-
-    public static int fragmentCounter = 0;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,9 +62,6 @@ public class ViewPagerContentFragment extends Fragment {
         args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
 
-//        fragmentCounter++;
-//        Log.i("***fragmentCounter***:","" + fragmentCounter);
-
         return fragment;
     }
 
@@ -95,8 +91,7 @@ public class ViewPagerContentFragment extends Fragment {
         switch(mParam1) {
             case "1":
                 imageView.setImageResource(R.drawable.faqs);
-                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
-                view.setBackgroundColor(Color.rgb(90,125,120));
+                view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.faqsColor));
                 content = new SpannableString(getActivity().getString(R.string.drug_faqs_read_more));
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 viewPagerTextView.setText(content);
@@ -110,8 +105,7 @@ public class ViewPagerContentFragment extends Fragment {
                 break;
             case "2":
                 imageView.setImageResource(R.drawable.forbidden_beer);
-                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
-                view.setBackgroundColor(Color.rgb(90,110,120));
+                view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.interactionsColor));
                 content = new SpannableString(getActivity().getString(R.string.drug_interactions_read_more));
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 viewPagerTextView.setText(content);
@@ -125,8 +119,7 @@ public class ViewPagerContentFragment extends Fragment {
                 break;
             case "3":
                 imageView.setImageResource(R.drawable.error);
-                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
-                view.setBackgroundColor(Color.rgb(105,105,150));
+                view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.errorsColor));
                 content = new SpannableString(getActivity().getString(R.string.drug_tips_read_more));
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 viewPagerTextView.setText(content);
@@ -140,8 +133,7 @@ public class ViewPagerContentFragment extends Fragment {
                 break;
             case "4":
                 imageView.setImageResource(R.drawable.medical_symbol);
-                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
-                view.setBackgroundColor(Color.rgb(135,105,150));
+                view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.sideEffectsColor));
                 content = new SpannableString(getActivity().getString(R.string.drug_side_effects_read_more));
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 viewPagerTextView.setText(content);
@@ -154,9 +146,8 @@ public class ViewPagerContentFragment extends Fragment {
                 });
                 break;
             case "5":
-                imageView.setImageResource(R.drawable.tablets);
-                //unable to store color value in colors.xml because getActivity.getColor(R.color.color_name) is available only in API 23 and higher
-                view.setBackgroundColor(Color.rgb(150,105,120));
+                imageView.setImageResource(R.drawable.drug_disposal);
+                view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.disposalColor));
                 content = new SpannableString(getActivity().getString(R.string.drug_disposal_read_more));
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 viewPagerTextView.setText(content);

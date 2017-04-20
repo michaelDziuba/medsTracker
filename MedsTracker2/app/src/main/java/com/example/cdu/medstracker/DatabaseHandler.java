@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-/**
- * Created by web on 2017-02-07.
- */
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -38,7 +35,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String PHONE_NUMBER = "phoneNumber"; //column name for phones table
     private static final String PHONE_NOTE = "phoneNote"; //column name for phones table
 
-
+    //SQLITE statement for creating a drugs table
     private static final String CREATE_DRUGS_TABLE = "CREATE TABLE IF NOT EXISTS " +  DRUGS + " (" +
                                                     ID + " INTEGER PRIMARY KEY, " +
                                                     DRUG_NAME + " TEXT, " +
@@ -46,6 +43,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     WHEN_TO_TAKE + " TEXT, " +
                                                     NOTES + " TEXT)";
 
+    //SQLITE statement for creating an images table
     private static final String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS " + IMAGES + " (" +
             ID + " INTEGER PRIMARY KEY, " +
             DRUG_ID + " INTEGER REFERENCES " + DRUGS + "("  + ID + "), " +
@@ -53,18 +51,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             IMAGE_WIDTH + " INTEGER, " +
             IMAGE_HEIGHT + " INTEGER)";
 
+    //SQLITE statement for creating a phones table
     private static final String CREATE_PHONES_TABLE = "CREATE TABLE IF NOT EXISTS " +  PHONES + " (" +
             ID + " INTEGER PRIMARY KEY, " +
             PHONE_NAME + " TEXT, " +
             PHONE_NUMBER + " TEXT, " +
             PHONE_NOTE + " TEXT)";
 
-
+    /**
+     * Creates a databaseHandler object
+     *
+     * @param context The context for the SQLITE database and the DatabaseHandler object
+     */
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
 
+    /**
+     * Creates 3 SQLITE tables: drugs, images, and phones (if they don't exist in the databse)
+     *
+     * @param db  The SQLITE database for this app
+     */
     public void onCreate(SQLiteDatabase db){
         db.execSQL(CREATE_DRUGS_TABLE);
         db.execSQL(CREATE_IMAGES_TABLE);
@@ -72,6 +80,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Mthod deletes all database tables and calls on the onCreate method to create new tables, when the database is upgraded to a new version
+     *
+     * @param db  This app's SQLITE database
+     * @param oldVersion  previous version number for this app's SQLITE database
+     * @param newVersion new version number for this app's SQLITE database
+     */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion ){
         db.execSQL("DROP TABLE IF EXISTS " + DRUGS);
         db.execSQL("DROP TABLE IF EXISTS " + IMAGES);
@@ -87,10 +102,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Delete
      */
 
-    /**
-     * CREATE OPERATIONS
-     */
 
+    /**
+     * Method adds a drug entry into the drugs table
+     *
+     * @param drug object containing information for a row in the drugs table
+     */
     public void addDrug(Drug drug){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -104,9 +121,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     /**
-     * READ OPERATIONS
+     * Method created and returns a drug object, identified by its id number, based on its information in the drugs table
+     *
+     * @param id the id of the drug object
+     * @return drug object identified by the id paramenter
      */
-
     public Drug getDrug(int id){
         /**
          * Create a readable database
@@ -132,6 +151,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return drug;
     }
 
+    /**
+     * Method creates and returns an arrayList of drugs objects,
+     * with each object based on the information in a row of the drugs table
+     *
+     * @return returns an arrayList of drug objects that correspond to the entries in the drugs database table
+     */
     public ArrayList<Drug> getAllDrugs(){
         ArrayList<Drug> drugList = new ArrayList<Drug>();
         String selectQuery = "SELECT * FROM " + DRUGS;
@@ -154,9 +179,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     /**
-     * UPDATE OPERATIONS
+     * Method updates information in the drugs table, based on the information in the parameter's drug object
+     *
+     * @param drug object containing updated information for a row in the drugs table
+     * @return returns the id of the updated row in the drugs table
      */
-
     public int updateDrug(Drug drug){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -164,29 +191,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(DRUG_DOSE, drug.getDrugDose());
         values.put(WHEN_TO_TAKE, drug.getWhenToTake());
         values.put(NOTES, drug.getNotes());
-        return db.update(DRUGS, values, ID + " = ?",
-                new String[]{String.valueOf(drug.getId())});
+        return db.update(DRUGS, values, ID + " = ?", new String[]{String.valueOf(drug.getId())});
     }
-    /**
-     * DELETE OPERATIONS
-     */
 
+    /**
+     * Method deletes a row from the drugs table identified by the drub_id parameter
+     *
+     * @param drug_id  the drugs table row id, that identifies which row to delete from the table
+     */
     public void deleteDrug(long drug_id){
         SQLiteDatabase db = getWritableDatabase();
         db.delete(DRUGS, ID + " = ?", new String[]{String.valueOf(drug_id)});
     }
 
     /**
-     * Closing the database connection
+     * Method closes the database connection, if it's open
      */
     public void closeDB(){
-        SQLiteDatabase db =this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         if(db != null && db.isOpen()){
             db.close();
         }
     }
 
 
+    /**
+     * Method checks if a table exists in the database
+     *
+     * @param tableName The name of the table to check for existence in the database
+     * @return returns true or false, depending on whether the specified table exists in the databse or not
+     */
     public boolean isTable(String tableName){
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SHOW TABLES LIKE " + tableName;
@@ -198,12 +232,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
-    //
+    /**
+     * Method adds an image row to the images table based on the information in the parameter's image object
+     *
+     * @param image The image object containing information for adding a row in the images table
+     * @return the id of the newly added table row in the images table
+     */
     public long addImage(Image image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-       // contentValues.put(ID, 0);
         contentValues.put(DRUG_ID, image.getDrug_id());
         contentValues.put(IMAGE_PATH, image.getResource());
         contentValues.put(IMAGE_WIDTH, image.getPictureWidth());
@@ -213,11 +250,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return lastInsertId;
     }
 
+    /**
+     * Method deletes a row in the images table based on the parameter's drug_id value
+     *
+     * @param drug_id the id for the table row where to delete in the images table
+     */
     public void deleteImage(long drug_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(IMAGES, DRUG_ID + " = ?", new String[] { String.valueOf(drug_id) });
     }
 
+    /**
+     * Method updates information in the images table, for the row corresponding to the parameter's image object
+     *
+     * @param image The image object for which to update a corresponding row in the images table
+     * @return returns the id of the updated table row
+     */
     public int updateImage(Image image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -229,6 +277,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Method creates and returns an arrayList of image objects,
+     * with each object based on the information in a row of the images table
+     *
+     * @return returns an arrayList of image objects that correspond to the entries in the images database table
+     */
     public ArrayList<Image> getAllImages() {
         ArrayList<Image> imageList = new ArrayList<Image>();
         String selectQuery = "SELECT * FROM " + IMAGES;
@@ -251,7 +305,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * The second getAllImages is used to grab all images associated with a drug
+     * Method gets and returns all images associated with a drug identified by the drug_id parameter
+     *
      * @param drug_id
      * @return
      */
@@ -277,7 +332,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
+    /**
+     *  Method adds a row to the phone's table based on the information in the parameter's phone object
+     *
+     * @param phone the object that contains information for adding a row to the phones table
+     * @return returns the id of the newly created table row in the phones table
+     */
     public long addPhone(Phone phone) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -289,13 +349,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return lastInsertId;
     }
 
+    /**
+     * Method deletes a row in the phones table, identified by the phone_id parameter
+     *
+     * @param phone_id the row id where to delete the row in the phones table
+     */
     public void deletePhone(long phone_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(PHONES, ID + " = ?", new String[] { String.valueOf(phone_id) });
     }
 
 
-
+    /**
+     * Method updates a row in the phones table for a row that corresponds to the parameter's phone object
+     *
+     * @param phone the object for which to update a corresponding row in the phones table
+     * @return
+     */
     public int updatePhone(Phone phone) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -305,7 +375,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.update(PHONES, values, ID + " = ?", new String[]{String.valueOf(phone.getId())});
     }
 
-
+    /**
+     * Method creates and returns an arrayList of phone objects,
+     * with each object based on the information in a row of the phones table
+     *
+     * @return returns an arrayList of image objects that correspond to the entries in the phones database table
+     */
     public ArrayList<Phone> getAllPhones(){
         ArrayList<Phone> phoneList = new ArrayList<Phone>();
         String selectQuery = "SELECT * FROM " + PHONES;

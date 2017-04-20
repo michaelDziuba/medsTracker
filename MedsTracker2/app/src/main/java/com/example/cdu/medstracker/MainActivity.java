@@ -43,16 +43,16 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences sharedPreferences;
     public int cardViewBackgroundChoice;
     public final String CARDVIEW_BACKGROUND_CHOICE = "cardview_background_choice";
-//    public int drugListBackgroundChoice;
-//    public final String DRUG_BACKGROUND_CHOICE = "drug_background_choice";
-//    public int phoneListBackgroundChoice;
-//    public final String PHONE_BACKGROUND_CHOICE = "phone_background_choice";
-
 
     public static FloatingActionButton fab;
 
     FragmentManager fm = getSupportFragmentManager();
 
+    /**
+     * Sets up the initial view for the user, when the user starts the app
+     *
+     * @param savedInstanceState A bundle of saved items for restoring the the view from memory
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,27 +60,35 @@ public class MainActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /**
+         * Assigns cardView background color setting from memory, or the default value of zero, if no setting is stored in memory
+         */
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
         PreferenceManager.getDefaultSharedPreferences(this.getBaseContext()).registerOnSharedPreferenceChangeListener(PreferencesChangeHandler);
         cardViewBackgroundChoice = Integer.parseInt(sharedPreferences.getString(CARDVIEW_BACKGROUND_CHOICE, "0"));
+
+        /**
+         * Selects the 1st choice in the settings menu and makes it default
+         */
         if(cardViewBackgroundChoice == 0){
             PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
         }
+
+        /**
+         * sets the background color for cardViews, depending on the user's choice
+         */
         changeBackgroundColor(CARDVIEW_BACKGROUND_CHOICE, cardViewBackgroundChoice);
 
-
-//        drugListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(DRUG_BACKGROUND_CHOICE, "0"));
-//        phoneListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(PHONE_BACKGROUND_CHOICE, "0"));
-//        changeBackgroundColor(DRUG_BACKGROUND_CHOICE, drugListBackgroundChoice);
-//        changeBackgroundColor(PHONE_BACKGROUND_CHOICE, phoneListBackgroundChoice);
-
-
-
+        /**
+         * Sets background and ripple colors for the Floating Acion Button
+         */
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.fab_color)));
         fab.setRippleColor(ContextCompat.getColor(getApplicationContext(), R.color.fab_ripple_color));
 
-
+        /**
+         * Sets up the Nav Drawer menu for the app
+         */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -90,13 +98,19 @@ public class MainActivity extends AppCompatActivity implements
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        /**
+         *  Displays the Apps' Home Page (MainFragment.java)
+         */
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.add(R.id.content_main, new MainFragment());
         transaction.commit();
-
-
     }
 
+    /**
+     * Closes the Nav Drawer Menu if it's open, when the phone's back button is pressed
+     * or hides the Floating Action Button, if Nav Drawer is not open
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -112,7 +126,12 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-
+    /**
+     * Inflates the Settings Menu
+     *
+     * @param menu  The Settings Menu
+     * @return boolean true, if menu is successfully inflated
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -121,6 +140,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    /**
+     *  Starts the Settings Activity
+     *
+      * @param item The Settings Menu item
+     * @return either boolean true, if menu item id is action_settings,
+     *          or boolean true from the parent object, if the menu item id is not action_settings
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -138,6 +164,13 @@ public class MainActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+
+    /**
+     * Responds to user selection in the Nav Drawer and carries out the Fragment transaction specified by the menu id
+     *
+     * @param item Nav Drawer Menu item selected by the user
+     * @return true, if the response to user menu selection is successful and the Nav Drawer Menu closes
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -191,7 +224,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-
+    /**
+     * Displays the App's Custom Camera preview for taking a photo
+     * This method is called on from a Drug CardView displayed in the ListViewFragment
+     */
     public void takePhotos(){
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.content_main, new TakePhotoFragment());
@@ -200,6 +236,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    /**
+     * Takes the user to a drug CardView's editing fragment for editing its contents
+     * This method is called on from a Drug CardView displayed in the ListViewFragment
+     */
     public void goToEditDrug(){
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.content_main, new EditDrugFragment());
@@ -207,6 +247,10 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
+    /**
+     * Takes the user to the list of drug CardViews displayed in the ListViewFragment
+     * This method is called on either from the CreateDrugFragment or from the EditDrugFragment
+     */
     public void goToListView(){
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.content_main, new ListViewFragment());
@@ -214,18 +258,22 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
+    /**
+     * Takes the user to a phone CardView's editing fragment for editing its contents
+     * This method is called on from a Phone CardView displayed in the ListViewPhoneFragment
+     */
     public void goToEditPhone(){
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.content_main, new EditPhoneFragment());
         transaction.addToBackStack(null);
         transaction.commit();
     }
-    public void goToDrugs(){
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.content_main, new ListViewFragment());
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
+
+
+    /**
+     * Takes the user to the list of phone CardViews displayed in the ListViewPhoneFragment
+     * This method is called on either from the CreatePhoneFragment or from the EditPhoneFragment
+     */
     public void goToPhone(){
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.content_main, new ListViewPhoneFragment());
@@ -233,9 +281,11 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
-
-
-
+    /**
+     * Method calls on the phone's Internet browser to open a web page specified by the url parameter
+     *
+     * @param url the url for the web page to open in the phone's Internet browser
+     */
     public void openWebPage(String url) {
         Uri webpage = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
@@ -247,6 +297,12 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Method required by OnFragmentInteractionListener interface
+     * (This method is not used in this App)
+     *
+     * @param uri
+     */
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -264,25 +320,19 @@ public class MainActivity extends AppCompatActivity implements
                 cardViewBackgroundChoice = Integer.parseInt(sharedPreferences.getString(key, "0"));
                 changeBackgroundColor(CARDVIEW_BACKGROUND_CHOICE, cardViewBackgroundChoice);
             }
-
-//            else if(key.equals(PHONE_BACKGROUND_CHOICE)){
-//                phoneListBackgroundChoice = Integer.parseInt(sharedPreferences.getString(key, "0"));
-//                changeBackgroundColor(PHONE_BACKGROUND_CHOICE, phoneListBackgroundChoice);
-//            }
         }
     };
 
 
-    //assigns color code to ListViewFragment for changing the color of its CardViews
+    /**
+     * Method assigns color code to ListViewFragment for changing the color of its CardViews
+     */
     private void changeBackgroundColor(String backgroundType, int choice){
         if(backgroundType.equals(CARDVIEW_BACKGROUND_CHOICE)){
             ListViewFragment.colorCode = choice;
             ListViewPhoneFragment.colorCode = choice;
         }
 
-//        else if(backgroundType.equals(PHONE_BACKGROUND_CHOICE)){
-//            ListViewPhoneFragment.colorCode = choice;
-//        }
     }
 
 }

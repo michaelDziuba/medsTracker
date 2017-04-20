@@ -5,8 +5,11 @@ package com.example.cdu.medstracker;
  */
 
 public class Image {
+    /**
+     * All Class properties
+     */
     private int id;
-    private int drug_id = -1;
+    private int drug_id = -1; //-1 value indicates that this image object isn't yet associated with a drug object
     private String resource;
     private int pictureWidth;
     private int pictureHeight;
@@ -26,6 +29,9 @@ public class Image {
         this.pictureHeight = pictureHeight;
     }
 
+    /**
+     * Default constructor
+     */
     public Image(){
 
     }

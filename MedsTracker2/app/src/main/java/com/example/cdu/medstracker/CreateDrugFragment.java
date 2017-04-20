@@ -27,15 +27,22 @@ import android.widget.EditText;
  */
 public class CreateDrugFragment extends Fragment {
 
-    //Button submit;
-
+    /**
+     *  Fragment manager used for returning from this fragment to the  previous page
+     */
     FragmentManager fm;
 
+    /**
+     * EditText properties contain values to be edited for Drug CardViews
+     */
     EditText drugName;
     EditText drugDose;
     EditText whenToTake;
     EditText notes;
 
+    /**
+     * Floating Action Button from the MainActivity
+     */
     FloatingActionButton fab = MainActivity.fab;
 
 
@@ -82,20 +89,35 @@ public class CreateDrugFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates the Create Drug Page view for the app
+     *
+     * @param inflater  inflates the fragment's view
+     * @param container  A special view that contains the fragment's view
+     * @param savedInstanceState  bundle of saved items for restoring the fragment's view from memory
+     * @return  Returns the inflated view of this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /**
+         *  Inflate the layout for this fragment
+        */
         View view = inflater.inflate(R.layout.fragment_create_drug, container, false);
 
-
-
+        /**
+         * Hide the Floating Action Button, if it's shown
+         */
         if(fab.isShown()){
             fab.setVisibility(View.INVISIBLE);
         }
 
         drugName = (EditText) view.findViewById(R.id.drugNameEditText);
 
+        /**
+         * Brings up the phone's keyboard for editing the first EditText field, which is drugName
+         * (drugName EditText field is automatically focused in the fragment_create_drug.xml file, when this view is inflated)
+         */
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
 
@@ -103,24 +125,30 @@ public class CreateDrugFragment extends Fragment {
         drugDose = (EditText) view.findViewById(R.id.drugDoseEditText);
 
         whenToTake = (EditText) view.findViewById(R.id.whenToTakeEditText);
-//        whenToTake.setMaxLines(Integer.MAX_VALUE);
-//        whenToTake.setHorizontallyScrolling(false);
 
         notes = (EditText) view.findViewById(R.id.notesEditText);
 
 
         Button submit = (Button) view.findViewById(R.id.submitButton);
 
+        /**
+         * Submits entered information for storage in the Database and for display in a Drug CardView
+         */
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Dismiss the keyboard
+                /**
+                 * Dismiss the keyboard
+                 */
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if(imm.isAcceptingText()) { // verify if the soft keyboard is open
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                 }
 
+                /**
+                 * Create a drug object with entered information, store its information in the database,
+                 * then take the user back to the ListViewFragment to display drug CardViews
+                 */
                 Drug drug = new Drug(drugName.getText().toString(), drugDose.getText().toString(), whenToTake.getText().toString(), notes.getText().toString());
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 db.addDrug(drug);
@@ -129,8 +157,6 @@ public class CreateDrugFragment extends Fragment {
                 fm.popBackStack();
             }
         });
-
-
 
         return view;
     }

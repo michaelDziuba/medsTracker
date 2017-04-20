@@ -39,19 +39,42 @@ import java.util.Date;
  */
 public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTextureListener  {
 
+    /**
+     * The pixel height and the width of the picture taken by the camera
+     */
     private int pictureWidth;
     private int pictureHeight;
 
+    /**
+     * Drug object injected from the ListViewFragment
+     */
     public static Drug drug = null;
 
+    /**
+     * Floating Action Button from the MainActivity
+     */
     FloatingActionButton fab = MainActivity.fab;
 
+    /**
+     * Camera and Camera Preview objects
+     */
     @Deprecated
     private Camera mCamera;
     private TextureView mTextureView;
-    //private File pictureDirectory;
+
+    /**
+     * The directory path where a picture file is stored, after a photo is taken
+     */
     private static File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "com.example.cdu.medstracker");
+
+    /**
+     * Indicator of whether the camera's perview is showing or not
+     */
     private boolean previewShowing = true;
+
+    /**
+     * Contains raw image data, after a photo is taken
+     */
     public static byte[] dataGlobal =  null;
 
 
@@ -97,20 +120,38 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
         }
     }
 
+    /**
+     * Creates the TakePhotoFragment view for the app
+     *
+     * @param inflater  inflates the fragment's view
+     * @param container  A special view that contains the fragment's view
+     * @param savedInstanceState  bundle of saved items for restoring the fragment's view from memory
+     * @return  Returns the inflated view of this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /**
+         *  Inflate the layout for this fragment
+         */
         View view = inflater.inflate(R.layout.fragment_take_photo, container, false);
 
+        /**
+         * Hide the Floating Action Button, if it's shown
+         */
         if(fab.isShown()){
             fab.setVisibility(View.INVISIBLE);
         }
 
+        /**
+         * Sets the camera preview display
+         */
         mTextureView = (TextureView)view.findViewById(R.id.textureView);
         mTextureView.setSurfaceTextureListener(this);
 
-
+        /**
+         * Button with click listener that deletes the taken picture
+         */
         Button deleteButton = (Button) view.findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +167,9 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
             }
         });
 
-
+        /**
+         * Icon with click listener that takes the picture
+         */
         ImageButton takePicture = (ImageButton) view.findViewById(R.id.takePicture);
         takePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,23 +181,28 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
             }
         });
 
-
+        /**
+         * Button with click listener that saves the taken picture
+         */
         Button saveButton = (Button) view.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               // Log.d("*****", "DataGlobal" + dataGlobal);
                 if(dataGlobal != null) {
+                    /**
+                     * Creates a picture file from the taken picture
+                     */
                     File pictureFile = getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
 
                     if (pictureFile == null) {
-                        //Log.d("*****", "Error creating media file, check storage permissions!!!");
                         return;
                     }
 
                     try {
-                        //AddPhotoFragment.photoPath = pictureFile.getPath();
+                        /**
+                         * Writes the picture file to a memory location specified by the picture files path property
+                         */
                         FileOutputStream fos = new FileOutputStream(pictureFile);
                         fos.write(dataGlobal);
                         fos.close();
@@ -167,7 +215,6 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                             /**
                              * Add the photo to the database
                              */
-                            //DatabaseHandler db = new DatabaseHandler(getContext());
                             int id = (int) db.addImage(image);
                             if (id != -1) {
                                 image.setId(id);
@@ -179,15 +226,13 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
 
                         db.closeDB();
 
-
-                        //Toast.makeText(getActivity(), "Picture Saved", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-//                    mCamera.startPreview();
-//                    previewShowing = true;
-                    //((MainActivity)getActivity()).returnToAddPhotos();
 
+                    /**
+                     * Takes the user back to the listView with drug CardViews
+                     */
                     ((MainActivity)getActivity()).goToListView();
 
 
@@ -251,7 +296,13 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
     }
 
 
-
+    /**
+     * Method sets up camera parameters for taking a picture
+     *
+     * @param surface The camera's preview
+     * @param width  The width of the picture for the camera to take
+     * @param height  The height of the picture for the camera to take
+     */
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         mCamera = Camera.open();
@@ -265,17 +316,30 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                 Camera.Parameters params = mCamera.getParameters();
                 params.setRotation(90);
 
+                /**
+                 * Checks if the device's camera has a flash, and sets its mode
+                 */
                if (getActivity().getPackageManager().hasSystemFeature("android.hardware.camera.FLASH_MODE_AUTO")){
                    params.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO);
                }
+
+                /**
+                 * Checks if the device's camera has a focus feature, and sets its mode
+                 */
                 if(getActivity().getPackageManager().hasSystemFeature("android.hardware.camera.FOCUS_MODE_AUTO")){
                     params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
                 }
 
                 params.setZoom(2);
 
+                /**
+                 * Rotates the Camera's preview into portrait orientation (The default is landscape)
+                 */
                 mCamera.setDisplayOrientation(90);
 
+                /**
+                 * Gets the picture's height and width from the camera's preview window
+                 */
                 pictureWidth = params.getPreviewSize().width;
                 pictureHeight = params.getPreviewSize().height;
 
@@ -285,6 +349,9 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
                 mCamera.setPreviewTexture(surface);
                 mCamera.startPreview();
 
+                /**
+                 * Sets the picture's height and width to those of the Camera's preview window (Practically, the whole screen of the device)
+                 */
                 params.setPictureSize(params.getPreviewSize().width, params.getPreviewSize().height);
 
                 mCamera.setParameters(params);
@@ -315,6 +382,10 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
     }
 
 
+    /**
+     * Method executed after the camera takes a picture
+     * assigns picture data to a byte array (dataGlobal) for saving as a file
+     */
     Camera.PictureCallback pictureCallback = new
             Camera.PictureCallback() {
                 @Override
@@ -325,24 +396,22 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
             };
 
 
-
-    /** Create a File for saving an image or video */
+    /**
+     * Method creates a file for saving an image
+     *
+     * @param type the type of image data (eg. still photo or video)
+     * @return returns the image file with a path for its storage
+     */
     private static File getOutputMediaFile(int type){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
 
-        //Log.i("External Storage state", Environment.getExternalStorageState());
-
+        /**
+         * Create a new File with path for storing the image
+         */
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "com.example.cdu.medstracker");
-
-
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
 
         // Create the storage directory if it does not exist
         if (! mediaStorageDir.exists()){
             if (! mediaStorageDir.mkdirs()){
-                //Log.d("CameraApi", "failed to create directory");
                 return null;
             }
         }
@@ -352,11 +421,7 @@ public class TakePhotoFragment extends Fragment implements TextureView.SurfaceTe
         File mediaFile;
         if (type == MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg");
-        }
-//        else if(type == MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO) {
-//            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "VID_"+ timeStamp + ".mp4");
-//        }
-        else {
+        } else {
             return null;
         }
 

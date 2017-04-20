@@ -44,23 +44,45 @@ import java.util.ArrayList;
  */
 public class ListViewPhoneFragment extends Fragment {
 
+    /**
+     * colorCode value is injected from the MainActivity, when the user selects a setting for Card Color in the Settings Menu
+     */
     public static int colorCode;
 
+    /**
+     * Permission properties for asking the user for corresponding permissions
+     */
     private static final int REQUEST_CODE = 0x12;
     String[] permissions = {"android.permission.CALL_PHONE"};
 
+    /**
+     *  Fragment manager used for taking the user to the CreateDrugFragment view
+     */
     FragmentManager fm;
+
+    /**
+     * Floating Action Button from the MainActivity
+     */
     FloatingActionButton fab = MainActivity.fab;
 
+    /**
+     * CardView text fields for displaying information about a phone number
+     */
     ListView phoneListView;
     TextView phoneNameTextView;
     TextView phoneNumberTextView;
     TextView phoneNoteTextView;
 
+    /**
+     * CardView icons for the user to tap on
+     */
     LinearLayout deletePhoneIcon;
     LinearLayout editPhoneIcon;
     LinearLayout phoneIcon;
 
+    /**
+     * Contains phone objects from which all phone CardViews are created
+     */
     public static ArrayList<Phone> phoneArrayList;
 
 
@@ -107,19 +129,37 @@ public class ListViewPhoneFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates the ListViewPhoneFragment view for the app
+     *
+     * @param inflater  inflates the fragment's view
+     * @param container  A special view that contains the fragment's view
+     * @param savedInstanceState  bundle of saved items for restoring the fragment's view from memory
+     * @return  Returns the inflated view of this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /**
+         *  Inflate the layout for this fragment
+         */
         View view = inflater.inflate(R.layout.fragment_list_view_phone, container, false);
 
+        /**
+         * Show the Floating Action Button, if it's not shown
+         */
         if(!fab.isShown()){
             fab.setVisibility(View.VISIBLE);
         }
 
-        //Asks the user for permission to access phone on the user's device
+        /**
+         * Asks the user for permission to access phone on the user's device
+         */
         ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_CODE);
 
+        /**
+         * Floating Action Button with attached click listener for taking the user to the CreatePhoneFragment form
+         */
         fm = getActivity().getSupportFragmentManager();
         fab.setImageResource(R.drawable.ic_add_black_24dp);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -132,11 +172,18 @@ public class ListViewPhoneFragment extends Fragment {
             }
         });
 
+        /**
+         * Gets an arrayList of phone object for all phone numbers stored in the database phones table
+         */
         phoneListView = (ListView) view.findViewById(R.id.phoneListView);
         DatabaseHandler db = new DatabaseHandler(getContext());
         phoneArrayList = db.getAllPhones();
         db.closeDB();
 
+
+        /**
+         * Sets an adapter for creating and displaying phone CardViews in the ListViewPhoneFragment
+         */
         final ListViewPhoneFragment.CustomAdapter adapter = new ListViewPhoneFragment.CustomAdapter(getContext(), phoneArrayList);
         phoneListView.setAdapter(adapter);
 
@@ -184,7 +231,9 @@ public class ListViewPhoneFragment extends Fragment {
 
 
 
-
+    /**
+     * Custom adapter for creating CardViews with their functionality
+     */
     public class CustomAdapter extends ArrayAdapter<Phone> {
 
         public CustomAdapter(Context context, ArrayList<Phone> items) {
@@ -205,6 +254,10 @@ public class ListViewPhoneFragment extends Fragment {
             final int positionFinal = position;
             final Phone phone = getItem(positionFinal);
 
+            /**
+             * Show the Floating Action Button, if it's not shown
+             * (shows the fab button after the user returns to the ListViewFragment using the phone's back button)
+             */
             if(!fab.isShown()){
                 fab.setImageResource(R.drawable.ic_add_black_24dp);
                 fab.setVisibility(View.VISIBLE);
@@ -214,8 +267,10 @@ public class ListViewPhoneFragment extends Fragment {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.phone_item_view, parent, false);
             }
 
+            /**
+             * Gets all the CardView's TextViews
+             */
             CardView phoneCardView = (CardView) convertView;
-
             TextView textView1 = (TextView) convertView.findViewById(R.id.phoneNameTextView1);
             TextView textView2 = (TextView) convertView.findViewById(R.id.phoneNameTextView);
             TextView textView3 = (TextView) convertView.findViewById(R.id.phoneTextView2);
@@ -223,10 +278,16 @@ public class ListViewPhoneFragment extends Fragment {
             TextView textView5 = (TextView) convertView.findViewById(R.id.phoneTextView3);
             TextView textView6 = (TextView) convertView.findViewById(R.id.phoneNoteTextView);
 
+            /**
+             * Gets all the CardView's icons
+             */
             ImageView imageView1 = (ImageView) convertView.findViewById(R.id.phoneDeleteImageView);
             ImageView imageView2 = (ImageView) convertView.findViewById(R.id.phoneEditImageView);
             ImageView imageView3 = (ImageView) convertView.findViewById(R.id.phoneTalkImageView);
 
+            /**
+             * Sets the CardView's color for text, icons, and background, depending on user selected setting in the Settings Menu
+             */
             switch(colorCode){
                 case 0:
                     phoneCardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.whiteCardView));
@@ -262,7 +323,9 @@ public class ListViewPhoneFragment extends Fragment {
 
             }
 
-
+            /**
+             * Sets the text values for the CardView
+             */
             phoneNameTextView = (TextView) convertView.findViewById(R.id.phoneNameTextView);
             phoneNameTextView.setText(phone.getPhoneName());
 
@@ -272,6 +335,10 @@ public class ListViewPhoneFragment extends Fragment {
             phoneNoteTextView = (TextView) convertView.findViewById(R.id.phoneNoteTextView);
             phoneNoteTextView.setText(phone.getPhoneNote());
 
+            /**
+             * Delete icon with click listener, which deletes the CardView, after asking the user for confirmation
+             * with an alert pop-up dialogue
+             */
             deletePhoneIcon = (LinearLayout) convertView.findViewById(R.id.deletePhoneIcon);
             deletePhoneIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -307,7 +374,9 @@ public class ListViewPhoneFragment extends Fragment {
                 }
             });
 
-
+            /**
+             * editIcon with click listener that takes the user to the EditDrugFragment form
+             */
             editPhoneIcon = (LinearLayout) convertView.findViewById(R.id.editPhoneIcon);
             editPhoneIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -319,6 +388,9 @@ public class ListViewPhoneFragment extends Fragment {
             });
 
 
+            /**
+             * editIcon with click listener that takes the user to the device's phone, with the phone number already entered
+             */
             phoneIcon = (LinearLayout) convertView.findViewById(R.id.phoneIcon);
             phoneIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -349,7 +421,13 @@ public class ListViewPhoneFragment extends Fragment {
 
 
 
-
+    /**
+     * Method displays a Toast message after the user either gives or denies permission to use the device's phone
+     *
+     * @param requestCode the code for the permission being asked
+     * @param permissions permissions that the user being asked
+     * @param grantResults granted or denied permissions, depending on the user's response to permission request
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

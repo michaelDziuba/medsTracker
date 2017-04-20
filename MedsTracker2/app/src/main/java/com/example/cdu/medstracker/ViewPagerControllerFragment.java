@@ -76,6 +76,9 @@ public class ViewPagerControllerFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        /**
+         * Creates all 5 fragments for the ViewPager and stores them in an array for display
+         */
         viewPagerContentFragments = new ViewPagerContentFragment[]{
                 ViewPagerContentFragment.newInstance("1", getActivity().getString(R.string.drug_faqs_header), getActivity().getString(R.string.drug_faqs_text)),
                 ViewPagerContentFragment.newInstance("2", getActivity().getString(R.string.drug_interactions_header), getActivity().getString(R.string.drug_interactions_text)),
@@ -102,7 +105,17 @@ public class ViewPagerControllerFragment extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.viewPagerContent);
 
         viewPager.setAdapter(sectionsPagerAdapter);
+
+        /**
+         * Sets the counter for the current viewpage item at index 1000 for practically limitless paging in either direction.
+         * The 1000 value is half-way in the total of 1999 possible indexes returned by the getItem method in the SectionsPagerAdapter below
+         * This means that the user can cycle through the 5-member fragments array 1000 times in either direction, before a limit is reached.
+         */
         viewPager.setCurrentItem(1000);
+
+        /**
+         * prevents storage of ViewPager fragments (all viewpager fragments are already stored in their array)
+         */
         viewPager.setOffscreenPageLimit(0);
 
         //Sets animation for View Pager

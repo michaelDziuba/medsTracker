@@ -25,16 +25,32 @@ import android.widget.LinearLayout;
  */
 public class EditPhoneFragment extends Fragment {
 
+    /**
+     * Property for injecting a phone object to be edited in this fragment
+     * The phone object is injected from a phone CardView, when the user taps on its edit icon
+     */
     public static Phone phone = null;
 
+    /**
+     *  Fragment manager used for returning from this fragment to the  previous page
+     */
     FragmentManager fm;
 
+    /**
+     * EditText properties contain values to be edited for Phone CardViews
+     */
     private EditText editPhoneName;
     private EditText editPhoneNumber;
     private EditText editPhoneNote;
 
+    /**
+     * Button for saving edited information
+     */
     private Button savePhoneButton;
 
+    /**
+     * Floating Action Button from the MainActivity
+     */
     FloatingActionButton fab = MainActivity.fab;
 
 
@@ -80,21 +96,34 @@ public class EditPhoneFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates the Phone Drug Page view for the app
+     *
+     * @param inflater  inflates the fragment's view
+     * @param container  A special view that contains the fragment's view
+     * @param savedInstanceState  bundle of saved items for restoring the fragment's view from memory
+     * @return  Returns the inflated view of this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /**
+         *  Inflate the layout for this fragment
+         */
         View view = inflater.inflate(R.layout.fragment_edit_phone, container, false);
 
+        /**
+         * Hide the Floating Action Button, if it's shown
+         */
         if(fab.isShown()){
             fab.setVisibility(View.INVISIBLE);
         }
 
-//        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
-
         fm = getChildFragmentManager();
 
+        /**
+         * Sets the existing values for the phone object to be edited in the corresponding EditText fields
+         */
         if(phone != null) {
             editPhoneName = (EditText) view.findViewById(R.id.editPhoneName);
             editPhoneName.setText(phone.getPhoneName());
@@ -104,16 +133,24 @@ public class EditPhoneFragment extends Fragment {
             editPhoneNote.setText(phone.getPhoneNote());
         }
 
+        /**
+         * Button with click listener for saving edited information in the database and returning the user to the previous view (ListViewPhoneFragment)
+         */
         savePhoneButton = (Button) view.findViewById(R.id.savePhoneButton);
         savePhoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Dismiss the keyboard
+                /**
+                 * Dismiss the keyboard
+                 */
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if(imm.isAcceptingText()) { // verify if the soft keyboard is open
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                 }
 
+                /**
+                 * Sets the new values for the phone object and saves its edited information in the phones table
+                 */
                 phone.setPhoneName(editPhoneName.getText().toString());
                 phone.setPhoneNumber(editPhoneNumber.getText().toString());
                 phone.setPhoneNote(editPhoneNote.getText().toString());

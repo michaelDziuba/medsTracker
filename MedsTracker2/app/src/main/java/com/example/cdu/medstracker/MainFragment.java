@@ -65,6 +65,14 @@ public class MainFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates the Home Page view for the app
+     *
+     * @param inflater  inflates the fragment's view
+     * @param container  A special view that contains the fragment's view
+     * @param savedInstanceState  bundle of saved items for restoring the fragment's view from memory
+     * @return  Returns the inflated view of this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,7 +82,7 @@ public class MainFragment extends Fragment {
         buttondrugs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).goToDrugs();
+                ((MainActivity)getActivity()).goToListView();
             }
         });
         Button buttonphone = (Button)view.findViewById(R.id.buttonPhone);

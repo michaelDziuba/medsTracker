@@ -33,18 +33,38 @@ import java.util.ArrayList;
  */
 public class EditDrugFragment extends Fragment {
 
+    /**
+     * Property for injecting a drug object to be edited in this fragment
+     * The drug object is injected from a drug CardView, when the user taps on its edit icon
+     */
     public static Drug drug = null;
 
+    /**
+     *  Fragment manager used for returning from this fragment to the  previous page
+     */
     FragmentManager fm;
 
+    /**
+     * EditText properties contain values to be edited for Drug CardViews
+     */
     private EditText editDrugName;
     private EditText editDrugDose;
     private EditText editDrugWhen;
     private EditText editDrugNotes;
-    private LinearLayout removePhotoIcon;
-    private Button saveButton;
-   // private boolean removePhoto = false;
 
+    /**
+     * Button for deleting photos
+     */
+    private LinearLayout removePhotoIcon;
+
+    /**
+     * Button for saving edited information
+     */
+    private Button saveButton;
+
+    /**
+     * Floating Action Button from the MainActivity
+     */
     FloatingActionButton fab = MainActivity.fab;
 
 
@@ -90,21 +110,35 @@ public class EditDrugFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates the Edit Drug Page view for the app
+     *
+     * @param inflater  inflates the fragment's view
+     * @param container  A special view that contains the fragment's view
+     * @param savedInstanceState  bundle of saved items for restoring the fragment's view from memory
+     * @return  Returns the inflated view of this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /**
+         *  Inflate the layout for this fragment
+         */
         View view = inflater.inflate(R.layout.fragment_edit_drug, container, false);
 
+        /**
+         * Hide the Floating Action Button, if it's shown
+         */
         if(fab.isShown()){
             fab.setVisibility(View.INVISIBLE);
         }
 
-//        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         fm = getChildFragmentManager();
 
+        /**
+         * Sets the existing values for the drug object to be edited in the corresponding EditText fields
+         */
         if(drug != null) {
             editDrugName = (EditText) view.findViewById(R.id.editDrugName);
             editDrugName.setText(drug.getDrugName());
@@ -116,16 +150,24 @@ public class EditDrugFragment extends Fragment {
             editDrugNotes.setText(drug.getNotes());
         }
 
+        /**
+         * Button with click listener to remove photo(s) for the drug object to be edited
+         */
         removePhotoIcon = (LinearLayout) view.findViewById(R.id.removePhotoIcon);
         removePhotoIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * Alert popup asks the user to confirm deletion of photo(s) for the drug object
+                 */
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                 alert.setTitle(getString(R.string.delete_photo));
-                //alert.setMessage("");
                 alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        /**
+                         * Deletes photos from the images table in the database and the corresponding image files in memory
+                         */
                         DatabaseHandler db = new DatabaseHandler(getContext());
                         ArrayList<Image> drugImages = db.getAllImages(drug.getId());
                         for(int i = 0; i < drugImages.size(); i++){
@@ -137,12 +179,18 @@ public class EditDrugFragment extends Fragment {
                         db.closeDB();
                         dialog.dismiss();
 
+                        /**
+                         * Toast message for the user to inform of successful deletion of photos
+                         */
                         Toast toast = Toast.makeText(getActivity(), getString(R.string.photo_deleted), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
                         toast.show();
                     }
                 });
 
+                /**
+                 * Dismisses the alert pop-up, if the user clicks 'NO' on the pop-up
+                 */
                 alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -154,16 +202,23 @@ public class EditDrugFragment extends Fragment {
             }
         });
 
+        /**
+         * Button with click listener for saving edited information in the database and returning the user to the previous view (ListViewFragment)
+         */
         saveButton = (Button) view.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Dismiss the keyboard
+                /**
+                 * Dismiss the keyboard
+                 */
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if(imm.isAcceptingText()) { // verify if the soft keyboard is open
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                 }
-
+                /**
+                 * Sets the new values for the drug object and saves its edited information in the drugs table
+                 */
                 drug.setDrugName(editDrugName.getText().toString());
                 drug.setDrugDose(editDrugDose.getText().toString());
                 drug.setWhenToTake(editDrugWhen.getText().toString());

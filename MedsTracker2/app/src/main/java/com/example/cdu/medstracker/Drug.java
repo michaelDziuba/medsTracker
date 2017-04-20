@@ -6,16 +6,31 @@ package com.example.cdu.medstracker;
 
 public class Drug {
 
+    /**
+     * All properties of the drug class
+     */
     private int id;
     private String drugName;
     private String drugDose;
     private String whenToTake;
     private String notes;
 
+    /**
+     * Default drug object constructor
+     */
     public Drug(){
 
     }
 
+    /**
+     * Drug object constructor initializes all object properties, with values passed as parameters
+     *
+     * @param id
+     * @param drugName
+     * @param drugDose
+     * @param whenToTake
+     * @param notes
+     */
     public Drug(int id, String drugName, String drugDose, String whenToTake, String notes){
         this.id = id;
         this.drugName = drugName;
@@ -24,6 +39,15 @@ public class Drug {
         this.notes = notes;
     }
 
+    /**
+     * Drub object constructor initializes all properties based on parameter values,
+     * except the id property, which is initialized to 0 value
+     *
+     * @param drugName
+     * @param drugDose
+     * @param whenToTake
+     * @param notes
+     */
     public Drug(String drugName, String drugDose, String whenToTake, String notes){
         this.id = 0;
         this.drugName = drugName;
@@ -72,6 +96,11 @@ public class Drug {
         this.notes = notes;
     }
 
+    /**
+     * Method enables the drug object to be treated as a string for printing and other purposes
+     *
+     * @return the name of the drug object
+     */
     @Override
     public String toString(){
         return this.getDrugName();

@@ -6,12 +6,17 @@ package com.example.cdu.medstracker;
 
 public class Phone {
 
+    /**
+     * All properties of the object
+     */
     private int id;
     private String phoneName;
     private String phoneNumber;
     private String phoneNote;
 
-
+    /**
+     * Default constructor
+     */
     public Phone(){
 
     }

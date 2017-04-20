@@ -88,6 +88,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
 
+        /**
+         * Method records user selection or returns the user to the home menu, if the selected item id is home
+         *
+         * @param item user selected menu item
+         * @return true if selection is recognized
+         */
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();

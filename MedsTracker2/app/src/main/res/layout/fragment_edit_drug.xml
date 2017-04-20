@@ -34,7 +34,6 @@
             android:id="@+id/editDrugName"
             android:layout_column="1">
 
-            <!--<requestFocus />-->
 
         </EditText>
 

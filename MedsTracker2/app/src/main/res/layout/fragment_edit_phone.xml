@@ -33,7 +33,6 @@ android:layout_height="match_parent">
         android:id="@+id/editPhoneName"
         android:layout_column="1">
 
-        <!--<requestFocus />-->
 
     </EditText>
 
