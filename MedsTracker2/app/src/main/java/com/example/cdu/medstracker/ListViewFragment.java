@@ -308,6 +308,7 @@ public class ListViewFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent){
             final int positionFinal = position;
             final Drug drug = getItem(positionFinal);
+            CardView cardView = (CardView)drugList.getChildAt(positionFinal);
 
             /**
              * Show the Floating Action Button, if it's not shown
@@ -459,6 +460,8 @@ public class ListViewFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
+
+
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     alert.setTitle(getString(R.string.delete_drug_confirm));
                     //alert.setMessage("");
@@ -469,16 +472,13 @@ public class ListViewFragment extends Fragment {
                             int drug_id = drug.getId();
 
                             //Deletes stored image files for the CardView, when the CardView is deleted
-                            CardView cardView = (CardView)drugList.getChildAt(positionFinal);
-                            LinearLayout imagesLayout = (LinearLayout) cardView.findViewById(R.id.imagesLinearLayout);
-                            if(imagesLayout.getChildCount() > 0){
                                 ArrayList<Image> drugImages = db.getAllImages(drug.getId());
                                 for(int i = 0; i < drugImages.size(); i++){
                                     Image image = drugImages.get(i);
                                     File file = new File(image.getResource());
                                     file.delete();
                                 }
-                            }
+                            //}
 
                             db.deleteDrug(drug_id);
                             db.deleteImage(drug_id);
