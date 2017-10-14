@@ -460,8 +460,6 @@ public class ListViewFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-
-
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     alert.setTitle(getString(R.string.delete_drug_confirm));
                     //alert.setMessage("");
@@ -478,7 +476,6 @@ public class ListViewFragment extends Fragment {
                                     File file = new File(image.getResource());
                                     file.delete();
                                 }
-                            //}
 
                             db.deleteDrug(drug_id);
                             db.deleteImage(drug_id);
